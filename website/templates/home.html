@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Cinemate | Home{% endblock %}
+
+{% block body %}
+    <h1>Sample</h1>
+    {% for movie in movies %}
+        <div class="movie">
+        <p>{{ movie['created'] }}</p>
+        <h2>{{ movie['title'] }}</h2>
+        <p>{{ movie['content'] }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

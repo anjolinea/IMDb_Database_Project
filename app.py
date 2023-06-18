@@ -1,4 +1,4 @@
-import sqlite3
+""" import sqlite3
 from flask import Flask, render_template
 
 app = Flask(__name__)
@@ -15,4 +15,11 @@ def index():
     conn = get_db_connection()
     movies = conn.execute('SELECT * FROM movies').fetchall()
     conn.close()
-    return render_template('index.html', movies=movies)
+    return render_template('index.html', movies=movies) """
+
+from website import create_app
+
+app = create_app()
+
+if __name__ == '__main__':
+    app.run(debug=True)
