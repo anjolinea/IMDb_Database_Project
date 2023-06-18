@@ -1,16 +1,22 @@
-from flask import Blueprint, render_template
-import sqlite3
+from flask import Blueprint, render_template, request
+from . import DB
 
 views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
-    movies = conn.execute('SELECT * FROM movies').fetchall()
-    conn.close()
+    db = DB()
+    movies = db.execute('SELECT * FROM movies').fetchall()
+    db.close()
     return render_template('home.html', movies=movies)
 
-@views.route('/search')
+@views.route('/search', methods=["GET", "POST"])
 def search():
-    return render_template('search.html')
+    if request.method == "POST":
+        title = request.form.get("title")
+        db = DB()
+        movies = db.execute('SELECT * FROM movies WHERE title LIKE ?', ('%' + title + '%',)).fetchall()
+        db.close()
+        return render_template('search.html', isSearch=True, movies=movies)
+    else:
+        return render_template('search.html', isSearch=False)

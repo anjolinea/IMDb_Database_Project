@@ -6,3 +6,10 @@ CREATE TABLE movies (
     title TEXT NOT NULL,
     content TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS users (
+    username TEXT PRIMARY KEY,
+    firstname TEXT NOT NULL,
+    lastname TEXT NOT NULL,
+    password TEXT NOT NULL
+);
