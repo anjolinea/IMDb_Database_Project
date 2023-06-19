@@ -13,12 +13,19 @@
     <button type="submit" class="btn btn-primary">Search!</button>
 </form>
 {% if isSearch == true %}
-    {% for movie in movies %}
-        <div class="movie">
-        <p>{{ movie['created'] }}</p>
-        <h2>{{ movie['title'] }}</h2>
-        <p>{{ movie['content'] }}</p>
-        </div>
-    {% endfor %}
+    <div class="card-group">
+        {% for movie in movies %}
+            <div class="card text-bg-light mb-3">
+                <div class="card-header">{{ movie['id'] }}</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie['title'] }}</h5>
+                    <p class="card-text">{{ movie['content'] }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">{{ movie['created'] }}</small>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endif %}
 {% endblock %}
