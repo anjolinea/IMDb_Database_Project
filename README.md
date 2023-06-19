@@ -20,7 +20,7 @@ export FLASK_ENV=development
 flask --app app.py --debug run
 ```
 4. You should see the local website on http://127.0.0.1:5000/. 
-![Basic UI](basicUI.png)
+![Home UI](homeUI.png)
 
 5. FEATURE: Navigating to search page and making a "case-sensitive" search.
 ![Search UI](searchUI.png)
