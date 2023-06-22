@@ -1,5 +1,6 @@
 
-# FOLLOWING IS NOW FOLLOW
+# Following is now Follow 
+# We should consider changing = to like
 
 f"""
 SELECT DISTINCT Movie.movieTitle
@@ -8,8 +9,8 @@ JOIN Starred ON Movie.movieID = Starred.movieID
 JOIN Actor ON Starred.actorID = Actor.actorID
 JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
 JOIN Genre ON MovieGenre.genreID = Genre.genreID
-WHERE Actor.actorName LIKE '{actor_name}'
-    AND Genre.genreName LIKE '{genre_name}'
+WHERE Actor.actorName = '{actor_name}'
+    AND Genre.genreName = '{genre_name}'
     AND Movie.movieRating >= minimum_rating;
 """
 
@@ -88,17 +89,16 @@ FROM Movie
 JOIN Watched ON Movie.movieID = Watched.movieID
 WHERE Watched.userID = '{user_name}'
   AND Watched.likes = 1
-  AND Watched.dateWatched <= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY)
+  AND Watched.dateWatched <= DATETIME(CURRENT_DATE, '-30 day')
 ORDER BY Watched.dateWatched ASC
 LIMIT {num_movies};
 """
-## Stopped testing after this one ^
 
 f"""
-SELECT User.username AS followed_username, Movie.movieTitle AS last_watched_movie
+SELECT Follow.userID2 AS followed_username, Movie.movieTitle AS last_watched_movie
 FROM User
-JOIN Following ON User.username = Following.userID1
-JOIN Watched ON Following.userID2 = Watched.userID
+JOIN Follow ON User.username = Follow.userID1
+JOIN Watched ON Follow.userID2 = Watched.userID
 JOIN Movie ON Watched.movieID = Movie.movieID
 WHERE User.username = '{user_name}'
 ORDER BY Watched.dateWatched DESC
@@ -144,24 +144,24 @@ AND (
         WHERE FavActor.userID = '{user_name_2}'
     )
 )
-ORDER BY RAND()
+ORDER BY RANDOM()
 LIMIT {num_movies};
 """
 
 f"""
 WITH RECURSIVE FollowersRecursive AS (
-    SELECT Following.userID1 AS follower,
-        Following.userID2 AS follower_of_follower, 
+    SELECT Follow.userID1 AS follower,
+        Follow.userID2 AS follower_of_follower, 
         0 AS level
-    FROM Following
-    WHERE Following.userID1 = '{user_name}'
+    FROM Follow
+    WHERE Follow.userID1 = '{user_name}'
     UNION ALL
     SELECT FollowersRecursive.follower,
-        Following.userID2, 
+        Follow.userID2, 
         FollowersRecursive.level + 1
-    FROM Following
+    FROM Follow
     JOIN FollowersRecursive ON 
-        Following.userID1 = FollowersRecursive.follower_of_follower
+        Follow.userID1 = FollowersRecursive.follower_of_follower
     WHERE FollowersRecursive.level < 2
 )
 SELECT follower_of_follower AS follower, MIN(level) AS level
