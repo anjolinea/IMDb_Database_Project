@@ -1,7 +1,7 @@
 # IMDb_Database_Project
 
-### Disclaimer
-This is a very rudimentary flask app with a low fidelity design. The app supports a case sensitive search by movie title, genre, and actor. 
+### Overview
+Our app is called Cinemate: a mix between Netflix and Spotify! We wanted to add a social aspect to tracking movies we've watched. Currently, the app supports one feature: a case sensitive search by movie title, genre, and actor. 
 
 ### How to Load Sample Database
 In the [toy_dataset/data](toy_dataset/data) folder, there is a folder for raw tsv.gz files. These files were the files taken from the [IMDb datasets](https://developer.imdb.com/non-commercial-datasets/). Using these files and Python scripts, we created CSV files representing each table. We then read these CSV files to load the database in [load_toy_dataset.py](load_toy_dataset.py).
