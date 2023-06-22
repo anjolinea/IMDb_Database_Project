@@ -1,4 +1,3 @@
-import sqlite3
 import pandas as pd
 
 def load_csv_to_sql(connection, csv_filename, insert_string):

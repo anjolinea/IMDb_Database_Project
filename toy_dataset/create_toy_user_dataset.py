@@ -59,8 +59,8 @@ follows_df = pd.DataFrame({'userID1': pd.Series(dtype='str'),
 
 # make followings
 followings = []
-num_of_following_pairs = 12
-num_of_friend_pairs = 6
+num_of_following_pairs = 40
+num_of_friend_pairs = 20
 
 for i in range(num_of_following_pairs):
     while True:
@@ -84,7 +84,7 @@ follows_df = pd.DataFrame(followings, columns=['follower', 'following'])
 # FavActors
 actors = actors_df["actorID"].to_list()
 fav_actors = []
-num_of_fav_actors = 30
+num_of_fav_actors = 60
 for i in range(num_of_fav_actors):
     while True:
         u = random.choice(usernames)
@@ -98,7 +98,7 @@ favActors_df = pd.DataFrame(fav_actors, columns=['userID', 'actorID'])
 # FavGenre
 genres = genres_df["genreID"].to_list()
 fav_genres = []
-num_of_fav_genres = 20
+num_of_fav_genres = 50
 for i in range(num_of_fav_genres):
     while True:
         u = random.choice(usernames)
@@ -121,14 +121,15 @@ while start_dt <= end_dt:
 movies = movies_df["movieID"].to_list()
 
 watched = []
-num_of_watched = 40
+num_of_watched = 130
 for i in range(num_of_watched):
-    liked = True if random.randint(0, 1) == 1 else False
+    liked = random.randint(0, 1)
     date_watched = random.choice(dates)
     movie = random.choice(movies)
     username = random.choice(usernames)
 
-    watched.append((username, movie, date_watched, liked))
+    if (username, movie) not in [(w[0], w[1]) for w in watched]:
+        watched.append((username, movie, date_watched, liked))
 
 watched_df = pd.DataFrame(watched, columns=['userID', 'movieID', 'dateWatched', 'liked'])
 
