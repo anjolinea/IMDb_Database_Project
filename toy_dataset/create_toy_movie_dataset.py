@@ -1,17 +1,7 @@
 import gzip
 import pandas as pd
 import json
-
-INPUT_BASICS_FILENAME = "data/title.basics.tsv.gz"
-INPUT_RATINGS_FILENAME = "data/title.ratings.tsv.gz"
-INPUT_PRINCIPALS_FILENAME = "data/title.principals.tsv.gz"
-INPUT_NAMES_FILENAME = "data/name.basics.tsv.gz"
-MOVIES_FILENAME = "data/movies.csv"
-MOVIEGENRE_FILENAME = "data/moviegenre.csv"
-GENRES_FILENAME = "data/genres.csv"
-STARRED_FILENAME = "data/starred.csv"
-ACTOR_FILENAME = "data/actors.csv"
-ROLE_FILENAME = "data/roles.csv"
+from toy_dataset_consts import *
 
 N = 20
 
@@ -88,21 +78,24 @@ actors_df = pd.merge(starred_df, names_df, on='nconst', how='left')
 actors_df.drop(columns=["tconst", "birthYear", "deathYear", "primaryProfession", "knownForTitles"], inplace=True)
 
 # rename columns
-movie_df.rename(columns={'tconst': 'movieID', 'originalTitle': 'movieTitle', 'startYear' : 'yearReleased', 'averageRating' : 'Rating'}, inplace=True)
+movie_df.rename(columns={'tconst': 'movieID', 'originalTitle': 'movieTitle', 'startYear' : 'yearReleased', 'averageRating' : 'movieRating', 'runtimeMinutes' : 'runtime'}, inplace=True)
 starred_df.rename(columns={'tconst': 'movieID', 'nconst' : 'actorID'}, inplace=True)
-actors_df.rename(columns={'nconst' : 'actorID'}, inplace=True)
+actors_df.rename(columns={'nconst' : 'actorID', 'primaryName' : 'actorName'}, inplace=True)
 
 # genres
-genres_df = pd.DataFrame(genreIDtoName_map.items(), columns=['genreName', 'genreID'])
+genres_df = pd.DataFrame([(i[1], i[0]) for i in genreIDtoName_map.items()], columns=['genreID', 'genreName'])
 genres_df["genreID"] = genres_df["genreID"].apply(lambda x: "g{:02d}".format(x))
 
 # actor duplicates
 actors_df.drop_duplicates(inplace=True)
 
+# movies reordering of columns
+movie_df = movie_df[["movieID", "movieTitle", "movieRating", "runtime", "yearReleased"]]
+
 # upload tables to CSV files
-movie_df.to_csv(MOVIES_FILENAME, index=False)
+movie_df.to_csv(MOVIE_FILENAME, index=False)
 MovieGenre_df.to_csv(MOVIEGENRE_FILENAME, index=False)
-genres_df.to_csv(GENRES_FILENAME, index=False)
+genres_df.to_csv(GENRE_FILENAME, index=False)
 starred_df.to_csv(STARRED_FILENAME, index=False)
 actors_df.to_csv(ACTOR_FILENAME, index=False)
 roles_df.to_csv(ROLE_FILENAME, index=False)

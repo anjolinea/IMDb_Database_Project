@@ -2,20 +2,11 @@ import pandas as pd
 import random
 import string
 from datetime import date, timedelta
-
-MOVIES_FILENAME = "data/movies.csv"
-GENRES_FILENAME = "data/genres.csv"
-ACTOR_FILENAME = "data/actors.csv"
-
-USER_FILENAME = "data/users.csv"
-FAVACTOR_FILENAME = "data/favactors.csv"
-FAVGENRE_FILENAME = "data/favgenres.csv"
-WATCHED_FILENAME = "data/watched.csv"
-FOLLOWS_FILENAME = "data/follows.csv"
+from toy_dataset_consts import *
 
 actors_df = pd.read_csv(ACTOR_FILENAME)
-genres_df = pd.read_csv(GENRES_FILENAME)
-movies_df = pd.read_csv(MOVIES_FILENAME)
+genres_df = pd.read_csv(GENRE_FILENAME)
+movies_df = pd.read_csv(MOVIE_FILENAME)
 
 def get_random_string(length):
     # choose from all lowercase letter
@@ -131,7 +122,7 @@ for i in range(num_of_watched):
     if (username, movie) not in [(w[0], w[1]) for w in watched]:
         watched.append((username, movie, date_watched, liked))
 
-watched_df = pd.DataFrame(watched, columns=['userID', 'movieID', 'dateWatched', 'liked'])
+watched_df = pd.DataFrame(watched, columns=['userID', 'movieID', 'dateWatched', 'likes'])
 
 # upload tables to CSV files
 users_df.to_csv(USER_FILENAME, index=False)

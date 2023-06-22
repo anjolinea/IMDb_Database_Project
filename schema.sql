@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS Starred;
 DROP TABLE IF EXISTS Actor;
 DROP TABLE IF EXISTS ActorRole;
 DROP TABLE IF EXISTS User;
-DROP TABLE IF EXISTS Follow;
+DROP TABLE IF EXISTS Follows;
 DROP TABLE IF EXISTS FavActor;
 DROP TABLE IF EXISTS FavGenre;
 DROP TABLE IF EXISTS Watched;
@@ -13,14 +13,14 @@ DROP TABLE IF EXISTS Watched;
 CREATE TABLE Movie (
     movieID VARCHAR(15) NOT NULL PRIMARY KEY,
     movieTitle TEXT NOT NULL,
-    yearReleased INT NOT NULL,
-    runtimeMinutes INT NOT NULL,
-    movieRating FLOAT NOT NULL
+    movieRating FLOAT NOT NULL,
+    runtime INT NOT NULL,
+    yearReleased INT NOT NULL
 );
 
 CREATE TABLE Genre (
-    genreName VARCHAR(50) NOT NULL,
-    genreID VARCHAR(3) NOT NULL PRIMARY KEY
+    genreID VARCHAR(3) NOT NULL PRIMARY KEY,
+    genreName VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE MovieGenre (
@@ -56,7 +56,7 @@ CREATE TABLE User (
     userPassword VARCHAR(60) NOT NULL
 );
 
-CREATE TABLE Follow (
+CREATE TABLE Follows (
     userID1 VARCHAR(40) NOT NULL REFERENCES User(username),
     userID2 VARCHAR(40) NOT NULL REFERENCES User(username),
     PRIMARY KEY(userID1, userID2)
