@@ -1,24 +1,19 @@
 from flask import Flask
 import sqlite3
+from load_toy_dataset import load_toy_dataset
 
 def DB():
-    conn = sqlite3.connect('website/database.db')
+    conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
     return conn
 
 def db_init():
-    db = sqlite3.connect('website/database.db')
+    conn = sqlite3.connect('database.db')
+    load_toy_dataset(conn)
 
-    with open('website/schema.sql') as f: db.executescript(f.read())
-    
-    cursor = db.cursor()
-    cursor.execute("INSERT INTO movies (title, content) VALUES (?, ?)", ('Avengers 1', 'Desc1'))
-    cursor.execute("INSERT INTO movies (title, content) VALUES (?, ?)", ('Avengers 2', 'Desc2'))
-    cursor.execute("INSERT INTO movies (title, content) VALUES (?, ?)", ('Spiderman 1', 'Desc3'))
-    cursor.execute("INSERT INTO movies (title, content) VALUES (?, ?)", ('Ironman 1', 'Desc4'))
+    conn.commit()
+    conn.close()
 
-    db.commit()
-    db.close()
 
 def create_app():
     app = Flask(__name__)

@@ -3,19 +3,24 @@
 {% block title %}Cinemate | Home{% endblock %}
 
 {% block body %}
-    <h1>All movies</h1>
+    <br>
+    <h1>Top-Rated Movies</h1>
+    <br>
+    {% for moviechunk in moviechunks %}
     <div class="card-group">
-        {% for movie in movies %}
+        {% for movie in moviechunk %}
             <div class="card text-bg-light mb-3">
-                <div class="card-header">{{ movie['id'] }}</div>
+                <div class="card-header">{{ movie['yearReleased'] }}</div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ movie['title'] }}</h5>
-                    <p class="card-text">{{ movie['content'] }}</p>
+                    <h5 class="card-title">{{ movie['movieTitle'] }}</h5>
+                    <p class="card-text">{{ movie['movieRating'] }}</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-body-secondary">{{ movie['created'] }}</small>
+                    <small class="text-body-secondary">{{ movie['runtime'] }} minutes</small>
                 </div>
             </div>
         {% endfor %}
     </div>
+    <br>
+    {% endfor %}
 {% endblock %}

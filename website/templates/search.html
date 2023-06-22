@@ -3,29 +3,45 @@
 {% block title %}Cinemate | Search{% endblock %}
 
 {% block body %}
+<br>
 <form action="" method="post">
     <h3 align="center">Search Movie</h3>
     <div class="form-group">
         <label for="title">Title</label>
         <input type="text" class="form-control" name="title" id="title" placeholder="Search title">
     </div>
+    <div class="form-group">
+        <label for="actor">Actor</label>
+        <input type="text" class="form-control" name="actor" id="actor" placeholder="Search actor">
+    </div>
+    <div class="form-group">
+        <label for="actor">Genre</label>
+        <input type="text" class="form-control" name="genre" id="genre" placeholder="Search genre">
+    </div>
     <br />
     <button type="submit" class="btn btn-primary">Search!</button>
 </form>
 {% if isSearch == true %}
-    <div class="card-group">
-        {% for movie in movies %}
-            <div class="card text-bg-light mb-3">
-                <div class="card-header">{{ movie['id'] }}</div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ movie['title'] }}</h5>
-                    <p class="card-text">{{ movie['content'] }}</p>
-                </div>
-                <div class="card-footer">
-                    <small class="text-body-secondary">{{ movie['created'] }}</small>
-                </div>
+<br>
+{% for moviechunk in moviechunks %}
+<div class="card-group">
+    {% for movie in moviechunk %}
+        <div class="card text-bg-light mb-3">
+            <div class="card-header">{{ movie['yearReleased'] }}</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ movie['movieTitle'] }}</h5>
+                <p class="card-text">{{ movie['movieRating'] }}</p>
             </div>
-        {% endfor %}
-    </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">{{ movie['runtime'] }} minutes</small>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<br>
+{% endfor %}
+{% if moreLeft == true %}
+    <p>and more...</p>
+{% endif %}
 {% endif %}
 {% endblock %}
