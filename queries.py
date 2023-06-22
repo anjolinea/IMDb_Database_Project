@@ -81,6 +81,7 @@ ORDER BY Movie.movieID DESC
 LIMIT {num_movies};
 """
 
+## This query has error
 f"""
 SELECT Movie.movieID, Movie.movieTitle
 FROM Movie
@@ -91,6 +92,7 @@ WHERE Watched.userID = '{user_name}'
 ORDER BY Watched.dateWatched ASC
 LIMIT {num_movies};
 """
+## Stopped testing after this one ^
 
 f"""
 SELECT User.username AS followed_username, Movie.movieTitle AS last_watched_movie
