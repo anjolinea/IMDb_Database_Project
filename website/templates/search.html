@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Cinemate | Search{% endblock %}
+
+{% block body %}
+<form action="" method="post">
+    <h3 align="center">Search Movie</h3>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" name="title" id="title" placeholder="Search title">
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Search!</button>
+</form>
+{% if isSearch == true %}
+    <div class="card-group">
+        {% for movie in movies %}
+            <div class="card text-bg-light mb-3">
+                <div class="card-header">{{ movie['id'] }}</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie['title'] }}</h5>
+                    <p class="card-text">{{ movie['content'] }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">{{ movie['created'] }}</small>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}
