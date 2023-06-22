@@ -1,0 +1,9 @@
+genreID,genreName
+g00,Action
+g01,Adventure
+g02,Fantasy
+g03,Crime
+g04,Drama
+g05,Comedy
+g06,Sci-Fi
+g07,Thriller

@@ -95,10 +95,10 @@ LIMIT {num_movies};
 """
 
 f"""
-SELECT Follow.userID2 AS followed_username, Movie.movieTitle AS last_watched_movie
+SELECT Watched.userID AS followed_username, Movie.movieTitle AS last_watched_movie
 FROM User
-JOIN Follow ON User.username = Follow.userID1
-JOIN Watched ON Follow.userID2 = Watched.userID
+JOIN Follows ON User.username = Follows.userID1
+JOIN Watched ON Follows.userID2 = Watched.userID
 JOIN Movie ON Watched.movieID = Movie.movieID
 WHERE User.username = '{user_name}'
 ORDER BY Watched.dateWatched DESC
@@ -150,18 +150,18 @@ LIMIT {num_movies};
 
 f"""
 WITH RECURSIVE FollowersRecursive AS (
-    SELECT Follow.userID1 AS follower,
-        Follow.userID2 AS follower_of_follower, 
+    SELECT Follows.userID1 AS follower,
+        Follows.userID2 AS follower_of_follower, 
         0 AS level
-    FROM Follow
-    WHERE Follow.userID1 = '{user_name}'
+    FROM Follows
+    WHERE Follows.userID1 = '{user_name}'
     UNION ALL
     SELECT FollowersRecursive.follower,
-        Follow.userID2, 
+        Follows.userID2, 
         FollowersRecursive.level + 1
-    FROM Follow
+    FROM Follows
     JOIN FollowersRecursive ON 
-        Follow.userID1 = FollowersRecursive.follower_of_follower
+        Follows.userID1 = FollowersRecursive.follower_of_follower
     WHERE FollowersRecursive.level < 2
 )
 SELECT follower_of_follower AS follower, MIN(level) AS level
