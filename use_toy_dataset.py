@@ -20,7 +20,7 @@ ACTOR_FILENAME = "data/actors.csv"
 ROLE_FILENAME = "data/roles.csv"
 
 csv_files = [MOVIES_FILENAME, GENRES_FILENAME, MOVIEGENRE_FILENAME, ACTOR_FILENAME, STARRED_FILENAME]
-insert_strings = ["Movie (movieID, movieTitle, yearReleased, runtimeMinutes, Rating) VALUES (?, ?, ?, ?, ?)",
+insert_strings = ["Movie (movieID, movieTitle, yearReleased, runtimeMinutes, movieRating) VALUES (?, ?, ?, ?, ?)",
                   "Genre (genreName, genreID) VALUES (?, ?)",
                   "MovieGenre (movieID, genreID) VALUES (?, ?)",
                   "Actor (actorID, actorName) VALUES (?, ?)",
@@ -29,5 +29,19 @@ insert_strings = ["Movie (movieID, movieTitle, yearReleased, runtimeMinutes, Rat
 for i in range(len(csv_files)):
     load_csv_to_sql(connection=connection, csv_filename="toy_dataset/"+csv_files[i], insert_string=insert_strings[i])
 
-command = "SELECT * FROM Movie JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID"
+actor_name = "Tom Holland"
+genre_name = "Action"
+minimum_rating = 5
+
+command = f"""
+SELECT Movie.movieTitle
+FROM Movie
+JOIN Starred ON Movie.movieID = Starred.movieID
+JOIN Actor ON Starred.actorID = Actor.actorID
+JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
+JOIN Genre ON MovieGenre.genreID = Genre.genreID
+WHERE Actor.actorName = '{actor_name}'
+    AND Genre.genreName = '{genre_name}'
+    AND Movie.movieRating >= {minimum_rating};
+"""
 run_command_view_output(connection=connection, command=command)

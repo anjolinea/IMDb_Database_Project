@@ -9,7 +9,7 @@ CREATE TABLE Movie (
     movieTitle TEXT NOT NULL,
     yearReleased INT NOT NULL,
     runtimeMinutes INT NOT NULL,
-    Rating FLOAT NOT NULL
+    movieRating FLOAT NOT NULL
 );
 
 CREATE TABLE Genre (
