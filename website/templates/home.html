@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Cinemate | Home{% endblock %}
+
+{% block body %}
+    <h1>All movies</h1>
+    <div class="card-group">
+        {% for movie in movies %}
+            <div class="card text-bg-light mb-3">
+                <div class="card-header">{{ movie['id'] }}</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie['title'] }}</h5>
+                    <p class="card-text">{{ movie['content'] }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">{{ movie['created'] }}</small>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
