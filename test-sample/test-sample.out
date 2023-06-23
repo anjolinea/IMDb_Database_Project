@@ -1,0 +1,38 @@
+movieTitle,movieRating,yearReleased,runtime
+Spider-Man: No Way Home,8.2,2021,148
+Dune: Part One,8.0,2021,155
+
+movieTitle,movieRating,yearReleased,runtime
+Spider-Man: No Way Home,8.2,148,2021
+Don't Look Up,7.2,138,2021
+Tenet,7.3,150,2020
+Doctor Strange in the Multiverse of Madness,6.9,126,2022
+Zack Snyder's Justice League,8.0,242,2021
+Shang-Chi and the Legend of the Ten Rings,7.4,132,2021
+Avatar: The Way of Water,7.7,192,2022
+Black Widow,6.7,134,2021
+Eternals,6.3,156,2021
+
+movieID,movieTitle,movieRating,runtime,yearReleased
+Spider-Man: No Way Home,8.2,148,2021
+The Batman,7.8,176,2022
+Dune: Part One,8.0,155,2021
+Top Gun: Maverick,8.3,130,2022
+The Kashmir Files,8.7,170,2022
+Don't Look Up,7.2,138,2021
+Tenet,7.3,150,2020
+Everything Everywhere All at Once,7.8,139,2022
+Doctor Strange in the Multiverse of Madness,6.9,126,2022
+No Time to Die,7.3,163,2021
+Zack Snyder's Justice League,8.0,242,2021
+Shang-Chi and the Legend of the Ten Rings,7.4,132,2021
+Avatar: The Way of Water,7.7,192,2022
+Black Widow,6.7,134,2021
+Glass Onion,7.1,139,2022
+Free Guy,7.1,115,2021
+The Suicide Squad,7.2,132,2021
+Thor: Love and Thunder,6.2,118,2022
+Bullet Train,7.3,127,2022
+Eternals,6.3,156,2021
+
+movieID,movieTitle,movieRating,runtime,yearReleased
