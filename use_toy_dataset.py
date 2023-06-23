@@ -7,7 +7,7 @@ sys.path.append( '../toy_dataset' )
 from toy_dataset.use_toy_dataset_util import *
 from load_toy_dataset import load_toy_dataset
 
-test_name = "recommend_from_follower"
+test_name = "recommend_new_for_two"
 
 in_query_folder = "sample_queries/in/"
 in_query_file = test_name + ".sql"
