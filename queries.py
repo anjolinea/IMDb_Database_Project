@@ -82,7 +82,6 @@ ORDER BY Movie.movieID DESC
 LIMIT {num_movies};
 """
 
-## This query has error
 f"""
 SELECT Movie.movieID, Movie.movieTitle
 FROM Movie
