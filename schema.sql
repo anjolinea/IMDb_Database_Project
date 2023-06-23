@@ -58,7 +58,7 @@ CREATE TABLE User (
 
 CREATE TABLE Follows (
     userID1 VARCHAR(40) NOT NULL REFERENCES User(username),
-    userID2 VARCHAR(40) NOT NULL REFERENCES User(username),
+    userID2 VARCHAR(40) NOT NULL REFERENCES User(username) CHECK (userID1 <> userID2),
     PRIMARY KEY(userID1, userID2)
 );
 
