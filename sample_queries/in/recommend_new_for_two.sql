@@ -12,7 +12,7 @@ WHERE Movie.movieID NOT IN (
 AND Movie.movieID NOT IN (
     SELECT Watched.movieID
     FROM Watched
-    WHERE Watched.userID = 'dananunoby76'
+    WHERE Watched.userID = 'dansiakam52'
 )
 AND (
     Genre.genreID IN (
@@ -23,7 +23,7 @@ AND (
     OR Genre.genreID IN (
         SELECT FavGenre.genreID
         FROM FavGenre
-        WHERE FavGenre.userID = 'dananunoby76'
+        WHERE FavGenre.userID = 'dansiakam52'
     )
     OR Actor.actorID IN (
         SELECT FavActor.actorID
@@ -33,7 +33,7 @@ AND (
     OR Actor.actorID IN (
         SELECT FavActor.actorID
         FROM FavActor
-        WHERE FavActor.userID = 'dananunoby76'
+        WHERE FavActor.userID = 'dansiakam52'
     )
 )
 ORDER BY RANDOM()

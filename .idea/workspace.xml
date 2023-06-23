@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c7ef606c-6f6c-4254-8444-1591cb1258e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-sample/01_query.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-sample/02_query.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-sample/03_query.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-sample/04_query.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-sample/test-sample.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-sample/test-sample.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample_queries/in/recommend_new_for_two.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sample_queries/in/recommend_new_for_two.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample_queries/out/recommend_new_for_two.out" beforeDir="false" afterPath="$PROJECT_DIR$/sample_queries/out/recommend_new_for_two.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/use_toy_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/use_toy_dataset.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
