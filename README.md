@@ -20,9 +20,17 @@ To change filenames used, go to [toy_dataset_consts.py](toy_dataset/toy_dataset_
 ### How to Run Application
 
 1. Create a python virtual environment in the main directory.
+
+For Linux or Mac
 ```
 python3 -m venv env
 source env/bin/activate
+```
+
+For Windows
+```
+python3 -m venv env
+.\env\Scripts\activate
 ```
 2. Run the following to get the correct versions we are using. 
 ```
