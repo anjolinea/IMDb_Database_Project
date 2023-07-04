@@ -9,20 +9,28 @@ In the [toy_dataset/data](toy_dataset/data) folder, there is a folder for raw ts
 #### Load Dataset
 The file [load_toy_dataset.py](load_toy_dataset.py) has a function to load the dataset from the CSV files to any database using a connection from SQLite. To use this function, simply import the sqlite library and load_toy_dataset as a custom module, make a connection with sqlite, and pass the connection as a parameter to the load_toy_dataset function. 
 
-The file [use_toy_dataset](use_toy_dataset.py) has an example of this.
+The file [use_toy_dataset.py](toy_dataset/use_toy_dataset.py) has an example of this.
 
 #### Change Dataset
-To change either the Actor, ActorRole, Genre, MovieGenre, Starred, or Movie table, go to [create_toy_movie_dataset.py](create_toy_movie_dataset.py) and make the changes you wish to make there. For the rest of the table, you can go to [create_toy_user_dataset.py](create_toy_user_dataset.py) and make the changes there. We use pandas to store temporary tables. 
+To change either the Actor, ActorRole, Genre, MovieGenre, Starred, or Movie table, go to [create_toy_movie_dataset.py](toy_dataset/create_toy_movie_dataset.py) and make the changes you wish to make there. For the rest of the table, you can go to [create_toy_user_dataset.py](toy_dataset/create_toy_user_dataset.py) and make the changes there. We use pandas to store temporary tables. 
 
 #### Other
-To change filenames used, go to [toy_dataset_consts.py](toy_dataset_consts.py). To examine or create handy functions with SQL that will be reused, go to [use_toy_dataset_util.py](use_toy_dataset_util.py).
+To change filenames used, go to [toy_dataset_consts.py](toy_dataset/toy_dataset_consts.py). To examine or create handy functions with SQL that will be reused, go to [use_toy_dataset_util.py](toy_dataset/use_toy_dataset_util.py).
 
 ### How to Run Application
 
 1. Create a python virtual environment in the main directory.
+
+For Linux or Mac
 ```
 python3 -m venv env
 source env/bin/activate
+```
+
+For Windows
+```
+python3 -m venv env
+.\env\Scripts\activate
 ```
 2. Run the following to get the correct versions we are using. 
 ```
