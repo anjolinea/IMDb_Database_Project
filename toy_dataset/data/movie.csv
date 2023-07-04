@@ -1,21 +1,21 @@
-movieID,movieTitle,movieRating,runtime,yearReleased
-tt10872600,Spider-Man: No Way Home,8.2,148,2021
-tt1877830,The Batman,7.8,176,2022
-tt1160419,Dune: Part One,8.0,155,2021
-tt1745960,Top Gun: Maverick,8.3,130,2022
-tt10811166,The Kashmir Files,8.7,170,2022
-tt11286314,Don't Look Up,7.2,138,2021
-tt6723592,Tenet,7.3,150,2020
-tt6710474,Everything Everywhere All at Once,7.8,139,2022
-tt9419884,Doctor Strange in the Multiverse of Madness,6.9,126,2022
-tt2382320,No Time to Die,7.3,163,2021
-tt12361974,Zack Snyder's Justice League,8.0,242,2021
-tt9376612,Shang-Chi and the Legend of the Ten Rings,7.4,132,2021
-tt1630029,Avatar: The Way of Water,7.7,192,2022
-tt3480822,Black Widow,6.7,134,2021
-tt11564570,Glass Onion,7.1,139,2022
-tt6264654,Free Guy,7.1,115,2021
-tt6334354,The Suicide Squad,7.2,132,2021
-tt10648342,Thor: Love and Thunder,6.2,118,2022
-tt12593682,Bullet Train,7.3,127,2022
-tt9032400,Eternals,6.3,156,2021
+movieID,movieTitle,movieRating,runtime,yearReleased,posterImgLink
+tt10872600,Spider-Man: No Way Home,8.2,148,2021,https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_SX300.jpg
+tt1877830,The Batman,7.8,176,2022,https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_SX300.jpg
+tt1160419,Dune: Part One,8.0,155,2021,https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtYzM0ZS00NjIyLTg5YzYtYThlMGVjNzE1OGViXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg
+tt1745960,Top Gun: Maverick,8.3,130,2022,https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_SX300.jpg
+tt10811166,The Kashmir Files,8.7,170,2022,https://m.media-amazon.com/images/M/MV5BYzJkZDIwYTAtMGU4Mi00NzU3LWI1MWItODg0M2Q1NmIxYmNlXkEyXkFqcGdeQXVyMTIyNzY0NTMx._V1_SX300.jpg
+tt11286314,Don't Look Up,7.2,138,2021,https://m.media-amazon.com/images/M/MV5BZjcwZjY3NjAtNzkxZS00NmFjLTg1OGYtODJmMThhY2UwMTc5XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg
+tt6723592,Tenet,7.3,150,2020,https://m.media-amazon.com/images/M/MV5BMzU3YWYwNTQtZTdiMC00NjY5LTlmMTMtZDFlYTEyODBjMTk5XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg
+tt6710474,Everything Everywhere All at Once,7.8,139,2022,https://m.media-amazon.com/images/M/MV5BYTdiOTIyZTQtNmQ1OS00NjZlLWIyMTgtYzk5Y2M3ZDVmMDk1XkEyXkFqcGdeQXVyMTAzMDg4NzU0._V1_SX300.jpg
+tt9419884,Doctor Strange in the Multiverse of Madness,6.9,126,2022,https://m.media-amazon.com/images/M/MV5BNWM0ZGJlMzMtZmYwMi00NzI3LTgzMzMtNjMzNjliNDRmZmFlXkEyXkFqcGdeQXVyMTM1MTE1NDMx._V1_SX300.jpg
+tt2382320,No Time to Die,7.3,163,2021,https://m.media-amazon.com/images/M/MV5BYWQ2NzQ1NjktMzNkNS00MGY1LTgwMmMtYTllYTI5YzNmMmE0XkEyXkFqcGdeQXVyMjM4NTM5NDY@._V1_SX300.jpg
+tt12361974,Zack Snyder's Justice League,8.0,242,2021,https://m.media-amazon.com/images/M/MV5BYjI3NDg0ZTEtMDEwYS00YWMyLThjYjktMTNlM2NmYjc1OGRiXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_SX300.jpg
+tt9376612,Shang-Chi and the Legend of the Ten Rings,7.4,132,2021,https://m.media-amazon.com/images/M/MV5BNTliYjlkNDQtMjFlNS00NjgzLWFmMWEtYmM2Mzc2Zjg3ZjEyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg
+tt1630029,Avatar: The Way of Water,7.7,192,2022,https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_SX300.jpg
+tt3480822,Black Widow,6.7,134,2021,https://m.media-amazon.com/images/M/MV5BZGRlNTY3NGYtM2YzZS00N2YyLTg0ZDYtNmY2ZDg2NDM3N2JlXkEyXkFqcGdeQXVyNTI4MzE4MDU@._V1_SX300.jpg
+tt11564570,Glass Onion,7.1,139,2022,https://m.media-amazon.com/images/M/MV5BYmZlZDZkZjYtNzE5Mi00ODFhLTk2OTgtZWVmODBiZTI4NGFiXkEyXkFqcGdeQXVyMTE5MTg5NDIw._V1_SX300.jpg
+tt6264654,Free Guy,7.1,115,2021,https://m.media-amazon.com/images/M/MV5BOTY2NzFjODctOWUzMC00MGZhLTlhNjMtM2Y2ODBiNGY1ZWRiXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SX300.jpg
+tt6334354,The Suicide Squad,7.2,132,2021,https://m.media-amazon.com/images/M/MV5BMWU4NDQ2NjEtNjhkOS00Y2MwLWJkODItZmJhZGE0MDU1OWM4XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg
+tt10648342,Thor: Love and Thunder,6.2,118,2022,https://m.media-amazon.com/images/M/MV5BYmMxZWRiMTgtZjM0Ny00NDQxLWIxYWQtZDdlNDNkOTEzYTdlXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg
+tt12593682,Bullet Train,7.3,127,2022,https://m.media-amazon.com/images/M/MV5BMDU2ZmM2OTYtNzIxYy00NjM5LTliNGQtN2JmOWQzYTBmZWUzXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg
+tt9032400,Eternals,6.3,156,2021,https://m.media-amazon.com/images/M/MV5BMTExZmVjY2ItYTAzYi00MDdlLWFlOWItNTJhMDRjMzQ5ZGY0XkEyXkFqcGdeQXVyODIyOTEyMzY@._V1_SX300.jpg

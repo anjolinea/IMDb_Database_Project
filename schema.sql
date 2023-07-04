@@ -15,7 +15,8 @@ CREATE TABLE Movie (
     movieTitle TEXT NOT NULL,
     movieRating FLOAT NOT NULL,
     runtime INT NOT NULL,
-    yearReleased INT NOT NULL
+    yearReleased INT NOT NULL,
+    posterImgLink VARCHAR(150)
 );
 
 CREATE TABLE Genre (
@@ -77,7 +78,7 @@ CREATE TABLE FavGenre (
 CREATE TABLE Watched (
     userID VARCHAR(40) NOT NULL REFERENCES User(username),
     movieID VARCHAR(15) NOT NULL REFERENCES Movie(movieID),
-    dateWatched DATE,
+    lastWatched DATE,
     likes BIT,
     PRIMARY KEY(userID, movieID)
 );

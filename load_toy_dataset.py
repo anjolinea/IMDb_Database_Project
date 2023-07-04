@@ -12,7 +12,7 @@ def load_toy_dataset(connection):
 
     csv_files = [MOVIE_FILENAME, GENRE_FILENAME, MOVIEGENRE_FILENAME, ACTOR_FILENAME, STARRED_FILENAME, ROLE_FILENAME,
                  USER_FILENAME, FOLLOWS_FILENAME, FAVACTOR_FILENAME, FAVGENRE_FILENAME, WATCHED_FILENAME]
-    insert_strings = ["Movie (movieID, movieTitle, movieRating, runtime, yearReleased) VALUES (?, ?, ?, ?, ?)",
+    insert_strings = ["Movie (movieID, movieTitle, movieRating, runtime, yearReleased, posterImgLink) VALUES (?, ?, ?, ?, ?, ?)",
                     "Genre (genreID, genreName) VALUES (?, ?)",
                     "MovieGenre (movieID, genreID) VALUES (?, ?)",
                     "Actor (actorID, actorName) VALUES (?, ?)",
