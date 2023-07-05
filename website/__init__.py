@@ -3,12 +3,12 @@ import sqlite3
 from load_toy_dataset import load_toy_dataset
 
 def DB():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('toy_database.db')
     conn.row_factory = sqlite3.Row
     return conn
 
 def db_init():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('toy_database.db')
     load_toy_dataset(conn)
 
     conn.commit()

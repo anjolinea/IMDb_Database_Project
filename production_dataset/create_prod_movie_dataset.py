@@ -66,6 +66,7 @@ for index, row in starred_df.iterrows():
         roles_df.loc[len(roles_df)] = new_row
 
 starred_df.drop(columns=["characters", "index"], inplace=True)
+starred_df.dropna(inplace=True)
 
 # deal with genre
 for i in range(N):
@@ -81,6 +82,7 @@ actors_df = pd.merge(starred_df, names_df, on='nconst', how='left')
 
 # actors_df : drop unneeded columns
 actors_df.drop(columns=["tconst", "birthYear", "deathYear", "primaryProfession", "knownForTitles"], inplace=True)
+actors_df.dropna(inplace=True)
 
 # rename columns
 movie_df.rename(columns={'tconst': 'movieID', 'originalTitle': 'movieTitle', 'startYear' : 'yearReleased', 'averageRating' : 'movieRating', 'runtimeMinutes' : 'runtime'}, inplace=True)

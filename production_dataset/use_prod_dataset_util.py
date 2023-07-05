@@ -6,8 +6,11 @@ def load_csv_to_sql(connection, csv_filename, insert_string):
     cursor = connection.cursor()
 
     for index, row in df.iterrows():
-        cursor.execute("INSERT INTO " + insert_string,
-                        row.to_list())
+        try:
+            cursor.execute("INSERT INTO " + insert_string,
+                            row.to_list())
+        except:
+            print(row)
 
 def run_command_from_string(connection, command, printOutput=False):
     cursor = connection.cursor()
