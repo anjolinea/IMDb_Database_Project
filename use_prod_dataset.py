@@ -2,13 +2,13 @@ import sqlite3
 import sys
 import os
 sys.path.append( '.' )
-sys.path.append( '../toy_dataset' )
+sys.path.append( '../production_dataset' )
 
-from toy_dataset.use_toy_dataset_util import *
-from load_toy_dataset import load_toy_dataset
+from production_dataset.use_prod_dataset_util import *
+from load_prod_dataset import load_prod_dataset
 
-connection = sqlite3.connect('toy_database.db')
-load_toy_dataset(connection)
+connection = sqlite3.connect('prod_database.db')
+load_prod_dataset(connection)
 
 ## --- for playing around with SQL files -----
 # test_name = "recommend_new_for_two"
@@ -25,8 +25,7 @@ load_toy_dataset(connection)
 ## ------------------
 
 query = """
-INSERT INTO Follows(userID1, userID2)
-VALUES ('charliewatanabe59', 'charliewatanabe59');
+SELECT COUNT(*) FROM MOVIE;
 """
 
 ## a CHECK constraint violation should happen!

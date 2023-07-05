@@ -1,12 +1,12 @@
 import sys
 import os
 sys.path.append( '.' )
-sys.path.append( '../toy_dataset' )
+sys.path.append( '../production_dataset' )
 
-from toy_dataset.use_toy_dataset_util import load_csv_to_sql
-from toy_dataset.toy_dataset_consts import *
+from production_dataset.use_prod_dataset_util import load_csv_to_sql
+from production_dataset.prod_dataset_consts import *
 
-def load_toy_dataset(connection):
+def load_prod_dataset(connection):
     with open('schema.sql') as f:
         connection.executescript(f.read())
 
@@ -26,4 +26,4 @@ def load_toy_dataset(connection):
                     ]
 
     for i in range(len(csv_files)):
-        load_csv_to_sql(connection=connection, csv_filename="toy_dataset/"+csv_files[i], insert_string=insert_strings[i])
+        load_csv_to_sql(connection=connection, csv_filename="production_dataset/"+csv_files[i], insert_string=insert_strings[i])

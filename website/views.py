@@ -34,7 +34,7 @@ def search():
 
         db = DB()
         query = f"""
-        SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime
+        SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
         FROM Movie
         JOIN Starred ON Movie.movieID = Starred.movieID
         JOIN Actor ON Starred.actorID = Actor.actorID

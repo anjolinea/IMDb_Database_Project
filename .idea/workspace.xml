@@ -8,7 +8,7 @@
       <change afterPath="$PROJECT_DIR$/test-sample/04_query.png" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/test-sample/test-sample.out" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/test-sample/test-sample.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toy_database.db" beforeDir="false" afterPath="$PROJECT_DIR$/toy_database.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sample_queries/in/recommend_new_for_two.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sample_queries/in/recommend_new_for_two.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sample_queries/out/recommend_new_for_two.out" beforeDir="false" afterPath="$PROJECT_DIR$/sample_queries/out/recommend_new_for_two.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/use_toy_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/use_toy_dataset.py" afterDir="false" />

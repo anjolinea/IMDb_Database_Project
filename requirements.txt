@@ -9,3 +9,4 @@ Werkzeug==2.3.4
 zipp==3.15.0
 pandas==2.0.1
 Flask-Login==0.6.2
+requests==2.29.0
