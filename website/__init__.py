@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_bootstrap import Bootstrap
 import sqlite3
 from load_toy_dataset import load_toy_dataset
 
@@ -17,6 +18,7 @@ def db_init():
 
 def create_app():
     app = Flask(__name__)
+    Bootstrap(app)
     app.config['SECRET_KEY'] = 'shhhhhhh, this is a secret'
 
     db_init()
