@@ -15,9 +15,15 @@
         <input type="text" class="form-control" name="actor" id="actor" placeholder="Search actor">
     </div>
     <div class="form-group">
-        <label for="actor">Genre</label>
-        <input type="text" class="form-control" name="genre" id="genre" placeholder="Search genre">
+        <label for="genre">Genre</label>
+        <select class="form-control" name="genre" id="genre">
+            <option value="">All</option>
+            {% for genre in genre_names %}
+                <option value="{{ genre }}">{{ genre }}</option>
+            {% endfor %}
+        </select>
     </div>
+    
     <br />
     <button type="submit" class="btn btn-primary">Search!</button>
 </form>

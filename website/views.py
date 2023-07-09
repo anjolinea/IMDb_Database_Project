@@ -6,8 +6,10 @@ views = Blueprint('views', __name__)
 N = 4
 ROW_LIMIT = 4
 
+
 def split_moviechunks(movies, n, row_limit):
-    return [movies[i * n:(i + 1) * n] for i in range((len(movies) + n - 1) // n )][:row_limit] 
+    return [movies[i * n:(i + 1) * n] for i in range((len(movies) + n - 1) // n)][:row_limit]
+
 
 @views.route('/')
 def home():
@@ -18,21 +20,28 @@ def home():
     """
     movies = db.execute(query).fetchall()
     moviechunks = split_moviechunks(movies, N, ROW_LIMIT)
-    
+
     db.close()
     return render_template('home.html', moviechunks=moviechunks)
 
+
 @views.route('/search', methods=["GET", "POST"])
 def search():
+    db = DB()
+    query_genres = """
+        SELECT Genre.genreName FROM Genre
+        """
+    genres = db.execute(query_genres).fetchall()
+    genre_names = [genre[0] for genre in genres]
+
     if request.method == "POST":
         title = request.form.get("title")
         actor_name = request.form.get("actor")
         genre_name = request.form.get("genre")
-        minimum_rating = 5 # hardcoded
+        minimum_rating = 5  # hardcoded
 
         # empty string if nothing is returned
 
-        db = DB()
         query = f"""
         SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
         FROM Movie
@@ -50,6 +59,6 @@ def search():
         moreLeft = N * ROW_LIMIT < len(movies)
 
         db.close()
-        return render_template('search.html', isSearch=True, moviechunks=moviechunks, moreLeft=moreLeft)
+        return render_template('search.html', isSearch=True, moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names)
     else:
-        return render_template('search.html', isSearch=False)
+        return render_template('search.html', isSearch=False, genre_names=genre_names)
