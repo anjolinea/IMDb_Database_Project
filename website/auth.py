@@ -3,6 +3,22 @@ from .models import UserAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import DB
 from flask_login import login_user, login_required, logout_user, current_user
+import re
+
+def enforce_strong_password(password: str):
+    # length constraints
+    if (len(password)<=8):
+        return False
+    # characters needed constraints
+    elif (not re.search("[a-z]", password)) or (not re.search("[A-Z]", password)) or (not re.search("[0-9]"), password):
+        return False
+    # unallowed characters constraints
+    elif re.search("\s" , password):
+        return False
+    else:
+        return True
+ 
+
 
 auth = Blueprint("auth", __name__)
 
@@ -16,15 +32,18 @@ def sign_up():
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
 
-        # TODO: do basic checks like is username unique?
         db = DB()
         cursor = db.cursor()
         userExists = cursor.execute('SELECT COUNT() FROM User WHERE username = ?', (username,)).fetchone()[0]
         db.close()
+        # username already exists
         if userExists > 0:
             flash("Username taken!", category="warn")
+        # password and confirm password are not the same
         elif password1 != password2:
             flash("Passwords do not match!", category="error")
+        elif not enforce_strong_password(password1):
+            flash("Password not strong enough!", category="error")
         else:
             passwordHash = generate_password_hash(password1, method='scrypt')
             db = DB()
