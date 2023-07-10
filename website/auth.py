@@ -10,7 +10,7 @@ def enforce_strong_password(password: str):
     if (len(password)<=8):
         return False
     # characters needed constraints
-    elif (not re.search("[a-z]", password)) or (not re.search("[A-Z]", password)) or (not re.search("[0-9]"), password):
+    elif (not re.search("[a-z]", password)) or (not re.search("[A-Z]", password)) or (not re.search("[0-9]", password)):
         return False
     # unallowed characters constraints
     elif re.search("\s" , password):
