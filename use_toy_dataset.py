@@ -25,8 +25,7 @@ load_toy_dataset(connection)
 ## ------------------
 
 query = """
-INSERT INTO Follows(userID1, userID2)
-VALUES ('charliewatanabe59', 'charliewatanabe59');
+SELECT * FROM Movie
 """
 
 ## a CHECK constraint violation should happen!
