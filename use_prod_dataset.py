@@ -25,7 +25,7 @@ load_prod_dataset(connection)
 ## ------------------
 
 query = """
-SELECT COUNT(*) FROM MOVIE;
+SELECT COUNT(*) FROM MOVIE LIMIT 10;
 """
 
 ## a CHECK constraint violation should happen!
