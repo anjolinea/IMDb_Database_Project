@@ -35,10 +35,13 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(id):
-        db = DB()
-        cursor = db.cursor()
-        hash_password = cursor.execute('SELECT userPassword FROM User WHERE username = ?', (id,)).fetchone()[0]
-        db.close()
-        return UserAuth(username=id, userPasswordHash=hash_password)
+        try:
+            db = DB()
+            cursor = db.cursor()
+            hash_password = cursor.execute('SELECT userPassword FROM User WHERE username = ?', (id,)).fetchone()[0]
+            db.close()
+            return UserAuth(username=id, userPasswordHash=hash_password)
+        except:
+            return UserAuth(username="", userPasswordHash="")
 
     return app

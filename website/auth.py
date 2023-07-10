@@ -17,7 +17,13 @@ def sign_up():
         password2 = request.form.get("password2")
 
         # TODO: do basic checks like is username unique?
-        if password1 != password2:
+        db = DB()
+        cursor = db.cursor()
+        userExists = cursor.execute('SELECT COUNT() FROM User WHERE username = ?', (username,)).fetchone()[0]
+        db.close()
+        if userExists > 0:
+            flash("Username taken!", category="warn")
+        elif password1 != password2:
             flash("Passwords do not match!", category="error")
         else:
             passwordHash = generate_password_hash(password1, method='scrypt')
@@ -30,7 +36,8 @@ def sign_up():
             db.commit()
             db.close()
             flash("Account created!", category="success")
-            login_user(UserAuth(username=username, userPasswordHash=passwordHash), remember=True)
+            loggedUser = UserAuth(username=username, userPasswordHash=passwordHash)
+            login_user(loggedUser, remember=True)
             return redirect(url_for('views.home'))
         
     return render_template("sign_up.html", user=current_user)
@@ -43,14 +50,19 @@ def login():
         pwd = request.form.get("password")
 
         # TODO: do basic check like does username exist?
-        if True:
+        db = DB()
+        cursor = db.cursor()
+        userExists = cursor.execute('SELECT COUNT() FROM User WHERE username = ?', (usr,)).fetchone()[0]
+        db.close()
+        if userExists > 0:
             db = DB()
             cursor = db.cursor()
             hash_password = cursor.execute('SELECT userPassword FROM User WHERE username = ?', (usr,)).fetchone()[0]
             db.close()
             if check_password_hash(hash_password, pwd):
                 flash("Successfully logged in!", category="success")
-                login_user(UserAuth(username=usr, userPasswordHash=hash_password), remember=True)
+                loggedUser = UserAuth(username=usr, userPasswordHash=hash_password)
+                login_user(loggedUser, remember=True)
                 return redirect(url_for('views.home'))
             else:
                 flash("Password incorrect!", category="error")
