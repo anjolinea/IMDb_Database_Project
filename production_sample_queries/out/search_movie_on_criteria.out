@@ -1,0 +1,491 @@
+movieTitle,movieRating,yearReleased,runtime
+Avatar,7.9,2009,162
+Guardians of the Galaxy,8.0,2014,121
+Terminator 2: Judgment Day,8.6,1991,137
+Mad Max: Fury Road,8.1,2015,120
+Spider-Man: No Way Home,8.2,2021,148
+How to Train Your Dragon,8.1,2010,98
+Guardians of the Galaxy Vol. 2,7.6,2017,136
+The Batman,7.8,2022,176
+World War Z,7.0,2013,116
+Dune: Part One,8.0,2021,155
+The Bourne Ultimatum,8.0,2007,115
+Star Trek,7.9,2009,127
+Kick-Ass,7.6,2010,117
+Baby Driver,7.6,2017,113
+Pirates of the Caribbean: On Stranger Tides,6.6,2011,137
+Tenet,7.3,2020,150
+Venom,6.6,2018,112
+Hancock,6.4,2008,92
+Star Trek Into Darkness,7.7,2013,132
+Justice League,6.1,2017,120
+Spectre,6.8,2015,148
+Training Day,7.7,2001,122
+The Mummy,7.1,1999,124
+Scott Pilgrim vs. the World,7.5,2010,112
+Doctor Strange in the Multiverse of Madness,6.9,2022,126
+Mission: Impossible,7.1,1996,110
+Godzilla,6.4,2014,123
+Cloverfield,7.0,2008,85
+Terminator 3: Rise of the Machines,6.3,2003,109
+Black Hawk Down,7.7,2001,144
+Furious 6,7.0,2013,130
+The Fast and the Furious,6.8,2001,106
+Avatar: The Way of Water,7.7,2022,192
+The Mask,6.9,1994,101
+Black Widow,6.7,2021,134
+The Equalizer,7.2,2014,132
+The Italian Job,7.0,2003,111
+Man on Fire,7.7,2004,146
+The Lego Movie,7.7,2014,100
+Shazam!,7.0,2019,132
+Constantine,7.0,2005,121
+Jack Reacher,7.0,2012,130
+The Interview,6.5,2014,112
+Total Recall,7.5,1990,113
+The Mummy Returns,6.4,2001,130
+The Book of Eli,6.8,2010,118
+Transformers: Age of Extinction,5.6,2014,165
+Apocalypto,7.8,2006,139
+The Man from U.N.C.L.E.,7.2,2015,116
+Deja Vu,7.1,2006,126
+The Transporter,6.8,2002,92
+The Bourne Legacy,6.6,2012,135
+Death Proof,7.0,2007,127
+Angels & Demons,6.7,2009,138
+Fast & Furious,6.5,2009,107
+Snow White and the Huntsman,6.1,2012,127
+Terminator Genisys,6.3,2015,126
+The Fast and the Furious: Tokyo Drift,6.0,2006,104
+Kick-Ass 2,6.5,2013,103
+Alita: Battle Angel,7.3,2019,122
+Resident Evil,6.6,2002,100
+Wo hu cang long,7.9,2000,120
+True Lies,7.3,1994,141
+Enemy at the Gates,7.5,2001,131
+War for the Planet of the Apes,7.4,2017,140
+GoldenEye,7.2,1995,130
+Crank,6.9,2006,88
+Star Trek Beyond,7.0,2016,122
+Birds of Prey and the Fantabulous Emancipation of One Harley Quinn,6.1,2020,109
+Escape Plan,6.7,2013,115
+The Fate of the Furious,6.6,2017,136
+Natural Born Killers,7.2,1994,119
+Rambo,7.0,2008,92
+Munich,7.5,2005,164
+Safe House,6.7,2012,115
+Rush Hour 2,6.6,2001,90
+The Magnificent Seven,6.9,2016,132
+2 Guns,6.7,2013,109
+Planet Terror,7.1,2007,105
+A Good Day to Die Hard,5.2,2013,98
+Im Westen nichts Neues,7.8,2022,148
+Twister,6.4,1996,113
+Knight and Day,6.3,2010,109
+Lola rennt,7.7,1998,81
+The Taking of Pelham 123,6.4,2009,106
+Unstoppable,6.8,2010,98
+The Next Three Days,7.3,2010,133
+Robin Hood: Prince of Thieves,6.9,1991,143
+Machete,6.6,2010,105
+Jungle Cruise,6.6,2021,127
+Atomic Blonde,6.7,2017,115
+Godzilla,5.4,1998,139
+Bright,6.3,2017,117
+Baywatch,5.5,2017,116
+Point Break,7.2,1991,122
+Charlie's Angels,5.6,2000,98
+The Mask of Zorro,6.8,1998,136
+Grindhouse,7.5,2007,191
+Terminator: Dark Fate,6.2,2019,128
+Ying xiong,7.9,2002,120
+Battle: Los Angeles,5.7,2011,116
+The Legend of Tarzan,6.2,2016,110
+The Promise,6.1,2016,133
+Three Kings,7.1,1999,114
+The Old Guard,6.6,2020,125
+The Equalizer 2,6.7,2018,121
+Letters from Iwo Jima,7.9,2006,141
+Ready or Not,6.8,2019,95
+The Green Hornet,5.8,2011,119
+Raya and the Last Dragon,7.3,2021,107
+Last Action Hero,6.4,1993,130
+The Purge: Anarchy,6.4,2014,103
+Kindergarten Cop,6.2,1990,111
+Man on a Ledge,6.6,2012,102
+Logan Lucky,7.0,2017,118
+S.W.A.T.,6.0,2003,117
+F9,5.2,2021,143
+Sonic the Hedgehog,6.5,2020,99
+Resident Evil: Retribution,5.3,2012,95
+The Count of Monte Cristo,7.7,2002,131
+The Last Stand,6.3,2013,107
+Reign of Fire,6.2,2002,101
+The Shallows,6.3,2016,86
+Deep Blue Sea,5.9,1999,105
+Nerve,6.5,2016,96
+Kubo and the Two Strings,7.7,2016,101
+The Bounty Hunter,5.5,2010,110
+Æon Flux,5.4,2005,93
+What Happened to Monday,6.8,2017,123
+Parker,6.2,2013,118
+The 6th Day,5.9,2000,123
+Freddy vs. Jason,5.7,2003,97
+Out of the Furnace,6.7,2013,116
+Entrapment,6.3,1999,113
+The Hunt,6.5,2020,90
+Ride Along,6.1,2014,99
+Crimson Tide,7.3,1995,116
+Gemini Man,5.7,2019,117
+Premium Rush,6.5,2012,91
+Eraser,6.2,1996,115
+Shi mian mai fu,7.5,2004,119
+The Huntsman: Winter's War,6.1,2016,114
+Paul Blart: Mall Cop,5.2,2009,91
+End of Days,5.8,1999,122
+The 5th Wave,5.2,2016,112
+Faster,6.4,2010,98
+Get the Gringo,6.9,2012,96
+Dag II,8.2,2016,135
+The Cloverfield Paradox,5.5,2018,102
+United 93,7.6,2006,111
+Journey 2: The Mysterious Island,5.7,2012,94
+Tropa de Elite,8.0,2007,115
+The Purge: Election Year,6.0,2016,108
+The Legend of Zorro,5.9,2005,129
+The Losers,6.2,2010,97
+Colombiana,6.4,2011,108
+30 Minutes or Less,6.1,2011,83
+Conspiracy Theory,6.7,1997,135
+Rambo: Last Blood,6.1,2019,89
+Self/less,6.5,2015,117
+Running Scared,7.3,2006,122
+Sahara,6.0,2005,124
+Gangs of Wasseypur,8.2,2012,321
+Hardcore Henry,6.7,2015,96
+Iron Sky,5.9,2012,93
+War,6.2,2007,103
+American Ultra,6.1,2015,96
+Hitman: Agent 47,5.7,2015,96
+Spenser Confidential,6.2,2020,111
+Bajrangi Bhaijaan,8.1,2015,163
+News of the World,6.8,2020,118
+Cop Out,5.5,2010,107
+Blitz,6.1,2011,97
+Fallen,7.0,1998,124
+The Tuxedo,5.4,2002,98
+Tropa de Elite 2: O Inimigo Agora é Outro,8.0,2010,115
+Siu Lam juk kau,7.3,2001,113
+Hidalgo,6.7,2004,136
+Day Shift,6.1,2022,113
+Ambulance,6.1,2022,136
+The Long Kiss Goodnight,6.8,1996,121
+Broken City,6.1,2013,109
+Fool's Gold,5.7,2008,112
+Bloodshot,5.7,2020,109
+Deliver Us from Evil,6.2,2014,118
+Underworld: Blood Wars,5.7,2016,91
+Oldboy,5.8,2013,104
+Outlander,6.2,2008,115
+Charlie's Angels,5.0,2019,118
+Collateral Damage,5.5,2002,108
+The Postman,6.1,1997,177
+Sonic the Hedgehog 2,6.5,2022,122
+The Siege,6.4,1998,116
+Hummingbird,6.2,2013,100
+Joy Ride,6.6,2001,97
+Violent Night,6.7,2022,112
+The Eagle,6.2,2011,114
+The Lego Movie 2: The Second Part,6.6,2019,107
+Kick,6.0,2014,146
+God Bless America,7.1,2011,105
+The Saint,6.2,1997,116
+Act of Valor,6.4,2012,110
+Spawn,5.2,1997,96
+El mariachi,6.8,1992,81
+Mystery Men,6.1,1999,121
+The Collector,6.3,2009,90
+Domino,5.9,2005,127
+Peppermint,6.5,2018,101
+Harsh Times,6.8,2005,116
+The Harder They Fall,6.6,2021,139
+Hotel Mumbai,7.6,2018,123
+Kate,6.2,2021,106
+Punisher: War Zone,5.9,2008,103
+Friday Night Lights,7.2,2004,118
+Keeping Up with the Joneses,5.9,2016,105
+Sabotage,5.7,2014,109
+Guns Akimbo,6.3,2019,98
+Point Break,5.3,2015,114
+Alpha,6.6,2018,96
+The Man with the Iron Fists,5.4,2012,95
+Appaloosa,6.7,2008,115
+Cats & Dogs,5.1,2001,87
+Executive Decision,6.5,1996,133
+Adrift,6.6,2018,96
+Red Planet,5.7,2000,106
+Baby,7.9,2015,159
+Fetih 1453,6.5,2012,162
+Yip Man 3,7.0,2015,105
+Courage Under Fire,6.6,1996,116
+Chaos,6.4,2005,106
+Vampire Academy,5.4,2014,104
+Marighella,7.1,2019,155
+Extinction,5.8,2018,95
+Nochnoy dozor,6.4,2004,114
+Chain Reaction,5.6,1996,107
+National Security,5.6,2003,88
+The Collection,6.1,2012,82
+The Brothers Bloom,6.7,2008,114
+The Fan,5.9,1996,116
+Loaded Weapon 1,6.2,1993,84
+CHIPS,6.0,2017,100
+Passenger 57,5.9,1992,84
+A Man Apart,6.0,2003,109
+G-Force,5.1,2009,88
+Fan,6.9,2016,138
+Raees,6.6,2017,143
+Chi bi,7.3,2008,145
+The Colony,5.3,2013,95
+Revenge,6.4,2017,108
+Ben-Hur,5.7,2016,123
+Striking Distance,5.8,1993,102
+Outside the Wire,5.4,2021,114
+Flyboys,6.5,2006,140
+The Transporter Refueled,5.2,2015,96
+One for the Money,5.3,2012,91
+Brick Mansions,5.6,2014,90
+Tomiris,6.2,2019,156
+Code 8,6.1,2019,98
+Money Train,5.7,1995,110
+Ngo si seoi,6.8,1998,120
+Reindeer Games,5.8,2000,104
+The Marksman,5.7,2021,108
+The Informer,6.6,2019,113
+Der Baader Meinhof Komplex,7.3,2008,150
+Astro Boy,6.2,2009,94
+Killing Season,5.4,2013,91
+Main Hoon Na,7.0,2004,182
+Young Guns II,6.5,1990,104
+Bajirao Mastani,7.2,2015,158
+Bandidas,5.7,2006,93
+Bachchhan Paandey,5.1,2022,147
+Agent Cody Banks,5.1,2003,102
+Yi dai zong shi,6.5,2013,130
+The Aeronauts,6.6,2019,100
+Thick as Thieves,6.0,2009,104
+La isla mínima,7.2,2014,105
+The Phantom,5.0,1996,100
+Nefes: Vatan Sagolsun,8.0,2009,128
+Fighting,5.6,2009,105
+Dabangg,6.2,2010,126
+The 355,5.6,2022,122
+Willy's Wonderland,5.5,2021,88
+Feast,6.2,2005,95
+Blown Away,6.2,1994,121
+My Spy,6.3,2020,99
+Dora and the Lost City of Gold,6.1,2019,102
+The Way to Paradise,5.3,2011,85
+The Prophecy,6.4,1995,98
+Knockin' on Heaven's Door,7.8,1997,87
+Rogue,6.2,2007,99
+Murder at 1600,6.1,1997,107
+The Machine,6.0,2013,91
+Shotgun Wedding,5.5,2022,101
+"Tomorrow, When the War Began",6.1,2010,104
+Gringo,6.1,2018,111
+Virtuosity,5.5,1995,106
+Delhi Belly,7.5,2011,103
+7500,6.3,2019,93
+Old Henry,7.2,2021,99
+Mighty Joe Young,5.7,1998,114
+Waar,7.5,2013,130
+Doragon bôru chô: Burorî,7.7,2018,100
+Memphis Belle,6.9,1990,107
+The Happytime Murders,5.5,2018,91
+Dragon Ball Z: Doragon bôru Z - Kami to Kami,7.1,2013,85
+Enthiran,7.1,2010,155
+Shadow in the Cloud,5.0,2020,83
+Ölümlü Dünya,7.6,2018,107
+Kraftidioten,7.1,2014,116
+VR (Vikrant Rona),7.0,2022,148
+D3: The Mighty Ducks,5.4,1996,104
+Koi... Mil Gaya,7.1,2003,171
+Men at Work,5.9,1990,98
+Bakemono no ko,7.6,2015,119
+Tales from the Crypt: Demon Knight,6.7,1995,92
+Bang Bang,5.6,2014,153
+Megan Leavey,7.1,2017,116
+Sniper,6.1,1993,98
+Badlapur,7.4,2015,134
+Chi bi: Jue zhan tian xia,7.5,2009,142
+Afflicted,6.2,2013,85
+Trapped,6.1,2002,106
+Rim of the World,5.2,2019,98
+Lakshya,7.8,2004,186
+Gekijouban Jujutsu Kaisen 0,7.8,2021,105
+True Memoirs of an International Assassin,5.9,2016,98
+Mayhem,6.4,2017,86
+Dead Presidents,6.9,1995,119
+Kabadayi,7.8,2007,140
+Dragon Ball Z: Doragon bôru Z - Fukkatsu no 'F',7.2,2015,93
+Maximum Risk,5.5,1996,101
+Gekijô-ban poketto monsutâ: Maboroshi no pokemon: Rugia bakutan,6.0,1999,84
+Brat,7.8,1997,96
+El día de la bestia,7.3,1995,103
+Knights of Badassdom,5.6,2013,86
+In Hell,6.1,2003,98
+Ali Baba ve 7 Cüceler,5.6,2015,114
+Bajo Cero,6.2,2021,106
+Wo hu cang long: Qing ming bao jian,6.1,2016,96
+Xin shao lin si,6.8,2011,131
+Le chant du loup,6.9,2019,115
+Thursday,7.1,1998,87
+Ricochet,6.1,1991,102
+Miracle at St. Anna,6.1,2008,160
+Raid,7.4,2018,122
+Suchîmubôi,6.8,2004,126
+Kurtlar Vadisi: Irak,5.7,2006,122
+Kin,5.8,2018,102
+Jin-Rô,7.3,1999,102
+Judgment Night,6.6,1993,110
+Cike Nie Yin Niang,6.3,2015,105
+Office Uprising,5.7,2018,92
+Ying,7.0,2018,116
+Metri shesh va nim,7.8,2019,131
+Freejack,5.4,1992,110
+Siu nin Wong Fei Hung chi: Tit ma lau,7.5,1993,90
+Ram Setu,5.2,2022,140
+Blue Steel,5.8,1990,102
+3 from Hell,5.4,2019,115
+Entebbe,5.9,2018,107
+The Last: Naruto the Movie,7.6,2014,112
+Attack,6.8,2022,121
+San wa,6.1,2005,122
+Manikarnika: The Queen of Jhansi,6.4,2019,148
+OSS 117: Rio ne répond plus,6.8,2009,101
+New York'ta Bes Minare,5.7,2010,119
+Housefull 2,5.3,2012,145
+Karan Arjun,6.8,1995,175
+Pokiri,8.0,2006,164
+Ai no mukidashi,8.0,2008,237
+Indigènes,7.0,2006,123
+The Angel,6.7,2018,114
+Shingeki no kyojin,5.0,2015,98
+The Substitute,6.0,1996,114
+Asoka,6.4,2001,180
+À bout portant,6.8,2010,84
+Injustice,6.4,2021,78
+Tekkon kinkurîto,7.5,2006,111
+The Breed,5.1,2006,91
+USS Indianapolis: Men of Courage,5.3,2016,128
+Avalon,6.4,2001,107
+Brothers,6.5,2015,156
+Xi you: Xiang mo pian,6.7,2013,110
+Intacto,6.8,2001,108
+Bushwick,5.2,2017,94
+T-34,6.8,2018,139
+Balle perdue,6.3,2020,92
+Acts of Vengeance,5.7,2017,87
+Mayor Grom: Chumnoy Doktor,6.3,2021,136
+In the Blood,5.7,2014,108
+Velayudham,6.1,2011,186
+Tian zhu ding,7.1,2013,130
+Bleach: Burîchu,6.3,2018,108
+Miss Bala,5.8,2019,104
+Doragon bôru sûpâ: Sûpâ hîrô,7.1,2022,100
+Dance of the Dead,5.8,2008,87
+Transit,5.7,2012,88
+Dragon Ball Z: Fukkatsu no Fusion!! Gokuu to Vegeta,7.6,1995,51
+Ritânâ,6.4,2002,116
+Sherni,6.8,2021,131
+One Piece Film Red,6.6,2022,115
+Dragon Ball Z: Moetsukiro!! Nessen Ressen Chô-Gekisen,7.4,1993,72
+El infierno,7.7,2010,149
+Iron Sky: The Coming Race,5.0,2019,93
+Musa,7.2,2001,158
+Gold,5.4,2022,97
+Tides,5.4,2021,104
+Killerman,5.4,2019,112
+Petta,7.2,2019,171
+Gong fu yu jia,5.2,2017,107
+Bis ans Ende der Welt,6.8,1991,158
+Juan de los muertos,6.4,2011,92
+The Good Thief,6.5,2002,109
+El desconocido,6.6,2015,102
+Shootout at Lokhandwala,7.1,2007,122
+The Powerpuff Girls Movie,6.5,2002,73
+Mil-jeong,7.1,2016,140
+Kataude mashin gâru,5.9,2008,96
+The Domestics,5.7,2018,95
+Waist Deep,5.8,2006,97
+Desert Heat,5.1,1999,95
+Brestskaya krepost,7.4,2010,138
+The Legend of Maula Jatt,8.8,2022,153
+Age of Heroes,5.5,2011,90
+Hatchet III,5.6,2013,81
+Rurôni Kenshin: Sai shûshô - The Beginning,7.4,2021,137
+Black Dog,5.4,1998,89
+Poker Face,5.1,2022,94
+Infestation,5.8,2009,91
+Perdita Durango,6.3,1997,129
+Sutorîto faitâ II gekijô-ban,7.2,1994,102
+Stone Cold,6.1,1991,92
+Main Tera Hero,5.1,2014,128
+Kara Bela,6.7,2015,105
+Boy Wonder,6.8,2010,93
+Kurtlar Vadisi: Filistin,6.1,2011,105
+Yip Man ngoi zyun: Cheung Tin Chi,6.5,2018,107
+Miss Bala,6.5,2011,113
+Le dernier mercenaire,5.3,2021,110
+Highwaymen,5.6,2004,80
+Dragon Ball Z - Doragon bôru zetto: Ryûken bakuhatsu!! Gokû ga yaraneba dare ga yaru,7.5,1995,52
+Su Qi-er,6.4,2010,115
+A Viszkis,7.3,2017,126
+Biyeolhan geori,7.3,2006,140
+The Forsaken,5.3,2001,90
+Gojira: Kaijû Wakusei,6.0,2017,89
+Gojira: Fainaru uôzu,6.3,2004,125
+Science Fiction Volume One: The Osiris Child,5.5,2016,99
+Nisshartho Bhalobasha: What is Love!,7.0,2013,151
+Los últimos días,6.1,2013,100
+Echo Boomers,5.3,2020,94
+Gojira ni-sen mireniamu,6.0,1999,99
+Blame!,6.6,2017,106
+Line of Duty,5.3,2019,98
+Extortion,6.2,2017,108
+A Murder of Crows,6.3,1998,102
+Bad Day for the Cut,6.5,2017,99
+MSG 2 the Messenger,7.1,2015,134
+White Sands,6.0,1992,101
+Long men fei jia,5.9,2011,122
+Dead or Alive: Hanzaisha,6.7,1999,105
+Dishoom,5.1,2016,124
+Jin yi wei,6.3,2010,114
+One Piece Film Z,7.8,2012,108
+Proxima,6.3,2019,107
+Mukkabaaz,8.0,2017,154
+Steven Universe: The Movie,7.7,2019,82
+Force,6.5,2011,137
+Plastic,6.0,2014,102
+Fong Sai Yuk,7.1,1993,100
+Dragon Ball Z: Chikyû Marugoto Chôkessen,6.8,1990,60
+The Crocodile Hunter: Collision Course,5.4,2002,90
+Gantz,6.4,2010,130
+Ne Zha zhi mo tong jiang shi,7.4,2019,110
+Dragon Ball Z: Gekitotsu!! 100-oku Power no Senshi-tachi,6.9,1992,45
+Essential Killing,6.1,2010,83
+Loin du périph,5.7,2022,119
+Crown Vic,6.4,2019,110
+Xi yang tian shi,6.6,2002,111
+Control,6.2,2004,104
+Dragon Ball Z: Tobikkiri no Saikyô tai Saikyô,7.1,1991,47
+Deuces Wild,5.6,2002,96
+The VelociPastor,5.0,2018,75
+Hong hai xing dong,6.6,2018,142
+Metro,6.4,2013,133
+Kiborgy. Heroyi ne vmyrayut,7.5,2017,112
+MSG the Warrior: Lion Heart,7.2,2016,120
+Murder 2,6.3,2011,127
+Doragon bôru Z: Kyokugen batoru!! San dai sûpâ saiyajin,7.0,1992,46
+Gekijô-ban Naruto: Daikatsugeki! Yukihime ninpôchô dattebayo!!,6.6,2004,82

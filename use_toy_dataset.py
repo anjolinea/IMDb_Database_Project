@@ -13,11 +13,11 @@ load_toy_dataset(connection)
 # # --- for playing around with SQL files -----
 # test_name = "recommend_rewatch"
 
-# in_query_folder = "sample_queries/in/"
+# in_query_folder = "toy_sample_queries/in/"
 # in_query_file = test_name + ".sql"
 # in_file = in_query_folder + in_query_file
 
-# out_query_folder = "sample_queries/out/"
+# out_query_folder = "toy_sample_queries/out/"
 # out_query_file = test_name + ".out"
 # out_file = out_query_folder + out_query_file
 
