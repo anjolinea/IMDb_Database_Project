@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block title %}Cinemate | Sign Up{% endblock %}
+
+{% block body %}
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+/* Style the close button */
+.topright {
+  float: right;
+  cursor: pointer;
+  font-size: 28px;
+}
+
+.topright:hover {color: red;}
+</style>
+</head>
+<body>
+
+<p></p>
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'Following')" id="defaultOpen">Following</button>
+  <button class="tablinks" onclick="openTab(event, 'Followers')">Followers</button>
+  <button class="tablinks" onclick="openTab(event, 'Suggested')">Suggested</button>
+  <button class="tablinks" onclick="openTab(event, 'Explore')" id="discoverTab">Discover</button>
+</div>
+
+<div id="Following" class="tabcontent">
+  <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+  <h3></h3><h3>Who You Follow:</h3>
+  {% for followed in following %}
+    <div class="card-group">
+        <div class="card text-bg-light mb-3">
+            <div class="card-header">{{ followed['following'] }}</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ followed['firstName'] }} {{ followed['lastName'] }}</h5>
+            </div>
+            <div class="card-footer">
+                <form action="" method="post">
+                    <button class="btn btn-primary" type="submit" name="Unfollow" value="{{ followed['following'] }}">Unfollow</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div id="Followers" class="tabcontent">
+  <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+  <h3></h3><h3>Who Follows You:</h3>
+  {% for follower in followers %}
+    <div class="card-group">
+        <div class="card text-bg-light mb-3">
+            <div class="card-header">{{ follower['follower'] }}</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ follower['firstName'] }} {{ follower['lastName'] }}</h5>
+            </div>
+            <div class="card-footer">
+                <form action="" method="post">
+                    {% if follower['isFollowing'] %}
+                        <button class="btn btn-primary" type="submit" name="Unfollow" value="{{ follower['follower'] }}">Unfollow</button>
+                    {% else %}
+                        <button class="btn btn-primary" type="submit" name="Follow" value="{{ follower['follower'] }}">Follow Back</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div id="Suggested" class="tabcontent">
+    <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+    <h3></h3><h3>Suggestions to Follow:</h3>
+    {% for follower in suggested %}
+    {% if follower['level'] != 0 %}
+    <div class="card-group">
+        <div class="card text-bg-light mb-3">
+            <div class="card-header">{{ follower['follower'] }}</div>
+            <div class="card-body">
+                <h5 class="card-title">{{ follower['firstName'] }} {{ follower['lastName'] }}</h5>
+                <p class="card-text">level {{ follower['level'] }} connection</p>
+            </div>
+            <div class="card-footer">
+                <form action="" method="post">
+                    <button class="btn btn-primary" type="submit" name="Follow" value="{{ follower['follower'] }}">Follow</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+<div id="Explore" class="tabcontent">
+    <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+    <h3></h3><h3>Search for Users:</h3>
+
+    <form action="" method="post">
+        <div style="display:flex; flex-direction: row">
+            <input type="text" class="form-control" name="first" id="first" placeholder="First name" value="{{firstName}}">
+            <input type="text" class="form-control" name="last" id="last" placeholder="Last name" value="{{lastName}}">
+            <button type="submit" class="btn btn-primary">Search!</button>
+       </div>
+       <h3></h3>
+    </form>
+
+
+
+    {% if is_search %}
+    {% for user in search_results %}
+      <div class="card-group">
+          <div class="card text-bg-light mb-3">
+              <div class="card-header">{{ user['username'] }}</div>
+              <div class="card-body">
+                  <h5 class="card-title">{{ user['firstName'] }} {{ user['lastName'] }}</h5>
+              </div>
+              <div class="card-footer">
+                <form action="" method="post">
+                {% if user['isFollowing'] %}
+                    <button class="btn btn-primary" type="submit" name="Unfollow" value="{{ user['username'] }}">Unfollow</button>
+                {% else %}
+                    <button class="btn btn-primary" type="submit" name="Follow" value="{{ user['username'] }}">Follow</button>
+                {% endif %}
+            </form>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+  </div>
+
+<script>
+function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+{% if is_search %}
+<script>document.getElementById("discoverTab").click()</script>
+{% else %}
+<script>document.getElementById("defaultOpen").click();</script>
+{% endif %}
+   
+</body>
+  {% endblock %}

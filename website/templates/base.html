@@ -28,6 +28,7 @@
             <div class="navbar-nav">
                 {% if user.is_authenticated %}
                 <a href="/search" class="nav-item nav-link" id="search">Search</a>
+                <a href="/profile" class="nav-item nav-link" id="search">Profile</a>
                 <a href="/logout" class="nav-item nav-link" id="logout">Logout</a>
                 {% else %}
                 <a href="/login" class="nav-item nav-link" id="login">Login</a>
