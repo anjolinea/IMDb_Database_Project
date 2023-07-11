@@ -54,7 +54,8 @@ CREATE TABLE User (
     username VARCHAR(40) NOT NULL PRIMARY KEY,
     firstName VARCHAR(40) NOT NULL,
     lastName VARCHAR(40) NOT NULL,
-    userPassword VARCHAR(60) NOT NULL
+    userPassword VARCHAR(200) NOT NULL,
+    profilePicLink VARCHAR(150) NOT NULL
 );
 
 CREATE TABLE Follows (
