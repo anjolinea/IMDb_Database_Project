@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request
 from . import DB
+from flask_login import login_required, current_user
 
 views = Blueprint('views', __name__)
 
@@ -10,6 +11,7 @@ def split_moviechunks(movies, n, row_limit):
     return [movies[i * n:(i + 1) * n] for i in range((len(movies) + n - 1) // n )][:row_limit] 
 
 @views.route('/')
+@login_required
 def home():
     db = DB()
 
@@ -20,9 +22,10 @@ def home():
     moviechunks = split_moviechunks(movies, N, ROW_LIMIT)
     
     db.close()
-    return render_template('home.html', moviechunks=moviechunks)
+    return render_template('home.html', moviechunks=moviechunks, user=current_user)
 
 @views.route('/search', methods=["GET", "POST"])
+@login_required
 def search():
     if request.method == "POST":
         title = request.form.get("title")
@@ -50,9 +53,9 @@ def search():
         moreLeft = N * ROW_LIMIT < len(movies)
 
         db.close()
-        return render_template('search.html', isSearch=True, moviechunks=moviechunks, moreLeft=moreLeft)
+        return render_template('search.html', isSearch=True, moviechunks=moviechunks, moreLeft=moreLeft, user=current_user)
     else:
-        return render_template('search.html', isSearch=False)
+        return render_template('search.html', isSearch=False, user=current_user)
 
 @views.route('/recommend', methods=["GET", "POST"])
 def recommend():

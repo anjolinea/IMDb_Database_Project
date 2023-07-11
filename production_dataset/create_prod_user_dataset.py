@@ -2,17 +2,24 @@ import pandas as pd
 import random
 import string
 from datetime import date, timedelta
+from werkzeug.security import generate_password_hash
 from prod_dataset_consts import *
 
 actors_df = pd.read_csv(ACTOR_FILENAME)
 genres_df = pd.read_csv(GENRE_FILENAME)
 movies_df = pd.read_csv(MOVIE_FILENAME)
 
+# requires length >= 5
 def get_random_string(length):
-    # choose from all lowercase letter
-    letters = string.ascii_letters
-    result_str = ''.join(random.choice(letters) for i in range(length))
-    return(result_str)
+    lowercase_letters = ''.join(random.choice(string.ascii_lowercase) for i in range(length-4))
+    uppercase_letters = ''.join(random.choice(string.ascii_uppercase) for i in range(2))
+    numbers = ''.join(str(random.choice(list(range(10)))) for i in range(2))
+    
+    s = lowercase_letters + uppercase_letters + numbers
+    l = list(s)
+    random.shuffle(l)
+    result = ''.join(l)
+    return(result)
 
 def load_names_into_set(filename):
     names = set()
@@ -28,7 +35,8 @@ random.seed(20880034)
 users_df = pd.DataFrame({'username': pd.Series(dtype='str'),
                          'firstName' : pd.Series(dtype='str'),
                          'lastName' : pd.Series(dtype="str"),
-                         'password' : pd.Series(dtype='str')})
+                         'userPassword' : pd.Series(dtype='str'),
+                         'profilePicLink' : pd.Series(dtype='str')})
 
 # hardcoded first, last names
 firstnames = load_names_into_set(FIRSTNAME_FILENAME)
@@ -41,12 +49,12 @@ for fn in firstnames:
         username = fn + ln + "{:02d}".format(int(random.random() * 100))
         usernames.append(username)
 
-        # TODO: change to hashing
-        password = get_random_string(10)
+        password = generate_password_hash(get_random_string(10), method='scrypt')
         fn_db = fn.capitalize()
         ln_db = ln.capitalize()
+        profile_link_db = DEFAULT_PROFILE_PIC_LINK
 
-        new_row = {'username': username, 'firstName': fn_db, 'lastName': ln_db, 'password' : password}
+        new_row = {'username': username, 'firstName': fn_db, 'lastName': ln_db, 'userPassword' : password, 'profilePicLink' : profile_link_db}
         
         # Use the loc method to add the new row to the DataFrame
         users_df.loc[len(users_df)] = new_row

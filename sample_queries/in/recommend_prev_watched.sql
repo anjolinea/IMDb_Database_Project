@@ -7,7 +7,7 @@ JOIN Actor ON Starred.actorID = Actor.actorID
 WHERE Movie.movieID NOT IN (
     SELECT Watched.movieID
     FROM Watched
-    WHERE Watched.userID = 'frankvanvleet88'
+    WHERE Watched.userID = 'frankvanvleet40'
 )
 AND (Genre.genreID IN (
         SELECT MovieGenre.genreID
@@ -15,7 +15,7 @@ AND (Genre.genreID IN (
         WHERE MovieGenre.movieID IN (
             SELECT Watched.movieID
             FROM Watched
-            WHERE Watched.userID = 'frankvanvleet88' AND Watched.likes = 1
+            WHERE Watched.userID = 'frankvanvleet40' AND Watched.likes = 1
         )
     )
     OR Actor.actorID IN (
@@ -24,7 +24,7 @@ AND (Genre.genreID IN (
         WHERE Starred.movieID IN (
             SELECT Watched.movieID
             FROM Watched
-            WHERE Watched.userID = 'frankvanvleet88' AND Watched.likes = 1
+            WHERE Watched.userID = 'frankvanvleet40' AND Watched.likes = 1
         )
     )
 )

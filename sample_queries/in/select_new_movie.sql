@@ -3,6 +3,6 @@ FROM Movie
 WHERE Movie.movieID NOT IN (
     SELECT Watched.movieID
     FROM Watched
-    WHERE Watched.userID = 'frankvanvleet88'
+    WHERE Watched.userID = 'frankvanvleet40'
 )
 ORDER BY RANDOM();

@@ -23,3 +23,4 @@ WATCHED_FILENAME = ABS_DIR + CSV_DATA_FOLDER + "watched.csv"
 FOLLOWS_FILENAME = ABS_DIR + CSV_DATA_FOLDER + "follows.csv"
 
 API_KEY = "2d7c2393"
+DEFAULT_PROFILE_PIC_LINK = "https://powerusers.microsoft.com/t5/image/serverpage/image-id/98171iCC9A58CAF1C9B5B9/image-size/large/is-moderation-mode/true?v=v2&px=999"
