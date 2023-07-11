@@ -4,6 +4,7 @@
 
 {% block body %}
     <form action="" method="post">
+        <br>
         <h3 align="center">Sign Up</h3>
         <div class="form-group">
             <label for="firstName">First Name</label>
@@ -22,6 +23,14 @@
         <br />
         <div class="form-group">
             <label for="password1">Password</label>
+            <legend style="font-size:13px">Please enter a password that satisfies these requirements: <br>
+                <ul>
+                    <li>Password length is at least 8</li>
+                    <li>At least one lowercase letter</li>
+                    <li>At least one uppercase letter</li>
+                    <li>At least one number</li>
+                </ul>
+            </legend>
             <input type="password" class="form-control" name="password1" id="password1" placeholder="Enter password">
         </div>
         <br />

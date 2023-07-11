@@ -2,3 +2,4 @@ __pycache__/
 my-project-env/
 env/
 venv/
+toy_database.db
