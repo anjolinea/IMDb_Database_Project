@@ -7,33 +7,33 @@ JOIN Actor ON Starred.actorID = Actor.actorID
 WHERE Movie.movieID NOT IN (
     SELECT Watched.movieID
     FROM Watched
-    WHERE Watched.userID = 'frankvanvleet88'
+    WHERE Watched.userID = 'bobwatanabe57'
 )
 AND Movie.movieID NOT IN (
     SELECT Watched.movieID
     FROM Watched
-    WHERE Watched.userID = 'dansiakam52'
+    WHERE Watched.userID = 'danwatanabe10'
 )
 AND (
     Genre.genreID IN (
         SELECT FavGenre.genreID
         FROM FavGenre
-        WHERE FavGenre.userID = 'frankvanvleet88'
+        WHERE FavGenre.userID = 'bobwatanabe57'
     )
     OR Genre.genreID IN (
         SELECT FavGenre.genreID
         FROM FavGenre
-        WHERE FavGenre.userID = 'dansiakam52'
+        WHERE FavGenre.userID = 'danwatanabe10'
     )
     OR Actor.actorID IN (
         SELECT FavActor.actorID
         FROM FavActor
-        WHERE FavActor.userID = 'frankvanvleet88'
+        WHERE FavActor.userID = 'bobwatanabe57'
     )
     OR Actor.actorID IN (
         SELECT FavActor.actorID
         FROM FavActor
-        WHERE FavActor.userID = 'dansiakam52'
+        WHERE FavActor.userID = 'danwatanabe10'
     )
 )
 ORDER BY RANDOM()

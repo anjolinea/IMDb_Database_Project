@@ -28,7 +28,8 @@ random.seed(20880034)
 users_df = pd.DataFrame({'username': pd.Series(dtype='str'),
                          'firstName' : pd.Series(dtype='str'),
                          'lastName' : pd.Series(dtype="str"),
-                         'password' : pd.Series(dtype='str')})
+                         'userPassword' : pd.Series(dtype='str'),
+                         'profilePicLink' : pd.Series(dtype='str')})
 
 # hardcoded first, last names
 firstnames = ["alice", "bob", "charlie", "dan", "eve", "frank"]
@@ -44,8 +45,9 @@ for fn in firstnames:
         password = generate_password_hash(get_random_string(10), method='scrypt')
         fn_db = fn.capitalize()
         ln_db = ln.capitalize()
+        profile_link_db = DEFAULT_PROFILE_PIC_LINK
 
-        new_row = {'username': username, 'firstName': fn_db, 'lastName': ln_db, 'password' : password}
+        new_row = {'username': username, 'firstName': fn_db, 'lastName': ln_db, 'userPassword' : password, 'profilePicLink' : profile_link_db}
         
         # Use the loc method to add the new row to the DataFrame
         users_df.loc[len(users_df)] = new_row
@@ -129,7 +131,7 @@ for i in range(num_of_watched):
     if (username, movie) not in [(w[0], w[1]) for w in watched]:
         watched.append((username, movie, date_watched, liked))
 
-watched_df = pd.DataFrame(watched, columns=['userID', 'movieID', 'dateWatched', 'likes'])
+watched_df = pd.DataFrame(watched, columns=['userID', 'movieID', 'lastWatched', 'likes'])
 
 # upload tables to CSV files
 users_df.to_csv(USER_FILENAME, index=False)
