@@ -19,10 +19,14 @@ CREATE TABLE Movie (
     posterImgLink VARCHAR(150)
 );
 
+CREATE INDEX MovieTitleIndex ON Movie(movieTitle);
+
 CREATE TABLE Genre (
     genreID VARCHAR(3) NOT NULL PRIMARY KEY,
     genreName VARCHAR(50) NOT NULL
 );
+
+CREATE INDEX GenreNameIndex ON Genre(genreName);
 
 CREATE TABLE MovieGenre (
     movieID VARCHAR(15) NOT NULL REFERENCES Movie(movieID),
@@ -34,6 +38,8 @@ CREATE TABLE Actor (
     actorID VARCHAR(15) NOT NULL PRIMARY KEY,
     actorName VARCHAR(60) NOT NULL
 );
+
+CREATE INDEX ActorNameIndex ON Actor(actorName);
 
 CREATE TABLE Starred (
     movieID VARCHAR(15) NOT NULL REFERENCES Movie(movieID),
@@ -83,3 +89,5 @@ CREATE TABLE Watched (
     likes BIT,
     PRIMARY KEY(userID, movieID)
 );
+
+CREATE INDEX WatchedLastWatchedIndex ON Watched(lastWatched);

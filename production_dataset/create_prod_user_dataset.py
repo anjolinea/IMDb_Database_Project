@@ -42,7 +42,6 @@ users_df = pd.DataFrame({'username': pd.Series(dtype='str'),
 firstnames = load_names_into_set(FIRSTNAME_FILENAME)
 lastnames = load_names_into_set(LASTNAME_FILENAME)
 usernames = []
-
 for fn in firstnames:
     for ln in lastnames:
         # Define the new row to be added
@@ -67,7 +66,7 @@ follows_df = pd.DataFrame({'userID1': pd.Series(dtype='str'),
 # make followings
 followings = []
 num_of_following_pairs = 17500
-num_of_friend_pairs = 1250
+num_of_friend_pairs = 5000
 
 for i in range(num_of_following_pairs):
     while True:
@@ -91,7 +90,7 @@ follows_df = pd.DataFrame(followings, columns=['follower', 'following'])
 # FavActors
 actors = actors_df["actorID"].to_list()
 fav_actors = []
-num_of_fav_actors = 15000
+num_of_fav_actors = 20000
 for i in range(num_of_fav_actors):
     while True:
         u = random.choice(usernames)
@@ -105,7 +104,7 @@ favActors_df = pd.DataFrame(fav_actors, columns=['userID', 'actorID'])
 # FavGenre
 genres = genres_df["genreID"].to_list()
 fav_genres = []
-num_of_fav_genres = 5000
+num_of_fav_genres = 10000
 for i in range(num_of_fav_genres):
     while True:
         u = random.choice(usernames)
@@ -128,7 +127,7 @@ while start_dt <= end_dt:
 movies = movies_df["movieID"].to_list()
 
 watched = []
-num_of_watched = 10000
+num_of_watched = 20000
 for i in range(num_of_watched):
     liked = random.randint(0, 1)
     last_watched = random.choice(dates)
