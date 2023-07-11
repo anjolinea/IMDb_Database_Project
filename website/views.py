@@ -106,14 +106,14 @@ def profile():
             db.commit()
 
     following_query = f"""
-    SELECT userID2 AS following, firstName, lastName
+    SELECT userID2 AS following, firstName, lastName, profilePicLink
     FROM Follows, User
     WHERE userID1 = '{current_user.id}' AND username = userID2
     """
     following = db.execute(following_query).fetchall()
 
     followers_query = f"""
-    SELECT F1.userID1 AS follower, firstName, lastName, (
+    SELECT F1.userID1 AS follower, firstName, lastName, profilePicLink, (
         SELECT COUNT(*) FROM Follows F2 WHERE F2.userID2 = F1.userID1 AND F2.userID1 = F1.userID2
     ) AS isFollowing
     FROM Follows F1, User
@@ -137,7 +137,7 @@ def profile():
             Follows.userID1 = FollowersRecursive.follower_of_follower
         WHERE FollowersRecursive.level < 3 AND Follows.userID2 != '{current_user.id}'
     )
-    SELECT follower_of_follower AS follower, MIN(level) AS level, firstName, lastName
+    SELECT follower_of_follower AS follower, MIN(level) AS level, firstName, lastName, profilePicLink
     FROM FollowersRecursive, User
     WHERE username = follower_of_follower
     GROUP BY follower_of_follower
@@ -147,7 +147,7 @@ def profile():
 
     if is_search:
         search_query = f"""
-        SELECT username, firstName, lastName, (
+        SELECT username, firstName, lastName, profilePicLink, (
            SELECT COUNT(*) FROM Follows WHERE userID1 = '{current_user.id}' AND userID2 = username
         ) AS isFollowing
         FROM User 
