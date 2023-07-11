@@ -6,13 +6,13 @@ JOIN Genre ON MovieGenre.genreID = Genre.genreID
 JOIN Starred ON Movie.movieID = Starred.movieID
 JOIN Actor ON Starred.actorID = Actor.actorID
 JOIN FavGenre ON Genre.genreID = FavGenre.genreID 
-    AND FavGenre.userID = 'frankvanvleet88'
+    AND FavGenre.userID = 'frankvanvleet40'
 JOIN FavActor ON Actor.actorID = FavActor.actorID 
-    AND FavActor.userID = 'frankvanvleet88'
+    AND FavActor.userID = 'frankvanvleet40'
 WHERE Movie.movieID NOT IN (
     SELECT Watched.movieID
     FROM Watched
-    WHERE Watched.userID = 'frankvanvleet88'
+    WHERE Watched.userID = 'frankvanvleet40'
 )
 GROUP BY Movie.movieID, Movie.movieTitle
 ORDER BY recommendScore DESC

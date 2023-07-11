@@ -18,7 +18,7 @@ def load_toy_dataset(connection):
                     "Actor (actorID, actorName) VALUES (?, ?)",
                     "Starred (movieID, actorID) VALUES (?, ?)",
                     "ActorRole (movieID, actorID, roleName) VALUES (?, ?, ?)",
-                    "User (username, firstName, lastName, userPassword) VALUES (?, ?, ?, ?)",
+                    "User (username, firstName, lastName, userPassword, profilePicLink) VALUES (?, ?, ?, ?, ?)",
                     "Follows (userID1, userID2) VALUES (?, ?)",
                     "FavActor (userID, actorID) VALUES (?, ?)",
                     "FavGenre (userID, genreID) VALUES (?, ?)",

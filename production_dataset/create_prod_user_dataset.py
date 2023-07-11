@@ -35,7 +35,8 @@ random.seed(20880034)
 users_df = pd.DataFrame({'username': pd.Series(dtype='str'),
                          'firstName' : pd.Series(dtype='str'),
                          'lastName' : pd.Series(dtype="str"),
-                         'password' : pd.Series(dtype='str')})
+                         'userPassword' : pd.Series(dtype='str'),
+                         'profilePicLink' : pd.Series(dtype='str')})
 
 # hardcoded first, last names
 firstnames = load_names_into_set(FIRSTNAME_FILENAME)
@@ -48,12 +49,12 @@ for fn in firstnames:
         username = fn + ln + "{:02d}".format(int(random.random() * 100))
         usernames.append(username)
 
-        # TODO: change to hashing
         password = generate_password_hash(get_random_string(10), method='scrypt')
         fn_db = fn.capitalize()
         ln_db = ln.capitalize()
+        profile_link_db = DEFAULT_PROFILE_PIC_LINK
 
-        new_row = {'username': username, 'firstName': fn_db, 'lastName': ln_db, 'password' : password}
+        new_row = {'username': username, 'firstName': fn_db, 'lastName': ln_db, 'userPassword' : password, 'profilePicLink' : profile_link_db}
         
         # Use the loc method to add the new row to the DataFrame
         users_df.loc[len(users_df)] = new_row
