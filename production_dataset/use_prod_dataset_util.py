@@ -1,4 +1,5 @@
 import pandas as pd
+import time
 
 def load_csv_to_sql(connection, csv_filename, insert_string):
 
@@ -24,8 +25,10 @@ def run_command_from_string(connection, command, printOutput=False):
 def run_command_from_file(connection, input_filename, output_filename=None, printOutput=True):
     cursor = connection.cursor()
 
+    start = time.perf_counter()
     with open(input_filename) as f:
         cursor.execute(f.read())
+    end = time.perf_counter() - start
 
     rows = cursor.fetchall()
     field_names = [i[0] for i in cursor.description]
@@ -37,3 +40,5 @@ def run_command_from_file(connection, input_filename, output_filename=None, prin
     if output_filename is not None:
         df = pd.DataFrame(rows, columns=field_names)
         output_filename = df.to_csv(output_filename, index=False)
+
+    return end
