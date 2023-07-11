@@ -17,17 +17,29 @@
     <div class="form-group">
         <label for="genre">Genre</label>
         <select class="form-control" name="genre" id="genre">
-            <option value="">All</option>
+            <option value="all">All</option>
             {% for genre in genre_names %}
                 <option value="{{ genre }}">{{ genre }}</option>
             {% endfor %}
+        </select>
+    </div>
+
+     <div class="form-group">
+        <label for="sort-by">Sort By</label>
+        <select class="form-control" name="sort-by" id="sort-by">
+            <option value="none">None</option>
+            <option value="rating_asc">Rating (Ascending)</option>
+            <option value="rating_desc">Rating (Descending)</option>
+            <option value="year_asc">Year Released (Ascending)</option>
+            <option value="year_desc">Year Released (Descending)</option>
+            <option value="runtime_asc">Running Time (Ascending)</option>
+            <option value="runtime_desc">Running Time (Descending)</option>
         </select>
     </div>
     
     <br />
     <button type="submit" class="btn btn-primary">Search!</button>
 </form>
-{% if isSearch == true %}
 <br>
 {% for moviechunk in moviechunks %}
 <div class="card-group">
@@ -46,8 +58,4 @@
 </div>
 <br>
 {% endfor %}
-{% if moreLeft == true %}
-    <p>and more...</p>
-{% endif %}
-{% endif %}
 {% endblock %}

@@ -38,6 +38,7 @@ def search():
         title = request.form.get("title")
         actor_name = request.form.get("actor")
         genre_name = request.form.get("genre")
+        sort_by = request.form.get("sort-by")
         minimum_rating = 5  # hardcoded
 
         # empty string if nothing is returned
@@ -50,15 +51,43 @@ def search():
         JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
         JOIN Genre ON MovieGenre.genreID = Genre.genreID
         WHERE Actor.actorName LIKE '%{actor_name}%'
-            AND Genre.genreName LIKE '%{genre_name}%'
             AND Movie.movieTitle LIKE '%{title}%'
-            AND Movie.movieRating >= {minimum_rating};
+            AND Movie.movieRating >= {minimum_rating}
         """
+
+        if genre_name == "all":
+            print(genre_name)
+            query += ""
+        else:
+            query += f"AND Genre.genreName LIKE '%{genre_name}%'"
+
+        if sort_by == "rating_asc":
+            query += f"ORDER BY Movie.movieRating ASC"
+        elif sort_by == "rating_desc":
+            query += f"ORDER BY Movie.movieRating DESC"
+        elif sort_by == "year_asc":
+            query += f"ORDER BY Movie.yearReleased ASC"
+        elif sort_by == "year_desc":
+            query += f"ORDER BY Movie.yearReleased DESC"
+        elif sort_by == "runtime_asc":
+            query += f"ORDER BY Movie.runtime ASC"
+        elif sort_by == "runtime_desc":
+            query += f"ORDER BY Movie.runtime DESC"
+
         movies = db.execute(query).fetchall()
         moviechunks = split_moviechunks(movies, N, ROW_LIMIT)
         moreLeft = N * ROW_LIMIT < len(movies)
 
         db.close()
-        return render_template('search.html', isSearch=True, moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names)
+        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names)
     else:
-        return render_template('search.html', isSearch=False, genre_names=genre_names)
+        genre_name = request.form.get("genre")
+        query = f"""
+        SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+        FROM Movie;
+        """
+        movies = db.execute(query).fetchall()
+        moviechunks = split_moviechunks(movies, N, ROW_LIMIT)
+        moreLeft = N * ROW_LIMIT < len(movies)
+
+        return render_template('search.html',  moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names)
