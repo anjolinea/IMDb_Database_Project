@@ -79,7 +79,7 @@ def search():
         moreLeft = N * ROW_LIMIT < len(movies)
 
         db.close()
-        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names)
+        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names, title=title, actor=actor_name, genre=genre_name, sort_by=sort_by)
     else:
         genre_name = request.form.get("genre")
         query = f"""

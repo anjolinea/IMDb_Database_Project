@@ -8,35 +8,35 @@
     <h3 align="center">Search Movie</h3>
     <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" name="title" id="title" placeholder="Search title">
+        <input type="text" class="form-control" name="title" id="title" placeholder="Search title" value="{{ title }}">
     </div>
     <div class="form-group">
         <label for="actor">Actor</label>
-        <input type="text" class="form-control" name="actor" id="actor" placeholder="Search actor">
+        <input type="text" class="form-control" name="actor" id="actor" placeholder="Search actor" value="{{ actor }}">
     </div>
     <div class="form-group">
         <label for="genre">Genre</label>
         <select class="form-control" name="genre" id="genre">
-            <option value="all">All</option>
+            <option value="all" {% if request.form.genre == 'all' %}selected{% endif %}>All</option>
             {% for genre in genre_names %}
-                <option value="{{ genre }}">{{ genre }}</option>
+                <option value="{{ genre }}" {% if request.form.genre == genre %}selected{% endif %}>{{ genre }}</option>
             {% endfor %}
         </select>
     </div>
 
-     <div class="form-group">
+    <div class="form-group">
         <label for="sort-by">Sort By</label>
         <select class="form-control" name="sort-by" id="sort-by">
-            <option value="none">None</option>
-            <option value="rating_asc">Rating (Ascending)</option>
-            <option value="rating_desc">Rating (Descending)</option>
-            <option value="year_asc">Year Released (Ascending)</option>
-            <option value="year_desc">Year Released (Descending)</option>
-            <option value="runtime_asc">Running Time (Ascending)</option>
-            <option value="runtime_desc">Running Time (Descending)</option>
+            <option value="none" {% if sort_by == 'none' %}selected{% endif %}>None</option>
+            <option value="rating_asc" {% if sort_by == 'rating_asc' %}selected{% endif %}>Rating (Ascending)</option>
+            <option value="rating_desc" {% if sort_by == 'rating_desc' %}selected{% endif %}>Rating (Descending)</option>
+            <option value="year_asc" {% if sort_by == 'year_asc' %}selected{% endif %}>Year Released (Ascending)</option>
+            <option value="year_desc" {% if sort_by == 'year_desc' %}selected{% endif %}>Year Released (Descending)</option>
+            <option value="runtime_asc" {% if sort_by == 'runtime_asc' %}selected{% endif %}>Running Time (Ascending)</option>
+            <option value="runtime_desc" {% if sort_by == 'runtime_desc' %}selected{% endif %}>Running Time (Descending)</option>
         </select>
     </div>
-    
+
     <br />
     <button type="submit" class="btn btn-primary">Search!</button>
 </form>
