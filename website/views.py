@@ -54,7 +54,7 @@ def search():
     else:
         return render_template('search.html', isSearch=False)
 
-@views.route('/recommend')
+@views.route('/recommend', methods=["GET", "POST"])
 def recommend():
     # until username session stuff works
     temp_username = "frankvanvleet88"
@@ -107,6 +107,69 @@ def recommend():
     LIMIT 5;
     """
     rec_unwatched_faves = db.execute(unwatch_query).fetchall()
-    db.close()
 
-    return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves)
+    get_following_query = f"""
+    SELECT User.username, User.firstName, User.lastName
+    FROM Follows
+    JOIN User ON User.username == Follows.userID2
+    WHERE Follows.userID1 = '{temp_username}'
+    """
+    following = db.execute(get_following_query).fetchall()
+
+    if request.method == "POST":
+        second_username = request.form.get("recTwo")
+        query_rec_two = f"""
+        SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+        FROM Movie
+        JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
+        JOIN Genre ON MovieGenre.genreID = Genre.genreID
+        JOIN Starred ON Movie.movieID = Starred.movieID
+        JOIN Actor ON Starred.actorID = Actor.actorID
+        WHERE Movie.movieID NOT IN (
+            SELECT Watched.movieID
+            FROM Watched
+            WHERE Watched.userID = '{temp_username}'
+        )
+        AND Movie.movieID NOT IN (
+            SELECT Watched.movieID
+            FROM Watched
+            WHERE Watched.userID = '{second_username}'
+        )
+        AND (
+            Genre.genreID IN (
+                SELECT FavGenre.genreID
+                FROM FavGenre
+                WHERE FavGenre.userID = '{temp_username}'
+            )
+            OR Genre.genreID IN (
+                SELECT FavGenre.genreID
+                FROM FavGenre
+                WHERE FavGenre.userID = '{second_username}'
+            )
+            OR Actor.actorID IN (
+                SELECT FavActor.actorID
+                FROM FavActor
+                WHERE FavActor.userID = '{temp_username}'
+            )
+            OR Actor.actorID IN (
+                SELECT FavActor.actorID
+                FROM FavActor
+                WHERE FavActor.userID = '{second_username}'
+            )
+        )
+        ORDER BY RANDOM()
+        LIMIT 5;
+        """
+
+        user_info_query = f"""
+        SELECT * FROM User WHERE username = '{second_username}'
+        """
+        rec_two = db.execute(query_rec_two).fetchall()
+        second_user = db.execute(user_info_query).fetchone()
+        db.close()
+        return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves,
+                               following=following, rec_two=rec_two, second_user=second_user, firstClicked=True)
+    else:
+        db.close()
+        return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves,
+                               following=following, firstClicked=False)
