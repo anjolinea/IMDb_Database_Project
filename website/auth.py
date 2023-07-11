@@ -49,8 +49,8 @@ def sign_up():
             db = DB()
             cursor = db.cursor()
             cursor.execute(
-                "INSERT INTO User (username, firstname, lastname, userPassword) VALUES (?, ?, ?, ?)",
-                (username, firstName, lastName, passwordHash),
+                "INSERT INTO User (username, firstname, lastname, userPassword, profilePicLink) VALUES (?, ?, ?, ?, ?)",
+                (username, firstName, lastName, passwordHash, "https://powerusers.microsoft.com/t5/image/serverpage/image-id/98171iCC9A58CAF1C9B5B9/image-size/large/is-moderation-mode/true?v=v2&px=999"),
             )
             db.commit()
             db.close()
