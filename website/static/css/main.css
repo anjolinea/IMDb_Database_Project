@@ -2,3 +2,9 @@
     padding: 10px 0;
     height: 500px
 }
+
+.profile-photo {
+    width: 200px;
+    height: 200px;
+    background-color: #f0f0f0;
+}

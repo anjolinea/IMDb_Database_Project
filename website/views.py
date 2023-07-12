@@ -110,7 +110,7 @@ def profile():
     FROM Follows, User
     WHERE userID1 = '{current_user.id}' AND username = userID2
     """
-    following = db.execute(following_query).fetchall()
+    following = split_moviechunks(db.execute(following_query).fetchall(), N, ROW_LIMIT)
 
     followers_query = f"""
     SELECT F1.userID1 AS follower, firstName, lastName, profilePicLink, (
@@ -119,7 +119,7 @@ def profile():
     FROM Follows F1, User
     WHERE F1.userID2 = '{current_user.id}' AND username = F1.userID1
     """
-    followers = db.execute(followers_query).fetchall()
+    followers = split_moviechunks(db.execute(followers_query).fetchall(), N, ROW_LIMIT)
 
     suggested_query = f"""
     WITH RECURSIVE FollowersRecursive AS (
@@ -143,7 +143,7 @@ def profile():
     GROUP BY follower_of_follower
     ORDER BY level;
     """
-    suggested = db.execute(suggested_query).fetchall()
+    suggested = split_moviechunks(db.execute(suggested_query).fetchall(), N, ROW_LIMIT)
 
     if is_search:
         search_query = f"""
@@ -151,9 +151,9 @@ def profile():
            SELECT COUNT(*) FROM Follows WHERE userID1 = '{current_user.id}' AND userID2 = username
         ) AS isFollowing
         FROM User 
-        WHERE firstName LIKE '%{firstName}%' AND lastName LIKE '%{lastName}%'
+        WHERE firstName LIKE '%{firstName}%' AND lastName LIKE '%{lastName}%' AND username != '{current_user.id}'
         """
-        search_results = db.execute(search_query).fetchall()
+        search_results = split_moviechunks(db.execute(search_query).fetchall(), N, ROW_LIMIT)
     else:
         firstName = ""
         lastName = ""

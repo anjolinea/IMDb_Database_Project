@@ -67,13 +67,16 @@ body {font-family: Arial;}
 <div id="Following" class="tabcontent">
   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
   <h3></h3><h3>Who You Follow:</h3>
-  {% for followed in following %}
+  {% for userChunk in following %}
     <div class="card-group">
+        {% for followed in userChunk %}
         <div class="card text-bg-light mb-3">
             <div class="card-header">{{ followed['following'] }}</div>
+            <div class="profile-photo">
+                <img class="card-img-top embed-responsive-item" src={{ followed['profilePicLink'] }}>
+              </div>
             <div class="card-body">
                 <h5 class="card-title">{{ followed['firstName'] }} {{ followed['lastName'] }}</h5>
-                <img class="card-img-top embed-responsive-item" src={{ followed['profilePicLink'] }}>
             </div>
             <div class="card-footer">
                 <form action="" method="post">
@@ -81,6 +84,7 @@ body {font-family: Arial;}
                 </form>
             </div>
         </div>
+        {% endfor %}
     </div>
     {% endfor %}
 </div>
@@ -88,13 +92,16 @@ body {font-family: Arial;}
 <div id="Followers" class="tabcontent">
   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
   <h3></h3><h3>Who Follows You:</h3>
-  {% for follower in followers %}
+  {% for userChunk in followers %}
     <div class="card-group">
+        {% for follower in userChunk %}
         <div class="card text-bg-light mb-3">
             <div class="card-header">{{ follower['follower'] }}</div>
+            <div class="profile-photo">
+                <img class="card-img-top embed-responsive-item" src={{ follower['profilePicLink'] }}>
+              </div>
             <div class="card-body">
                 <h5 class="card-title">{{ follower['firstName'] }} {{ follower['lastName'] }}</h5>
-                <img class="card-img-top embed-responsive-item" src={{ follower['profilePicLink'] }}>
             </div>
             <div class="card-footer">
                 <form action="" method="post">
@@ -106,6 +113,7 @@ body {font-family: Arial;}
                 </form>
             </div>
         </div>
+        {% endfor %}
     </div>
     {% endfor %}
 </div>
@@ -113,15 +121,18 @@ body {font-family: Arial;}
 <div id="Suggested" class="tabcontent">
     <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
     <h3></h3><h3>Suggestions to Follow:</h3>
-    {% for follower in suggested %}
-    {% if follower['level'] != 0 %}
+    {% for userChunk in suggested %}
     <div class="card-group">
+        {% for follower in userChunk %}
+        {% if follower['level'] != 0 %}
         <div class="card text-bg-light mb-3">
             <div class="card-header">{{ follower['follower'] }}</div>
+            <div class="profile-photo">
+                <img class="card-img-top embed-responsive-item" src={{ follower['profilePicLink'] }}>
+              </div>
             <div class="card-body">
                 <h5 class="card-title">{{ follower['firstName'] }} {{ follower['lastName'] }}</h5>
                 <p class="card-text">level {{ follower['level'] }} connection</p>
-                <img class="card-img-top embed-responsive-item" src={{ follower['profilePicLink'] }}>
             </div>
             <div class="card-footer">
                 <form action="" method="post">
@@ -129,8 +140,9 @@ body {font-family: Arial;}
                 </form>
             </div>
         </div>
+        {% endif %}
+        {% endfor %}
     </div>
-    {% endif %}
     {% endfor %}
   </div>
 
@@ -148,13 +160,16 @@ body {font-family: Arial;}
     </form>
 
     {% if is_search %}
-    {% for user in search_results %}
+    {% for userChunk in search_results %}
       <div class="card-group">
+        {% for user in userChunk %}
           <div class="card text-bg-light mb-3">
               <div class="card-header">{{ user['username'] }}</div>
+              <div class="profile-photo">
+                <img class="card-img-top embed-responsive-item" src={{ user['profilePicLink'] }}>
+              </div>
               <div class="card-body">
                   <h5 class="card-title">{{ user['firstName'] }} {{ user['lastName'] }}</h5>
-                  <img class="card-img-top embed-responsive-item" src={{ user['profilePicLink'] }}>
               </div>
               <div class="card-footer">
                 <form action="" method="post">
@@ -166,6 +181,7 @@ body {font-family: Arial;}
             </form>
               </div>
           </div>
+          {% endfor %}
       </div>
       {% endfor %}
       {% endif %}
