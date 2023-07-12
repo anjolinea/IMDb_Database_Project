@@ -72,6 +72,7 @@ Your search does not need to be exact.
 
 9. FEATURE: As part of the Recommend page, you can click on the username within the user card in order to get recommendations of movies to watch with this other user. This other user is one who you follow and also follows you
 ![Recommend For Friend 1](readme_pictures/milestone2_recfriend1.png)
+After clicking on one of the username buttons the following loads
 ![Recommend For Friend 2](readme_pictures/milestone2_recfriend2.png)
 
 8. Once you are all done you can logout. 
