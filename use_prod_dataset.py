@@ -12,7 +12,7 @@ load_prod_dataset(connection)
 
 # --- for playing around with SQL files -----
 def test_SQL_query():
-    test_name = "search_movie_on_criteria"
+    test_name = "connections"
 
     in_query_folder = "production_sample_queries/in/"
     in_query_file = test_name + ".sql"
@@ -32,7 +32,6 @@ print('{:.6f}s on average for the query'.format(latency))
 # ------------------
 
 query = """
-SELECT COUNT(*) AS COUNT_THING, userID FROM Watched GROUP BY userID ORDER BY COUNT_THING DESC;
 """
 
 ## a CHECK constraint violation should happen!

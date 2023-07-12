@@ -7,4 +7,5 @@ JOIN Genre ON MovieGenre.genreID = Genre.genreID
 WHERE Actor.actorName LIKE '%Z%'
     AND Genre.genreName LIKE '%Action%'
     AND Movie.movieTitle LIKE '%'
-    AND Movie.movieRating >= 5;
+    AND Movie.movieRating >= 5
+LIMIT 10;
