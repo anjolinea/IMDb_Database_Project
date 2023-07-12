@@ -53,6 +53,6 @@ flask --app app.py --debug run
 4. You should see the local website on http://127.0.0.1:5000/. 
 ![Home UI](readme_pictures/m1_home.png)
 
-5. FEATURE: You can navigate to the search page and search by title, genre, or actor.
+5. FEATURE: You can navigate to the search page and search by title, genre, or actor and sort by rating, year released and runtime in ascending and descending order.
 Your search does not need to be exact.
-![Search UI](readme_pictures/m1_search.png)
+![Search UI](readme_pictures/m2_search.png)
