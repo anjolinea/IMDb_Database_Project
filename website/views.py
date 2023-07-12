@@ -106,14 +106,14 @@ def profile():
             db.commit()
 
     following_query = f"""
-    SELECT userID2 AS following, firstName, lastName, profilePicLink
+    SELECT userID2 AS username, firstName, lastName, profilePicLink
     FROM Follows, User
     WHERE userID1 = '{current_user.id}' AND username = userID2
     """
     following = split_moviechunks(db.execute(following_query).fetchall(), N, ROW_LIMIT)
 
     followers_query = f"""
-    SELECT F1.userID1 AS follower, firstName, lastName, profilePicLink, (
+    SELECT F1.userID1 AS username, firstName, lastName, profilePicLink, (
         SELECT COUNT(*) FROM Follows F2 WHERE F2.userID2 = F1.userID1 AND F2.userID1 = F1.userID2
     ) AS isFollowing
     FROM Follows F1, User
@@ -122,28 +122,35 @@ def profile():
     followers = split_moviechunks(db.execute(followers_query).fetchall(), N, ROW_LIMIT)
 
     suggested_query = f"""
-    WITH RECURSIVE FollowersRecursive AS (
-        SELECT Follows.userID1 AS follower,
-            Follows.userID2 AS follower_of_follower, 
-            0 AS level
-        FROM Follows
-        WHERE Follows.userID1 = '{current_user.id}'
-        UNION ALL
-        SELECT FollowersRecursive.follower,
-            Follows.userID2, 
-            FollowersRecursive.level + 1
-        FROM Follows
-        JOIN FollowersRecursive ON 
-            Follows.userID1 = FollowersRecursive.follower_of_follower
-        WHERE FollowersRecursive.level < 3 AND Follows.userID2 != '{current_user.id}'
-    )
-    SELECT follower_of_follower AS follower, MIN(level) AS level, firstName, lastName, profilePicLink
-    FROM FollowersRecursive, User
-    WHERE username = follower_of_follower
-    GROUP BY follower_of_follower
-    ORDER BY level;
+    SELECT * FROM (
+        WITH RECURSIVE FollowersRecursive AS (
+            SELECT Follows.userID1 AS follower,
+                Follows.userID2 AS follower_of_follower, 
+                0 AS level
+            FROM Follows
+            WHERE Follows.userID1 = '{current_user.id}'
+            UNION ALL
+            SELECT FollowersRecursive.follower,
+                Follows.userID2, 
+                FollowersRecursive.level + 1
+            FROM Follows
+            JOIN FollowersRecursive ON 
+                Follows.userID1 = FollowersRecursive.follower_of_follower
+            WHERE FollowersRecursive.level < 3 AND Follows.userID2 != '{current_user.id}'
+        )
+        SELECT follower_of_follower AS follower, MIN(level) AS level, firstName, lastName, profilePicLink
+        FROM FollowersRecursive, User
+        WHERE username = follower_of_follower
+        GROUP BY follower_of_follower
+        ORDER BY level)
+    WHERE level > 0;
     """
     suggested = split_moviechunks(db.execute(suggested_query).fetchall(), N, ROW_LIMIT)
+
+    user_info_query = f"""
+    SELECT * FROM User WHERE username = '{current_user.id}'
+    """
+    user_info = db.execute(user_info_query).fetchall()[0]
 
     if is_search:
         search_query = f"""
@@ -161,7 +168,7 @@ def profile():
 
     db.close()
 
-    return render_template('profile.html', user=current_user, following=following, followers=followers, suggested=suggested, is_search=is_search, search_results=search_results, firstName=firstName, lastName=lastName)
+    return render_template('profile.html', user=current_user, user_info=user_info, following=following, followers=followers, suggested=suggested, is_search=is_search, search_results=search_results, firstName=firstName, lastName=lastName)
     
 @views.route('/settings', methods=["GET", "POST"])
 @login_required
