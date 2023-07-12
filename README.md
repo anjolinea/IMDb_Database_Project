@@ -1,9 +1,11 @@
 # IMDb_Database_Project
 
 ### Overview
-Our app is called Cinemate: a mix between Netflix and Spotify! We wanted to add a social aspect to tracking movies we've watched. Currently, the app supports the following features: a case sensitive search by movie title, genre, and actor. 
-
-TODO HERE JOLINE
+Our app is called Cinemate: a mix between Netflix and Spotify! We wanted to add a social aspect to tracking movies we've watched. Currently, the app supports the following features: 
+- a case sensitive search by movie title, genre, and actor. 
+- recommendations of movies to rewatch
+- recommendations of movies based on your genre/actor likes
+- recommendations of movies based on you and one of your friends' combined tastes
 
 ### How to Load Sample Database
 
@@ -73,7 +75,7 @@ Your search does not need to be exact.
 ![Search UI](readme_pictures/milestone2_search.png)
 
 8. Clicking the "Recommend" button in the navigation will take you to the recommend page.
-   FEATURE: The Recommend page will automatically load movie cards of movies you have previously watched (having watched them over 30 days ago) and liked, and will recommend them to you
+   FEATURE: The Recommend page will automatically load movie cards of movies you have previously watched (having watched them over 30 days ago) and liked, and will recommend them to you to rewatch
    FEATURE: The recommend page will automatically load movie cards of movies you might like based on your Genre and Actor likes. These movies are ones you, the user, has not watched yet
 ![Recommend Features](readme_pictures/milestone2_recommend.png)
 
