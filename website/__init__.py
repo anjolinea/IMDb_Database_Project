@@ -11,7 +11,7 @@ def DB():
 def db_init():
     conn = sqlite3.connect('toy_database.db')
     # uncomment this line back in if you want a fresh new toy database
-    load_toy_dataset(conn)
+    # load_toy_dataset(conn)
 
     conn.commit()
     conn.close()
