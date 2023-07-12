@@ -3,6 +3,6 @@ FROM User
 JOIN Follows ON User.username = Follows.userID1
 JOIN Watched ON Follows.userID2 = Watched.userID
 JOIN Movie ON Watched.movieID = Movie.movieID
-WHERE User.username = 'frankvanvleet40'
+WHERE User.username = 'jenniferhernandez64'
 ORDER BY Watched.lastWatched DESC
-LIMIT 5;
+LIMIT 10;

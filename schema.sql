@@ -47,6 +47,9 @@ CREATE TABLE Starred (
     PRIMARY KEY(movieID, actorID)
 );
 
+-- usually searching on actors' movies, not movies' actors
+CREATE INDEX StarredIndex ON Starred(actorID, movieID);
+
 CREATE TABLE ActorRole (
     movieID VARCHAR(15) NOT NULL,
     actorID VARCHAR(15) NOT NULL,
@@ -90,4 +93,5 @@ CREATE TABLE Watched (
     PRIMARY KEY(userID, movieID)
 );
 
-CREATE INDEX WatchedLastWatchedIndex ON Watched(lastWatched);
+--CREATE INDEX WatcheduserIDIndex ON Watched(userID);
+--CREATE INDEX WatchedLastWatchedIndex ON Watched(lastWatched);
