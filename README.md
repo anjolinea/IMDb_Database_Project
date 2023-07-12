@@ -84,7 +84,19 @@ Your search does not need to be exact.
 After clicking on one of the username buttons the following loads
 ![Recommend For Friend 2](readme_pictures/milestone2_recfriend2.png)
 
-10. Once you are all done you can logout. 
+10. FEATURE: On the Profile page, you can follow and unfollow users. 
+You can view your followers:
+![View Followers](readme_pictures/m2_Followers.png)
+See who you are following:
+![View Following](readme_pictures/m2_Following.png)
+See followers of users you follow:
+![View Suggested](readme_pictures/m2_Suggested.png)
+Search for other users:
+![Search Users](readme_pictures/m2_Suggested.png)
+You can also click the Update Information button to update your display name and/or password:
+![Update Info](readme_pictures/m2_Update_Information.png)
+
+11. Once you are all done you can logout. 
 ![Logout UI](readme_pictures/milestone2_logout.png)
 
 If you want to login with a user who has movies watched, liked, and is following other users, use the following credentials:
