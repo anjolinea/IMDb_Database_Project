@@ -59,7 +59,7 @@ flask --app app.py --debug run
 6. After login/sign-up you should see the home page for movie recommendations. FANCY FEATURE: Logged in user will be "remembered". This means unless the user logs out or the flask server is shutdown, user will remain signed in.
 ![Home UI](readme_pictures/m2_home.png)
 
-7. FEATURE: You can navigate to the search page and search by title, genre, or actor.
+5. FEATURE: You can navigate to the search page and search by title, genre, or actor and sort by rating, year released and runtime in ascending and descending order.
 Your search does not need to be exact.
 ![Search UI](readme_pictures/m2_search.png)
 

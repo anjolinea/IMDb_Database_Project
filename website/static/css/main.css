@@ -19,6 +19,11 @@
     transition: 0.2s;
 }
 
+.big-card{
+    max-width:325px;
+    height:485px;
+}
+
 .horizontal-card:hover{
     box-shadow: -4px -4px 2px #cad2de;
 }
