@@ -149,7 +149,7 @@ def profile():
     FROM Follows, User
     WHERE userID1 = '{current_user.id}' AND username = userID2
     """
-    following = split_moviechunks(db.execute(following_query).fetchall(), N, ROW_LIMIT)
+    following = db.execute(following_query).fetchall()
 
     followers_query = f"""
     SELECT F1.userID1 AS username, firstName, lastName, profilePicLink, (
@@ -158,7 +158,7 @@ def profile():
     FROM Follows F1, User
     WHERE F1.userID2 = '{current_user.id}' AND username = F1.userID1
     """
-    followers = split_moviechunks(db.execute(followers_query).fetchall(), N, ROW_LIMIT)
+    followers = db.execute(followers_query).fetchall()
 
     suggested_query = f"""
     SELECT * FROM (
@@ -184,7 +184,7 @@ def profile():
         ORDER BY level)
     WHERE level > 0;
     """
-    suggested = split_moviechunks(db.execute(suggested_query).fetchall(), N, ROW_LIMIT)
+    suggested = db.execute(suggested_query).fetchall()
 
     user_info_query = f"""
     SELECT * FROM User WHERE username = '{current_user.id}'
@@ -199,7 +199,7 @@ def profile():
         FROM User 
         WHERE firstName LIKE '%{firstName}%' AND lastName LIKE '%{lastName}%' AND username != '{current_user.id}'
         """
-        search_results = split_moviechunks(db.execute(search_query).fetchall(), N, ROW_LIMIT)
+        search_results = db.execute(search_query).fetchall()
     else:
         firstName = ""
         lastName = ""
