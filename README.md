@@ -51,17 +51,28 @@ set FLASK_ENV=development
 flask --app app.py --debug run
 ```
 4. You should see the local website on http://127.0.0.1:5000/. 
-![Login UI](readme_pictures/m2_login.png)
+![Login UI](readme_pictures/milestone2_login.png)
 
 5. If you are a new user you can sign up. FANCY FEATURE: The sign up and storage of password is secure as the passwords are hashed.
-![Signup UI](readme_pictures/m2_signup.png)
+![Signup UI](readme_pictures/milestone2_signup.png)
 
-6. After login/sign-up you should see the home page for movie recommendations. FANCY FEATURE: Logged in user will be "remembered". This means unless the user logs out or the flask server is shutdown, user will remain signed in.
-![Home UI](readme_pictures/m2_home.png)
+6. After login/sign-up you should see the home page for movie recommendations.
+   FANCY FEATURE: Logged in user will be "remembered". This means unless the user logs out or the flask server is shutdown, user will remain signed in.
+   UI FEATURE: Tooltips available upon hovering the movie card
+![Home UI](readme_pictures/milestone2_loggedin.png)
 
-5. FEATURE: You can navigate to the search page and search by title, genre, or actor and sort by rating, year released and runtime in ascending and descending order.
+7. FEATURE: You can navigate to the search page and search by title, genre, or actor and sort by rating, year released and runtime in ascending and descending order.
 Your search does not need to be exact.
-![Search UI](readme_pictures/m2_search.png)
+![Search UI](readme_pictures/milestone2_search.png)
+
+8. Clicking the "Recommend" button in the navigation will take you to the recommend page.
+   FEATURE: The Recommend page will automatically load movie cards of movies you have previously watched (having watched them over 30 days ago) and liked, and will recommend them to you
+   FEATURE: The recommend page will automatically load movie cards of movies you might like based on your Genre and Actor likes. These movies are ones you, the user, has not watched yet
+![Recommend Features](readme_pictures/milestone2_recommend.png)
+
+9. FEATURE: As part of the Recommend page, you can click on the username within the user card in order to get recommendations of movies to watch with this other user. This other user is one who you follow and also follows you
+![Recommend For Friend 1](readme_pictures/milestone2_recfriend1.png)
+![Recommend For Friend 2](readme_pictures/milestone2_recfriend2.png)
 
 8. Once you are all done you can logout. 
-![Logout UI](readme_pictures/m2_logout.png)
+![Logout UI](readme_pictures/milestone2_logout.png)
