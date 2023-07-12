@@ -169,8 +169,3 @@ def profile():
     db.close()
 
     return render_template('profile.html', user=current_user, user_info=user_info, following=following, followers=followers, suggested=suggested, is_search=is_search, search_results=search_results, firstName=firstName, lastName=lastName)
-    
-@views.route('/settings', methods=["GET", "POST"])
-@login_required
-def settings():
-    return render_template('settings.html', user=current_user)
