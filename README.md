@@ -92,7 +92,7 @@ See who you are following:
 See followers of users you follow:
 ![View Suggested](readme_pictures/m2_Suggested.png)
 Search for other users:
-![Search Users](readme_pictures/m2_Suggested.png)
+![Search Users](readme_pictures/m2_Discover.png)
 You can also click the Update Information button to update your display name and/or password:
 ![Update Info](readme_pictures/m2_Update_Information.png)
 
