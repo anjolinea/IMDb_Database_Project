@@ -12,7 +12,7 @@ load_prod_dataset(connection)
 
 # --- for playing around with SQL files -----
 def test_SQL_query():
-    test_name = "select_new_movie"
+    test_name = "connections"
 
     in_query_folder = "production_sample_queries/in/"
     in_query_file = test_name + ".sql"
