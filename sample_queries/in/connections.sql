@@ -3,7 +3,7 @@ WITH RECURSIVE FollowersRecursive AS (
         Follows.userID2 AS follower_of_follower, 
         0 AS level
     FROM Follows
-    WHERE Follows.userID1 = 'frankvanvleet88'
+    WHERE Follows.userID1 = 'frankvanvleet40'
     UNION ALL
     SELECT FollowersRecursive.follower,
         Follows.userID2, 

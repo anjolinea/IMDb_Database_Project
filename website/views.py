@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request
 from . import DB
+from flask_login import login_required, current_user
 
 views = Blueprint('views', __name__)
 
@@ -12,6 +13,7 @@ def split_moviechunks(movies, n, row_limit):
 
 
 @views.route('/')
+@login_required
 def home():
     db = DB()
 
@@ -22,10 +24,11 @@ def home():
     moviechunks = split_moviechunks(movies, N, ROW_LIMIT)
 
     db.close()
-    return render_template('home.html', moviechunks=moviechunks)
+    return render_template('home.html', moviechunks=moviechunks, user=current_user)
 
 
 @views.route('/search', methods=["GET", "POST"])
+@login_required
 def search():
     db = DB()
     query_genres = """
@@ -79,7 +82,7 @@ def search():
         moreLeft = N * ROW_LIMIT < len(movies)
 
         db.close()
-        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names, title=title, actor=actor_name, genre=genre_name, sort_by=sort_by)
+        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names, title=title, actor=actor_name, genre=genre_name, sort_by=sort_by,  user=current_user)
     else:
         genre_name = request.form.get("genre")
         query = f"""
@@ -90,4 +93,5 @@ def search():
         moviechunks = split_moviechunks(movies, N, ROW_LIMIT)
         moreLeft = N * ROW_LIMIT < len(movies)
 
-        return render_template('search.html',  moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names)
+        return render_template('search.html',  moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names,  user=current_user)
+

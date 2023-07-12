@@ -51,8 +51,17 @@ set FLASK_ENV=development
 flask --app app.py --debug run
 ```
 4. You should see the local website on http://127.0.0.1:5000/. 
-![Home UI](readme_pictures/m1_home.png)
+![Login UI](readme_pictures/m2_login.png)
+
+5. If you are a new user you can sign up. FANCY FEATURE: The sign up and storage of password is secure as the passwords are hashed.
+![Signup UI](readme_pictures/m2_signup.png)
+
+6. After login/sign-up you should see the home page for movie recommendations. FANCY FEATURE: Logged in user will be "remembered". This means unless the user logs out or the flask server is shutdown, user will remain signed in.
+![Home UI](readme_pictures/m2_home.png)
 
 5. FEATURE: You can navigate to the search page and search by title, genre, or actor and sort by rating, year released and runtime in ascending and descending order.
 Your search does not need to be exact.
 ![Search UI](readme_pictures/m2_search.png)
+
+8. Once you are all done you can logout. 
+![Logout UI](readme_pictures/m2_logout.png)
