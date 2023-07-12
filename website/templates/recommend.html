@@ -36,13 +36,14 @@
     {% endfor %}
 </div>
 <br>
-<h3>Recommend a Movie to Watch With...</h3>
+<h3>Recommend a Movie to Watch With my Friend...</h3>
 <div class="horizontal-card-group">
     <form action="" method="post">
         {% for user in following %}
             <div class="card horizontal-card text-bg-light mb-3">
                 <div class="card-body flex-column">
                     <h5 class="card-title text-truncate">{{ user['firstName'] }} {{ user['lastName'] }}</h5>
+                    <img class="card-img-user embed-responsive-item" src={{ user['profilePicLink'] }}>
                     <input type="submit" class="form-control" name="recTwo" value="{{user['username']}}">
                 </div>
                  <div class="card-footer">

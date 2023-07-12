@@ -59,21 +59,21 @@ def search():
 
 @views.route('/recommend', methods=["GET", "POST"])
 def recommend():
-    # until username session stuff works
-    temp_username = "frankvanvleet88"
-
     db = DB()
+    print(current_user.id)
     rewatch_query = f"""
     SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
     FROM Movie
     JOIN Watched ON Movie.movieID = Watched.movieID
-    WHERE Watched.userID = '{temp_username}'
+    WHERE Watched.userID = '{current_user.id}'
       AND Watched.likes = 1
       AND Watched.lastWatched <= DATETIME(CURRENT_DATE, '-30 day')
     ORDER BY Watched.lastWatched ASC
     LIMIT 5
     """
     again_movies = db.execute(rewatch_query).fetchall()
+    for item in again_movies:
+        print(item)
 
     unwatch_query = f"""
     SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
@@ -85,7 +85,7 @@ def recommend():
     WHERE Movie.movieID NOT IN (
         SELECT Watched.movieID
         FROM Watched
-        WHERE Watched.userID = '{temp_username}'
+        WHERE Watched.userID = '{current_user.id}'
     )
     AND (Genre.genreID IN (
             SELECT MovieGenre.genreID
@@ -93,7 +93,7 @@ def recommend():
             WHERE MovieGenre.movieID IN (
                 SELECT Watched.movieID
                 FROM Watched
-                WHERE Watched.userID = '{temp_username}' AND Watched.likes = 1
+                WHERE Watched.userID = '{current_user.id}' AND Watched.likes = 1
             )
         )
         OR Actor.actorID IN (
@@ -102,7 +102,7 @@ def recommend():
             WHERE Starred.movieID IN (
                 SELECT Watched.movieID
                 FROM Watched
-                WHERE Watched.userID = '{temp_username}' AND Watched.likes = 1
+                WHERE Watched.userID = '{current_user.id}' AND Watched.likes = 1
             )
         )
     )
@@ -111,13 +111,14 @@ def recommend():
     """
     rec_unwatched_faves = db.execute(unwatch_query).fetchall()
 
-    get_following_query = f"""
-    SELECT User.username, User.firstName, User.lastName
-    FROM Follows
-    JOIN User ON User.username == Follows.userID2
-    WHERE Follows.userID1 = '{temp_username}'
+    get_friend_query = f"""
+    SELECT User.username, User.firstName, User.lastName, User.profilePicLink
+    FROM (SELECT f1.userID1 user, f1.userID2 friend 
+        FROM Follows f1, Follows f2
+        WHERE f1.userID1 = '{current_user.id}' AND f2.userID1 = f1.userID2 AND f2.userID2 = '{current_user.id}') t1
+    JOIN User ON t1.friend = User.username
     """
-    following = db.execute(get_following_query).fetchall()
+    following = db.execute(get_friend_query).fetchall()
 
     if request.method == "POST":
         second_username = request.form.get("recTwo")
@@ -131,7 +132,7 @@ def recommend():
         WHERE Movie.movieID NOT IN (
             SELECT Watched.movieID
             FROM Watched
-            WHERE Watched.userID = '{temp_username}'
+            WHERE Watched.userID = '{current_user.id}'
         )
         AND Movie.movieID NOT IN (
             SELECT Watched.movieID
@@ -142,7 +143,7 @@ def recommend():
             Genre.genreID IN (
                 SELECT FavGenre.genreID
                 FROM FavGenre
-                WHERE FavGenre.userID = '{temp_username}'
+                WHERE FavGenre.userID = '{current_user.id}'
             )
             OR Genre.genreID IN (
                 SELECT FavGenre.genreID
@@ -152,7 +153,7 @@ def recommend():
             OR Actor.actorID IN (
                 SELECT FavActor.actorID
                 FROM FavActor
-                WHERE FavActor.userID = '{temp_username}'
+                WHERE FavActor.userID = '{current_user.id}'
             )
             OR Actor.actorID IN (
                 SELECT FavActor.actorID
@@ -171,8 +172,8 @@ def recommend():
         second_user = db.execute(user_info_query).fetchone()
         db.close()
         return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves,
-                               following=following, rec_two=rec_two, second_user=second_user, firstClicked=True)
+                               following=following, rec_two=rec_two, second_user=second_user, user=current_user, firstClicked=True)
     else:
         db.close()
         return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves,
-                               following=following, firstClicked=False)
+                               following=following, user=current_user, firstClicked=False)
