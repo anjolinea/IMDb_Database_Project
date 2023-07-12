@@ -6,6 +6,7 @@ Our app is called Cinemate: a mix between Netflix and Spotify! We wanted to add 
 - recommendations of movies to rewatch
 - recommendations of movies based on your genre/actor likes
 - recommendations of movies based on you and one of your friends' combined tastes
+- see your connections based on people you follow, like LinkedIn's connections
 
 ### How to Load Sample Database
 
