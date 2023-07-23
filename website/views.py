@@ -36,6 +36,8 @@ def search():
         """
     genres = db.execute(query_genres).fetchall()
     genre_names = [genre[0] for genre in genres]
+    sort_by_fields = ["Rating (Ascending)", "Rating (Descending)", "Year Released (Ascending)",
+                      "Year Released (Descending)", "Runtime (Ascending)", "Runtime (Descending)"]
 
     if request.method == "POST":
         title = request.form.get("title")
@@ -59,30 +61,31 @@ def search():
         """
 
         if genre_name == "all":
-            print(genre_name)
             query += ""
         else:
             query += f"AND Genre.genreName LIKE '%{genre_name}%'"
 
-        if sort_by == "rating_asc":
+        if sort_by == "Rating (Ascending)":
             query += f"ORDER BY Movie.movieRating ASC"
-        elif sort_by == "rating_desc":
+        elif sort_by == "Rating (Descending)":
             query += f"ORDER BY Movie.movieRating DESC"
-        elif sort_by == "year_asc":
+        elif sort_by == "Year Released (Ascending)":
             query += f"ORDER BY Movie.yearReleased ASC"
-        elif sort_by == "year_desc":
+        elif sort_by == "Year Released (Descending)":
             query += f"ORDER BY Movie.yearReleased DESC"
-        elif sort_by == "runtime_asc":
+        elif sort_by == "Runtime (Ascending)":
             query += f"ORDER BY Movie.runtime ASC"
-        elif sort_by == "runtime_desc":
+        elif sort_by == "Runtime (Descending)":
             query += f"ORDER BY Movie.runtime DESC"
+        elif sort_by == "none":
+            query += ""
 
         movies = db.execute(query).fetchall()
         moviechunks = split_moviechunks(movies, N, ROW_LIMIT)
         moreLeft = N * ROW_LIMIT < len(movies)
 
         db.close()
-        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names, title=title, actor=actor_name, genre=genre_name, sort_by=sort_by,  user=current_user)
+        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names, sort_by_fields=sort_by_fields, title=title, actor=actor_name, genre=genre_name, sort_by=sort_by,  user=current_user)
     else:
         genre_name = request.form.get("genre")
         query = f"""
@@ -93,5 +96,4 @@ def search():
         moviechunks = split_moviechunks(movies, N, ROW_LIMIT)
         moreLeft = N * ROW_LIMIT < len(movies)
 
-        return render_template('search.html',  moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names,  user=current_user)
-
+        return render_template('search.html',  moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names, sort_by_fields=sort_by_fields, user=current_user)

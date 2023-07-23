@@ -25,15 +25,12 @@
     </div>
 
     <div class="form-group">
-        <label for="sort-by">Sort By</label>
-        <select class="form-control" name="sort-by" id="sort-by">
-            <option value="none" {% if sort_by == 'none' %}selected{% endif %}>None</option>
-            <option value="rating_asc" {% if sort_by == 'rating_asc' %}selected{% endif %}>Rating (Ascending)</option>
-            <option value="rating_desc" {% if sort_by == 'rating_desc' %}selected{% endif %}>Rating (Descending)</option>
-            <option value="year_asc" {% if sort_by == 'year_asc' %}selected{% endif %}>Year Released (Ascending)</option>
-            <option value="year_desc" {% if sort_by == 'year_desc' %}selected{% endif %}>Year Released (Descending)</option>
-            <option value="runtime_asc" {% if sort_by == 'runtime_asc' %}selected{% endif %}>Running Time (Ascending)</option>
-            <option value="runtime_desc" {% if sort_by == 'runtime_desc' %}selected{% endif %}>Running Time (Descending)</option>
+        <label for="sort_by">Sort By</label>
+        <select class="form-control" name="sort_by" id="sort_by">
+            <option value="none" {% if request.form.sort_by == 'none' %}selected{% endif %}>None</option>
+            {% for sort_by in sort_by_fields %}
+                <option value="{{ sort_by }}" {% if request.form.sort_by == sort_by %}selected{% endif %}>{{ sort_by }}</option>
+            {% endfor %}
         </select>
     </div>
 
