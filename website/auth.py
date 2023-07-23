@@ -5,6 +5,14 @@ from . import DB
 from flask_login import login_user, login_required, logout_user, current_user
 import re
 import time
+import requests
+
+def is_url_image(image_url):
+   image_formats = ("image/png", "image/jpeg", "image/jpg")
+   r = requests.head(image_url)
+   if r.headers["content-type"] in image_formats:
+      return True
+   return False
 
 WAIT_TIME_SECONDS = 30 # make it longer irl
 MAX_LOGIN_ATTEMPTS = 5
@@ -124,6 +132,7 @@ def update():
         pwd = request.form.get("old-password")
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
+        profilepiclink = request.form.get("profilePicLink")
 
         db = DB()
         cursor = db.cursor()
@@ -138,6 +147,8 @@ def update():
             flash("Passwords do not match!", category="error")
         elif password1 != "" and not enforce_strong_password(password1):
             flash("Password not strong enough!", category="error")
+        elif profilepiclink != "" and not (is_url_image(profilepiclink)):
+            flash("Profile picture link is not an image link!", category="error")
         else:
             if firstName == "":
                 firstName = user['firstName']
@@ -145,6 +156,8 @@ def update():
                 lastName = user['lastName']
             if password1 == "":
                 passwordHash = user['userPassword']
+            if profilepiclink == "":
+                profilepiclink = user['profilePicLink']
             else: 
                 passwordHash = generate_password_hash(password1, method='scrypt')
     
@@ -152,7 +165,7 @@ def update():
             cursor = db.cursor()
             cursor.execute(
                 "UPDATE User SET firstname = ?, lastname = ?, userPassword = ?, profilePicLink = ? WHERE username = ?",
-                (firstName, lastName, passwordHash, DEFAULT_PROFILE_PIC_LINK, current_user.id),
+                (firstName, lastName, passwordHash, profilepiclink, current_user.id),
             )
             db.commit()
             db.close()
