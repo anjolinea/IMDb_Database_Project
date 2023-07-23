@@ -80,16 +80,19 @@ def search():
         fuzzed_titles = []
         fuzzed_names = []
         if len(query_results) == 0:
-            fuzzed_titles = [title[0]
-                             for title in process.extract(title, movie_titles) if title[1] > 75]
-            print(actor_name)
-            fuzzed_names = [name[0]
-                            for name in process.extract(actor_name, actors)]
+            if title != "":
+                fuzzed_titles = [title[0]
+                                 for title in process.extract(title, movie_titles) if title[1] > 75]
+            if actor_name != "":
+                fuzzed_names = [name[0]
+                                for name in process.extract(actor_name, actors)]
+            # if no match
             if len(fuzzed_titles) == 0:
                 fuzzed_titles = [title]
             if len(fuzzed_names) == 0:
                 fuzzed_names = [actor_name]
-            # print(fuzzed)
+            print(fuzzed_titles)
+            print(fuzzed_names)
             query = f"""
             SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
             FROM Movie
