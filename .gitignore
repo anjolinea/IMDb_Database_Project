@@ -3,3 +3,4 @@ my-project-env/
 env/
 venv/
 toy_database.db
+prod_database.db
