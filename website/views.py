@@ -43,7 +43,7 @@ def search():
         title = request.form.get("title")
         actor_name = request.form.get("actor")
         genre_name = request.form.get("genre")
-        sort_by = request.form.get("sort-by")
+        sort_by = request.form.get("sort_by")
         minimum_rating = 5  # hardcoded
 
         # empty string if nothing is returned
