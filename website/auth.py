@@ -1,9 +1,14 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session, Flask
 from .models import UserAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import DB
 from flask_login import login_user, login_required, logout_user, current_user
 import re
+import time
+
+WAIT_TIME_SECONDS = 30 # make it longer irl
+MAX_LOGIN_ATTEMPTS = 5
+DEFAULT_PROFILE_PIC_LINK = "https://powerusers.microsoft.com/t5/image/serverpage/image-id/98171iCC9A58CAF1C9B5B9/image-size/large/is-moderation-mode/true?v=v2&px=999"
 
 def enforce_strong_password(password: str):
     # length constraints
@@ -50,7 +55,7 @@ def sign_up():
             cursor = db.cursor()
             cursor.execute(
                 "INSERT INTO User (username, firstname, lastname, userPassword, profilePicLink) VALUES (?, ?, ?, ?, ?)",
-                (username, firstName, lastName, passwordHash, "https://powerusers.microsoft.com/t5/image/serverpage/image-id/98171iCC9A58CAF1C9B5B9/image-size/large/is-moderation-mode/true?v=v2&px=999"),
+                (username, firstName, lastName, passwordHash, DEFAULT_PROFILE_PIC_LINK),
             )
             db.commit()
             db.close()
@@ -78,13 +83,25 @@ def login():
             cursor = db.cursor()
             hash_password = cursor.execute('SELECT userPassword FROM User WHERE username = ?', (usr,)).fetchone()[0]
             db.close()
-            if check_password_hash(hash_password, pwd):
+
+            session.setdefault("login_attempts", 0)
+
+            if session["login_attempts"] >= MAX_LOGIN_ATTEMPTS and "wait_until" in session and session["wait_until"] > time.time():
+                remaining_time = session["wait_until"] - time.time()
+                flash(f"Maximum login attempts exceeded. Please try again after {int(remaining_time / 60)} minutes.", "error")
+            elif check_password_hash(hash_password, pwd):
                 flash("Successfully logged in!", category="success")
                 loggedUser = UserAuth(username=usr, userPasswordHash=hash_password)
                 login_user(loggedUser, remember=True)
+                session['login_attempts'] = 0
                 return redirect(url_for('views.home'))
             else:
-                flash("Password incorrect!", category="error")
+                session['login_attempts'] += 1
+                print(session['login_attempts'])
+                flash(f"Password incorrect! You have {MAX_LOGIN_ATTEMPTS - session['login_attempts']} attempts left.", category="error")
+                if session["login_attempts"] >= MAX_LOGIN_ATTEMPTS:
+                    session["wait_until"] = time.time() + WAIT_TIME_SECONDS
+
         else:
             flash("User does not exist!", category="error")
     
@@ -135,7 +152,7 @@ def update():
             cursor = db.cursor()
             cursor.execute(
                 "UPDATE User SET firstname = ?, lastname = ?, userPassword = ?, profilePicLink = ? WHERE username = ?",
-                (firstName, lastName, passwordHash, "https://powerusers.microsoft.com/t5/image/serverpage/image-id/98171iCC9A58CAF1C9B5B9/image-size/large/is-moderation-mode/true?v=v2&px=999", current_user.id),
+                (firstName, lastName, passwordHash, DEFAULT_PROFILE_PIC_LINK, current_user.id),
             )
             db.commit()
             db.close()
