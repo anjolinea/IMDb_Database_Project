@@ -96,3 +96,50 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
+
+@auth.route('/update', methods=["GET", "POST"])
+@login_required
+def update():
+    if request.method == "POST":
+        firstName = request.form.get("firstName")
+        lastName = request.form.get("lastName")
+        pwd = request.form.get("old-password")
+        password1 = request.form.get("password1")
+        password2 = request.form.get("password2")
+
+        db = DB()
+        cursor = db.cursor()
+        user = cursor.execute('SELECT * FROM User WHERE username = ?', (current_user.id,)).fetchone()
+        db.close()
+        print(pwd)
+        print(check_password_hash(user['userPassword'], pwd))
+        if not check_password_hash(user['userPassword'], pwd):
+            flash("Current password is incorrect!", category="error")
+        # password and confirm password are not the same
+        elif password1 != password2:
+            flash("Passwords do not match!", category="error")
+        elif password1 != "" and not enforce_strong_password(password1):
+            flash("Password not strong enough!", category="error")
+        else:
+            if firstName == "":
+                firstName = user['firstName']
+            if lastName == "":
+                lastName = user['lastName']
+            if password1 == "":
+                passwordHash = user['userPassword']
+            else: 
+                passwordHash = generate_password_hash(password1, method='scrypt')
+    
+            db = DB()
+            cursor = db.cursor()
+            cursor.execute(
+                "UPDATE User SET firstname = ?, lastname = ?, userPassword = ?, profilePicLink = ? WHERE username = ?",
+                (firstName, lastName, passwordHash, "https://powerusers.microsoft.com/t5/image/serverpage/image-id/98171iCC9A58CAF1C9B5B9/image-size/large/is-moderation-mode/true?v=v2&px=999", current_user.id),
+            )
+            db.commit()
+            db.close()
+            flash("Information updated successfuly!", category="success")
+            return redirect(url_for('views.profile'))
+
+    return render_template('update.html', user=current_user)

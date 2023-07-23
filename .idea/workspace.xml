@@ -2,11 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c7ef606c-6f6c-4254-8444-1591cb1258e2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/toy_database.db" beforeDir="false" afterPath="$PROJECT_DIR$/toy_database.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/m2_Discover.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/m2_Followers.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/m2_Following.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/m2_Suggested.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/m2_Update_Information.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/milestone2_loggedin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/milestone2_login.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/milestone2_logout.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/milestone2_recfriend1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/milestone2_recfriend2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/milestone2_recommend.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/milestone2_search.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme_pictures/milestone2_signup.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-production.out" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-production.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/website/templates/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/website/templates/update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prod_database.db" beforeDir="false" afterPath="$PROJECT_DIR$/prod_database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production_sample_queries/in/connections.sql" beforeDir="false" afterPath="$PROJECT_DIR$/production_sample_queries/in/connections.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production_sample_queries/in/search_movie_on_criteria.sql" beforeDir="false" afterPath="$PROJECT_DIR$/production_sample_queries/in/search_movie_on_criteria.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production_sample_queries/out/connections.out" beforeDir="false" afterPath="$PROJECT_DIR$/production_sample_queries/out/connections.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production_sample_queries/out/search_movie_on_criteria.out" beforeDir="false" afterPath="$PROJECT_DIR$/production_sample_queries/out/search_movie_on_criteria.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/use_prod_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/use_prod_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/website/static/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/recommend.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/sign_up.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/sign_up.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

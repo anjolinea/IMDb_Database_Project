@@ -15,4 +15,5 @@ WITH RECURSIVE FollowersRecursive AS (
 )
 SELECT follower_of_follower AS follower, MIN(level) AS level
 FROM FollowersRecursive
-GROUP BY follower_of_follower;
+GROUP BY follower_of_follower
+LIMIT 10;
