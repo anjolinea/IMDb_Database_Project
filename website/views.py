@@ -36,11 +36,22 @@ def search():
         """
     genres = db.execute(query_genres).fetchall()
     genre_names = [genre[0] for genre in genres]
+
+    # get movies
     query_movies = """
         SELECT Movie.movieTitle FROM Movie
         """
     movies = db.execute(query_movies).fetchall()
     movie_titles = [title[0] for title in movies]
+
+    # get actor names
+    query_actors = """
+        SELECT Actor.actorName FROM Actor
+        """
+    actors = db.execute(query_actors).fetchall()
+    actors = [actor[0] for actor in actors]
+
+    # sort by fields
     sort_by_fields = ["Rating (Ascending)", "Rating (Descending)", "Year Released (Ascending)",
                       "Year Released (Descending)", "Runtime (Ascending)", "Runtime (Descending)"]
 
@@ -51,7 +62,7 @@ def search():
         sort_by = request.form.get("sort_by")
         minimum_rating = 5  # hardcoded
 
-        query_searched_movies = f"""
+        query = f"""
         SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
         FROM Movie
         JOIN Starred ON Movie.movieID = Starred.movieID
@@ -63,41 +74,46 @@ def search():
                 AND Movie.movieRating >= {minimum_rating}
         """
 
-        searched_movies = db.execute(query_searched_movies).fetchall()
-        searched_movies_titles = [title[0] for title in searched_movies]
-        print(searched_movies_titles)
+        searched_query = db.execute(query).fetchall()
+        query_results = [title[0] for title in searched_query]
+        # print(query_results)
         fuzzed_titles = []
-        if len(searched_movies_titles) == 0:
-            fuzzed = process.extract(title, movie_titles)
+        fuzzed_names = []
+        if len(query_results) == 0:
             fuzzed_titles = [title[0]
-                             for title in fuzzed if title[1] > 75]
+                             for title in process.extract(title, movie_titles) if title[1] > 75]
+            print(actor_name)
+            fuzzed_names = [name[0]
+                            for name in process.extract(actor_name, actors)]
+            if len(fuzzed_titles) == 0:
+                fuzzed_titles = [title]
+            if len(fuzzed_names) == 0:
+                fuzzed_names = [actor_name]
             # print(fuzzed)
-
-        query = f"""
-        SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
-        FROM Movie
-        JOIN Starred ON Movie.movieID = Starred.movieID
-        JOIN Actor ON Starred.actorID = Actor.actorID
-        JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
-        JOIN Genre ON MovieGenre.genreID = Genre.genreID
-        """
-        if len(searched_movies_titles) > 0:
-            query += f"""
-            WHERE Actor.actorName LIKE '%{actor_name}%'
-                AND Movie.movieTitle LIKE '%{title}%'
-                AND Movie.movieRating >= {minimum_rating}
+            query = f"""
+            SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+            FROM Movie
+            JOIN Starred ON Movie.movieID = Starred.movieID
+            JOIN Actor ON Starred.actorID = Actor.actorID
+            JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
+            JOIN Genre ON MovieGenre.genreID = Genre.genreID
             """
-        else:
-            query += f"""
-            WHERE Actor.actorName LIKE '%{actor_name}%'
-                AND Movie.movieRating >= {minimum_rating}
-                AND Movie.movieTitle LIKE '%{fuzzed_titles[0]}%'
-            """
+            other_titles = ""
+            other_names = ""
             for i in range(1, len(fuzzed_titles)):
-                query += f"""
+                other_titles += f"""
                 OR Movie.movieTitle LIKE '%{fuzzed_titles[i]}%'
                 """
-            # print(query)
+            for i in range(1, len(fuzzed_names)):
+                other_names += f"""
+                OR Actor.actorName LIKE '%{fuzzed_names[i]}%'
+                """
+            query += f"""
+            WHERE (Movie.movieRating >= {minimum_rating})
+                And (Actor.actorName LIKE '%{fuzzed_names[0]}%' {other_names})
+                AND (Movie.movieTitle LIKE '%{fuzzed_titles[0]}%' {other_titles})
+            """
+            print(query)
 
         if genre_name == "all":
             query += ""
