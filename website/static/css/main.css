@@ -2,8 +2,65 @@
     padding: 10px 0;
     height: 500px
 }
+
+body {
+    background-color: #FAFDFF;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.login-container{
+    margin-top: 60px;
+    box-shadow: -2px -3px 4px #e8e8e8;
+    border: 1px solid grey;
+    padding: 20px;
+    width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    background-color:white;
+}
+
+.login-label-div{
+    text-align:center;
+}
+
+.login-label{
+    align-items:center;
+    width: 100%;
+}
+
+.login-input{
+    width: 600px;
+    margin: auto;
+}
+
+.login-btn{
+    margin: auto;
+}
+
 .horizontal-card-group {
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
     height: 460px;
@@ -85,4 +142,14 @@
 
 .navbar-brand{
     color: #6eb7eb;
+}
+
+.nothing-card{
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    height: inherit;
+    vertical-align: middle;
+    font-size: 30px;
+    font-weight:700;
 }

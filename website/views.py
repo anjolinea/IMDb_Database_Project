@@ -82,7 +82,8 @@ def search():
         moreLeft = N * ROW_LIMIT < len(movies)
 
         db.close()
-        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names, title=title, actor=actor_name, genre=genre_name, sort_by=sort_by,  user=current_user)
+        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names,
+                               title=title, actor=actor_name, genre=genre_name, sort_by=sort_by, user=current_user)
     else:
         genre_name = request.form.get("genre")
         query = f"""
@@ -95,6 +96,123 @@ def search():
 
         return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names,
                                user=current_user)
+
+
+@views.route('/profile', methods=["GET", "POST"])
+@login_required
+def profile():
+    db = DB()
+
+    is_search = False
+
+    if request.method == "POST":
+        follow = request.form.get("Follow")
+        unfollow = request.form.get("Unfollow")
+
+        first = request.form.get("first")
+        last = request.form.get("last")
+
+        if first is not None:
+            firstName = first
+            is_search = True
+
+        if last is not None:
+            lastName = last
+            is_search = True
+
+        if follow is not None:
+
+            select_query = f"""
+            SELECT * FROM Follows WHERE userID1 = '{current_user.id}' AND userID2 = '{follow}'
+            """
+            val = db.execute(select_query).fetchall()
+
+            if len(val) == 0:
+                print(f"followed {follow}")
+                follow_query = f"""
+                INSERT INTO Follows (userID1, userID2)
+                VALUES ('{current_user.id}', '{follow}');
+                """
+                db.execute(follow_query).fetchall()
+                db.commit()
+
+        if unfollow is not None:
+            print(f"unfollowed {unfollow}")
+            unfollow_query = f"""
+            DELETE FROM Follows
+            WHERE userID1 = '{current_user.id}'
+                AND userID2 = '{unfollow}';
+            """
+            db.execute(unfollow_query).fetchall()
+            db.commit()
+
+    following_query = f"""
+    SELECT userID2 AS username, firstName, lastName, profilePicLink
+    FROM Follows, User
+    WHERE userID1 = '{current_user.id}' AND username = userID2
+    """
+    following = db.execute(following_query).fetchall()
+
+    followers_query = f"""
+    SELECT F1.userID1 AS username, firstName, lastName, profilePicLink, (
+        SELECT COUNT(*) FROM Follows F2 WHERE F2.userID2 = F1.userID1 AND F2.userID1 = F1.userID2
+    ) AS isFollowing
+    FROM Follows F1, User
+    WHERE F1.userID2 = '{current_user.id}' AND username = F1.userID1
+    """
+    followers = db.execute(followers_query).fetchall()
+
+    suggested_query = f"""
+    SELECT * FROM (
+        WITH RECURSIVE FollowersRecursive AS (
+            SELECT Follows.userID1 AS follower,
+                Follows.userID2 AS follower_of_follower, 
+                0 AS level
+            FROM Follows
+            WHERE Follows.userID1 = '{current_user.id}'
+            UNION ALL
+            SELECT FollowersRecursive.follower,
+                Follows.userID2, 
+                FollowersRecursive.level + 1
+            FROM Follows
+            JOIN FollowersRecursive ON 
+                Follows.userID1 = FollowersRecursive.follower_of_follower
+            WHERE FollowersRecursive.level < 3 AND Follows.userID2 != '{current_user.id}'
+        )
+        SELECT follower_of_follower AS follower, MIN(level) AS level, firstName, lastName, profilePicLink
+        FROM FollowersRecursive, User
+        WHERE username = follower_of_follower
+        GROUP BY follower_of_follower
+        ORDER BY level)
+    WHERE level > 0;
+    """
+    suggested = db.execute(suggested_query).fetchall()
+
+    user_info_query = f"""
+    SELECT * FROM User WHERE username = '{current_user.id}'
+    """
+    user_info = db.execute(user_info_query).fetchall()[0]
+
+    if is_search:
+        search_query = f"""
+        SELECT username, firstName, lastName, profilePicLink, (
+           SELECT COUNT(*) FROM Follows WHERE userID1 = '{current_user.id}' AND userID2 = username
+        ) AS isFollowing
+        FROM User 
+        WHERE firstName LIKE '%{firstName}%' AND lastName LIKE '%{lastName}%' AND username != '{current_user.id}'
+        """
+        search_results = db.execute(search_query).fetchall()
+    else:
+        firstName = ""
+        lastName = ""
+        search_results = None
+
+    db.close()
+
+    return render_template('profile.html', user=current_user, user_info=user_info, following=following,
+                           followers=followers, suggested=suggested, is_search=is_search, search_results=search_results,
+                           firstName=firstName, lastName=lastName)
+
 
 @views.route('/recommend', methods=["GET", "POST"])
 def recommend():
@@ -149,6 +267,41 @@ def recommend():
     LIMIT 5;
     """
     rec_unwatched_faves = db.execute(unwatch_query).fetchall()
+
+    follow_liked_query = f"""
+    SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+    FROM User
+    JOIN Follows ON User.username = Follows.userID1
+    JOIN Watched ON Follows.userID2 = Watched.userID
+    JOIN Movie ON Watched.movieID = Movie.movieID
+    WHERE User.username = '{current_user.id}'
+    ORDER BY Watched.lastWatched DESC
+    LIMIT 10;
+    """
+    follow_liked = db.execute(follow_liked_query).fetchall()
+
+    from_faves_query = f"""
+    SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink,
+    (COUNT(DISTINCT Genre.genreID) + COUNT(DISTINCT Actor.actorID)) AS recommendScore
+    FROM Movie
+    JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
+    JOIN Genre ON MovieGenre.genreID = Genre.genreID
+    JOIN Starred ON Movie.movieID = Starred.movieID
+    JOIN Actor ON Starred.actorID = Actor.actorID
+    JOIN FavGenre ON Genre.genreID = FavGenre.genreID 
+        AND FavGenre.userID = '{current_user.id}'
+    JOIN FavActor ON Actor.actorID = FavActor.actorID 
+        AND FavActor.userID = '{current_user.id}'
+    WHERE Movie.movieID NOT IN (
+        SELECT Watched.movieID
+        FROM Watched
+        WHERE Watched.userID = '{current_user.id}'
+    )
+    GROUP BY Movie.movieID, Movie.movieTitle
+    ORDER BY recommendScore DESC
+    LIMIT 10
+    """
+    rec_from_faves = db.execute(from_faves_query).fetchall()
 
     get_friend_query = f"""
     SELECT User.username, User.firstName, User.lastName, User.profilePicLink
@@ -211,8 +364,11 @@ def recommend():
         second_user = db.execute(user_info_query).fetchone()
         db.close()
         return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves,
-                               following=following, rec_two=rec_two, second_user=second_user, user=current_user, firstClicked=True)
+                               follow_liked=follow_liked, rec_from_faves=rec_from_faves, following=following,
+                               rec_two=rec_two,
+                               second_user=second_user, user=current_user, firstClicked=True)
     else:
         db.close()
         return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves,
-                               following=following, user=current_user, firstClicked=False)
+                               follow_liked=follow_liked, rec_from_faves=rec_from_faves, following=following,
+                               user=current_user, firstClicked=False)
