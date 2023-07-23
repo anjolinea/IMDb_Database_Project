@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request
 from . import DB
 from flask_login import login_required, current_user
-
+from rapidfuzz import process
 views = Blueprint('views', __name__)
 
 N = 4
@@ -36,6 +36,11 @@ def search():
         """
     genres = db.execute(query_genres).fetchall()
     genre_names = [genre[0] for genre in genres]
+    query_movies = """
+        SELECT Movie.movieTitle FROM Movie
+        """
+    movies = db.execute(query_movies).fetchall()
+    movie_titles = [title[0] for title in movies]
     sort_by_fields = ["Rating (Ascending)", "Rating (Descending)", "Year Released (Ascending)",
                       "Year Released (Descending)", "Runtime (Ascending)", "Runtime (Descending)"]
 
@@ -46,7 +51,27 @@ def search():
         sort_by = request.form.get("sort_by")
         minimum_rating = 5  # hardcoded
 
-        # empty string if nothing is returned
+        query_searched_movies = f"""
+        SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+        FROM Movie
+        JOIN Starred ON Movie.movieID = Starred.movieID
+        JOIN Actor ON Starred.actorID = Actor.actorID
+        JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
+        JOIN Genre ON MovieGenre.genreID = Genre.genreID
+        WHERE Actor.actorName LIKE '%{actor_name}%'
+                AND Movie.movieTitle LIKE '%{title}%'
+                AND Movie.movieRating >= {minimum_rating}
+        """
+
+        searched_movies = db.execute(query_searched_movies).fetchall()
+        searched_movies_titles = [title[0] for title in searched_movies]
+        print(searched_movies_titles)
+        fuzzed_titles = []
+        if len(searched_movies_titles) == 0:
+            fuzzed = process.extract(title, movie_titles)
+            fuzzed_titles = [title[0]
+                             for title in fuzzed if title[1] > 75]
+            # print(fuzzed)
 
         query = f"""
         SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
@@ -55,10 +80,24 @@ def search():
         JOIN Actor ON Starred.actorID = Actor.actorID
         JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
         JOIN Genre ON MovieGenre.genreID = Genre.genreID
-        WHERE Actor.actorName LIKE '%{actor_name}%'
-            AND Movie.movieTitle LIKE '%{title}%'
-            AND Movie.movieRating >= {minimum_rating}
         """
+        if len(searched_movies_titles) > 0:
+            query += f"""
+            WHERE Actor.actorName LIKE '%{actor_name}%'
+                AND Movie.movieTitle LIKE '%{title}%'
+                AND Movie.movieRating >= {minimum_rating}
+            """
+        else:
+            query += f"""
+            WHERE Actor.actorName LIKE '%{actor_name}%'
+                AND Movie.movieRating >= {minimum_rating}
+                AND Movie.movieTitle LIKE '%{fuzzed_titles[0]}%'
+            """
+            for i in range(1, len(fuzzed_titles)):
+                query += f"""
+                OR Movie.movieTitle LIKE '%{fuzzed_titles[i]}%'
+                """
+            # print(query)
 
         if genre_name == "all":
             query += ""
