@@ -41,15 +41,14 @@
 {% for moviechunk in moviechunks %}
     <div class="card-group">
         {% for movie in moviechunk %}
-            <div class="card text-bg-light mb-3">
-                <div class="card-header">{{ movie['yearReleased'] }}</div>
+            <div class="card big-card text-bg-light mb-3">
                 <div class="card-body flex-column">
                     <h5 class="card-title text-truncate">{{ movie['movieTitle'] }}</h5>
                     <p class="card-text">{{ movie['movieRating'] }}</p>
-                    <img class="card-img-top embed-responsive-item" src={{ movie['posterImgLink'] }}>
+                    <img class="card-img-big embed-responsive-item" src={{ movie['posterImgLink'] }}>
                 </div>
                 <div class="card-footer">
-                    <small class="text-body-secondary">{{ movie['runtime'] }} minutes</small>
+                    <small class="text-body-secondary">{{ movie['yearReleased'] }} | {{ movie['runtime'] }} minutes</small>
                 </div>
             </div>
         {% endfor %}

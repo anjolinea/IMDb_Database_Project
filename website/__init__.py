@@ -1,17 +1,18 @@
 from flask import Flask
+from flask_bootstrap import Bootstrap
 import sqlite3
-from load_toy_dataset import load_toy_dataset
+from load_prod_dataset import load_prod_dataset
 from flask_login import LoginManager
 
 def DB():
-    conn = sqlite3.connect('toy_database.db')
+    conn = sqlite3.connect('prod_database.db')
     conn.row_factory = sqlite3.Row
     return conn
 
 def db_init():
-    conn = sqlite3.connect('toy_database.db')
+    conn = sqlite3.connect('prod_database.db')
     # uncomment this line back in if you want a fresh new toy database
-    # load_toy_dataset(conn)
+    load_prod_dataset(conn)
 
     conn.commit()
     conn.close()
@@ -19,6 +20,7 @@ def db_init():
 
 def create_app():
     app = Flask(__name__)
+    Bootstrap(app)
     app.config['SECRET_KEY'] = 'shhhhhhh, this is a secret'
 
     db_init()

@@ -1,0 +1,60 @@
+Search Movie based on Criteria:
+movieTitle,movieRating,yearReleased,runtime
+Avatar,7.9,2009,162
+Guardians of the Galaxy,8.0,2014,121
+Terminator 2: Judgment Day,8.6,1991,137
+Mad Max: Fury Road,8.1,2015,120
+Spider-Man: No Way Home,8.2,2021,148
+How to Train Your Dragon,8.1,2010,98
+Guardians of the Galaxy Vol. 2,7.6,2017,136
+The Batman,7.8,2022,176
+World War Z,7.0,2013,116
+Dune: Part One,8.0,2021,155
+
+Recommend New Movie:
+movieID,movieTitle
+tt0397313,Eight Below
+tt7475578,Munich: The Edge of War
+tt2883434,Black or White
+tt1152822,Freakonomics
+tt0120724,Knock Off
+tt0465430,The Cottage
+tt3399024,Samba
+tt5147214,Headshot
+tt1926313,Pyaar Ka Punchnama
+tt0411475,Hell Ride
+
+Find Connections:
+follower,level
+aarongriffin52,2
+aaronprice35,1
+adambrooks30,2
+adamclark85,2
+adamgonzalez99,2
+adamlopez43,1
+alanwilliams07,0
+angelahoward80,2
+angelahughes51,2
+benjamingriffin19,2
+
+Recommend Movie based on Favourites:
+movieID,movieTitle,recommendScore
+tt0337692,On the Road,2
+tt0803096,Warcraft,2
+tt1229238,Mission: Impossible - Ghost Protocol,2
+tt1724970,Beyond Skyline,2
+tt4769836,The Do-Over,2
+tt9742794,Way Down,2
+
+Recommend for Two:
+movieID,movieTitle
+tt0221073,Chopper
+tt1821641,The Congress
+tt0120841,Species II
+tt7984766,The King
+tt3741632,The Leisure Seeker
+tt0119707,Mortal Kombat: Annihilation
+tt0402399,The New World
+tt0118607,Amistad
+tt7042862,The Man Who Killed Hitler and Then the Bigfoot
+tt6063090,Light of My Life

@@ -12,7 +12,7 @@ load_prod_dataset(connection)
 
 # --- for playing around with SQL files -----
 def test_SQL_query():
-    test_name = "search_movie_on_criteria"
+    test_name = "connections"
 
     in_query_folder = "production_sample_queries/in/"
     in_query_file = test_name + ".sql"
@@ -27,13 +27,13 @@ def test_SQL_query():
 
 N = 10
 
-latency = sum([test_SQL_query() for i in range(N)]) / N
-print('{:.6f}s on average for the query'.format(latency))
+# latency = sum([test_SQL_query() for i in range(N)]) / N
+# print('{:.6f}s on average for the query'.format(latency))
 # ------------------
 
 query = """
-SELECT COUNT(*) AS COUNT_THING, userID FROM Watched GROUP BY userID ORDER BY COUNT_THING DESC;
+SELECT * FROM USER LIMIT 10;
 """
 
 ## a CHECK constraint violation should happen!
-#run_command_from_string(connection, query, True)
+run_command_from_string(connection, query, True)

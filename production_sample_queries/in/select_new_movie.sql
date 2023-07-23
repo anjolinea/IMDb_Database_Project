@@ -3,6 +3,7 @@ FROM Movie
 WHERE Movie.movieID NOT IN (
     SELECT Watched.movieID
     FROM Watched
-    WHERE Watched.userID = 'frankvanvleet40'
+    WHERE Watched.userID = 'jenniferhernandez64'
 )
-ORDER BY RANDOM();
+ORDER BY RANDOM()
+LIMIT 10;
