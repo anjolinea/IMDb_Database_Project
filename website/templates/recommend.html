@@ -6,6 +6,7 @@
 <br>
 <h3>Watch It Again</h3>
 <div class="horizontal-card-group">
+    {% if again_movies|length > 0 %}
     {% for movie in again_movies %}
         <div class="card horizontal-card text-bg-light mb-3" data-toggle="tooltip" title="{{ movie['movieTitle'] }}">
             <div class="card-body flex-column">
@@ -18,10 +19,14 @@
             </div>
         </div>
     {% endfor %}
+    {% else %}
+    <div class="nothing-card"> There's nothing here... </div>
+    {% endif %}
 </div>
 <br>
-<h3>Movies You Might Like</h3>
+<h3>Based on Your Liked Movies</h3>
 <div class="horizontal-card-group">
+    {% if rec_unwatched_faves|length > 0 %}
     {% for movie in rec_unwatched_faves %}
         <div class="card horizontal-card text-bg-light mb-3" data-toggle="tooltip" title="{{ movie['movieTitle'] }}">
             <div class="card-body flex-column">
@@ -34,10 +39,54 @@
             </div>
         </div>
     {% endfor %}
+    {% else %}
+    <div class="nothing-card"> There's nothing here... </div>
+    {% endif %}
+</div>
+<br>
+<h3>People You Follow Liked</h3>
+<div class="horizontal-card-group">
+    {% if follow_liked|length > 0 %}
+    {% for movie in follow_liked %}
+        <div class="card horizontal-card text-bg-light mb-3" data-toggle="tooltip" title="{{ movie['movieTitle'] }}">
+            <div class="card-body flex-column">
+                <h5 class="card-title text-truncate">{{ movie['movieTitle'] }}</h5>
+                <p class="card-text">{{ movie['movieRating'] }}</p>
+                <img class="card-img-small embed-responsive-item" src={{ movie['posterImgLink'] }}>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">{{ movie['yearReleased'] }} | {{ movie['runtime'] }}  minutes</small>
+            </div>
+        </div>
+    {% endfor %}
+    {% else %}
+    <div class="nothing-card"> There's nothing here... </div>
+    {% endif %}
+</div>
+<br>
+<h3>Based on Your Favourite Actors and Genres</h3>
+<div class="horizontal-card-group">
+    {% if rec_from_faves|length > 0 %}
+    {% for movie in rec_from_faves %}
+        <div class="card horizontal-card text-bg-light mb-3" data-toggle="tooltip" title="{{ movie['movieTitle'] }}">
+            <div class="card-body flex-column">
+                <h5 class="card-title text-truncate">{{ movie['movieTitle'] }}</h5>
+                <p class="card-text">{{ movie['movieRating'] }}</p>
+                <img class="card-img-small embed-responsive-item" src={{ movie['posterImgLink'] }}>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">{{ movie['yearReleased'] }} | {{ movie['runtime'] }} minutes</small>
+            </div>
+        </div>
+    {% endfor %}
+    {% else %}
+    <div class="nothing-card"> There's nothing here... </div>
+    {% endif %}
 </div>
 <br>
 <h3>Recommend a Movie to Watch With my Friend...</h3>
 <div class="horizontal-card-group">
+    {% if following|length > 0 %}
     <form action="" method="post">
         {% for user in following %}
             <div class="card horizontal-card text-bg-light mb-3">
@@ -52,6 +101,9 @@
             </div>
         {% endfor %}
     </form>
+    {% else %}
+    <div class="nothing-card"> There's nothing here... </div>
+    {% endif %}
 </div>
 {% if firstClicked == True %}
 <h3>...{{ second_user['firstName'] }}!</h3>
@@ -75,5 +127,3 @@
 {% endif %}
 <br>
 {% endblock %}
-
-
