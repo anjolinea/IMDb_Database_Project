@@ -82,7 +82,8 @@ def search():
         moreLeft = N * ROW_LIMIT < len(movies)
 
         db.close()
-        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names, title=title, actor=actor_name, genre=genre_name, sort_by=sort_by,  user=current_user)
+        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names,
+                               title=title, actor=actor_name, genre=genre_name, sort_by=sort_by, user=current_user)
     else:
         genre_name = request.form.get("genre")
         query = f"""
@@ -211,6 +212,7 @@ def profile():
 
 
 @views.route('/recommend', methods=["GET", "POST"])
+@login_required
 def recommend():
     db = DB()
     print(current_user.id)
@@ -263,6 +265,41 @@ def recommend():
     LIMIT 5;
     """
     rec_unwatched_faves = db.execute(unwatch_query).fetchall()
+
+    follow_liked_query = f"""
+    SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+    FROM User
+    JOIN Follows ON User.username = Follows.userID1
+    JOIN Watched ON Follows.userID2 = Watched.userID
+    JOIN Movie ON Watched.movieID = Movie.movieID
+    WHERE User.username = '{current_user.id}'
+    ORDER BY Watched.lastWatched DESC
+    LIMIT 10;
+    """
+    follow_liked = db.execute(follow_liked_query).fetchall()
+
+    from_faves_query = f"""
+    SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink,
+    (COUNT(DISTINCT Genre.genreID) + COUNT(DISTINCT Actor.actorID)) AS recommendScore
+    FROM Movie
+    JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
+    JOIN Genre ON MovieGenre.genreID = Genre.genreID
+    JOIN Starred ON Movie.movieID = Starred.movieID
+    JOIN Actor ON Starred.actorID = Actor.actorID
+    JOIN FavGenre ON Genre.genreID = FavGenre.genreID 
+        AND FavGenre.userID = '{current_user.id}'
+    JOIN FavActor ON Actor.actorID = FavActor.actorID 
+        AND FavActor.userID = '{current_user.id}'
+    WHERE Movie.movieID NOT IN (
+        SELECT Watched.movieID
+        FROM Watched
+        WHERE Watched.userID = '{current_user.id}'
+    )
+    GROUP BY Movie.movieID, Movie.movieTitle
+    ORDER BY recommendScore DESC
+    LIMIT 10
+    """
+    rec_from_faves = db.execute(from_faves_query).fetchall()
 
     get_friend_query = f"""
     SELECT User.username, User.firstName, User.lastName, User.profilePicLink
@@ -325,8 +362,11 @@ def recommend():
         second_user = db.execute(user_info_query).fetchone()
         db.close()
         return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves,
-                               following=following, rec_two=rec_two, second_user=second_user, user=current_user, firstClicked=True)
+                               follow_liked=follow_liked, rec_from_faves=rec_from_faves, following=following,
+                               rec_two=rec_two,
+                               second_user=second_user, user=current_user, firstClicked=True)
     else:
         db.close()
         return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves,
-                               following=following, user=current_user, firstClicked=False)
+                               follow_liked=follow_liked, rec_from_faves=rec_from_faves, following=following,
+                               user=current_user, firstClicked=False)
