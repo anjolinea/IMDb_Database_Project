@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request
 from . import DB
 from flask_login import login_required, current_user
-
+from rapidfuzz import process
 views = Blueprint('views', __name__)
 
 N = 4
@@ -37,14 +37,30 @@ def search():
     genres = db.execute(query_genres).fetchall()
     genre_names = [genre[0] for genre in genres]
 
+    # get movies
+    query_movies = """
+        SELECT Movie.movieTitle FROM Movie
+        """
+    movies = db.execute(query_movies).fetchall()
+    movie_titles = [title[0] for title in movies]
+
+    # get actor names
+    query_actors = """
+        SELECT Actor.actorName FROM Actor
+        """
+    actors = db.execute(query_actors).fetchall()
+    actors = [actor[0] for actor in actors]
+
+    # sort by fields
+    sort_by_fields = ["Rating (Ascending)", "Rating (Descending)", "Year Released (Ascending)",
+                      "Year Released (Descending)", "Runtime (Ascending)", "Runtime (Descending)"]
+
     if request.method == "POST":
         title = request.form.get("title")
         actor_name = request.form.get("actor")
         genre_name = request.form.get("genre")
-        sort_by = request.form.get("sort-by")
+        sort_by = request.form.get("sort_by")
         minimum_rating = 5  # hardcoded
-
-        # empty string if nothing is returned
 
         query = f"""
         SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
@@ -54,36 +70,80 @@ def search():
         JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
         JOIN Genre ON MovieGenre.genreID = Genre.genreID
         WHERE Actor.actorName LIKE '%{actor_name}%'
-            AND Movie.movieTitle LIKE '%{title}%'
-            AND Movie.movieRating >= {minimum_rating}
+                AND Movie.movieTitle LIKE '%{title}%'
+                AND Movie.movieRating >= {minimum_rating}
         """
 
+        searched_query = db.execute(query).fetchall()
+        query_results = [title[0] for title in searched_query]
+        # print(query_results)
+        fuzzed_titles = []
+        fuzzed_names = []
+        if len(query_results) == 0:
+            if title != "":
+                fuzzed_titles = [title[0]
+                                 for title in process.extract(title, movie_titles) if title[1] > 75]
+            if actor_name != "":
+                fuzzed_names = [name[0]
+                                for name in process.extract(actor_name, actors)]
+            # if no match
+            if len(fuzzed_titles) == 0:
+                fuzzed_titles = [title]
+            if len(fuzzed_names) == 0:
+                fuzzed_names = [actor_name]
+            print(fuzzed_titles)
+            print(fuzzed_names)
+            query = f"""
+            SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+            FROM Movie
+            JOIN Starred ON Movie.movieID = Starred.movieID
+            JOIN Actor ON Starred.actorID = Actor.actorID
+            JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
+            JOIN Genre ON MovieGenre.genreID = Genre.genreID
+            """
+            other_titles = ""
+            other_names = ""
+            for i in range(1, len(fuzzed_titles)):
+                other_titles += f"""
+                OR Movie.movieTitle LIKE '%{fuzzed_titles[i]}%'
+                """
+            for i in range(1, len(fuzzed_names)):
+                other_names += f"""
+                OR Actor.actorName LIKE '%{fuzzed_names[i]}%'
+                """
+            query += f"""
+            WHERE (Movie.movieRating >= {minimum_rating})
+                And (Actor.actorName LIKE '%{fuzzed_names[0]}%' {other_names})
+                AND (Movie.movieTitle LIKE '%{fuzzed_titles[0]}%' {other_titles})
+            """
+            print(query)
+
         if genre_name == "all":
-            print(genre_name)
             query += ""
         else:
             query += f"AND Genre.genreName LIKE '%{genre_name}%'"
 
-        if sort_by == "rating_asc":
+        if sort_by == "Rating (Ascending)":
             query += f"ORDER BY Movie.movieRating ASC"
-        elif sort_by == "rating_desc":
+        elif sort_by == "Rating (Descending)":
             query += f"ORDER BY Movie.movieRating DESC"
-        elif sort_by == "year_asc":
+        elif sort_by == "Year Released (Ascending)":
             query += f"ORDER BY Movie.yearReleased ASC"
-        elif sort_by == "year_desc":
+        elif sort_by == "Year Released (Descending)":
             query += f"ORDER BY Movie.yearReleased DESC"
-        elif sort_by == "runtime_asc":
+        elif sort_by == "Runtime (Ascending)":
             query += f"ORDER BY Movie.runtime ASC"
-        elif sort_by == "runtime_desc":
+        elif sort_by == "Runtime (Descending)":
             query += f"ORDER BY Movie.runtime DESC"
+        elif sort_by == "none":
+            query += ""
 
         movies = db.execute(query).fetchall()
         moviechunks = split_moviechunks(movies, N, ROW_LIMIT)
         moreLeft = N * ROW_LIMIT < len(movies)
 
         db.close()
-        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names,
-                               title=title, actor=actor_name, genre=genre_name, sort_by=sort_by, user=current_user)
+        return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names, sort_by_fields=sort_by_fields, title=title, actor=actor_name, genre=genre_name, sort_by=sort_by,  user=current_user)
     else:
         genre_name = request.form.get("genre")
         query = f"""
@@ -95,8 +155,9 @@ def search():
         moreLeft = N * ROW_LIMIT < len(movies)
 
         return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names,
-                               user=current_user)
-      
+                               sort_by_fields=sort_by_fields, user=current_user)
+
+
 @views.route('/profile', methods=["GET", "POST"])
 @login_required
 def profile():
@@ -120,7 +181,7 @@ def profile():
             is_search = True
 
         if follow is not None:
-    
+
             select_query = f"""
             SELECT * FROM Follows WHERE userID1 = '{current_user.id}' AND userID2 = '{follow}'
             """
