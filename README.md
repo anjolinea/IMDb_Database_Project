@@ -6,6 +6,7 @@ Our app is called Cinemate: a mix between Netflix and Spotify! We wanted to add 
 - recommendations of movies to rewatch
 - recommendations of movies based on your genre/actor likes
 - recommendations of movies based on you and one of your friends' combined tastes
+- see your connections based on people you follow, like LinkedIn's connections
 
 ### How to Load Sample Database
 
@@ -84,7 +85,19 @@ Your search does not need to be exact.
 After clicking on one of the username buttons the following loads
 ![Recommend For Friend 2](readme_pictures/milestone2_recfriend2.png)
 
-10. Once you are all done you can logout. 
+10. FEATURE: On the Profile page, you can follow and unfollow users. 
+You can view your followers:
+![View Followers](readme_pictures/m2_Followers.png)
+See who you are following:
+![View Following](readme_pictures/m2_Following.png)
+See followers of users you follow:
+![View Suggested](readme_pictures/m2_Suggested.png)
+Search for other users:
+![Search Users](readme_pictures/m2_Discover.png)
+You can also click the Update Information button to update your display name and/or password:
+![Update Info](readme_pictures/m2_Update_Information.png)
+
+11. Once you are all done you can logout. 
 ![Logout UI](readme_pictures/milestone2_logout.png)
 
 11. FANCY FEATURE: Unit testing. Run the following to execute unit tests

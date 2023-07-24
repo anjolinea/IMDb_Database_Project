@@ -3,18 +3,21 @@
 {% block title %}Cinemate | Login{% endblock %}
 
 {% block body %}
-    <form action="" method="post">
-        <h3 align="center">Login</h3>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
-        </div>
-        <br />
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
-        </div>
-        <br />
-        <button type="submit" class="btn btn-primary">Login!</button>
-    </form>
+    <div class="login-container">
+        <form action="" method="post">
+            <h3 align="center">Login</h3>
+            <div class="form-group">
+                <div class="login-label-div"><label class="login-label" for="username">Username</label></div>
+                <input type="text" class="form-control login-input" name="username" id="username" placeholder="Enter username">
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="login-label-div"><label class="login-label" for="password">Password</label></div>
+                <input type="password" class="form-control login-input" name="password" id="password" placeholder="Enter password">
+            </div>
+            <br/>
+            <div style="display: flex;"><button type="submit" class="btn btn-primary login-btn">Login!</button></div>
+
+        </form>
+    </div>
 {% endblock %}

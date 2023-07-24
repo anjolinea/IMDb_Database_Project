@@ -3,42 +3,45 @@
 {% block title %}Cinemate | Sign Up{% endblock %}
 
 {% block body %}
-    <form action="" method="post">
-        <br>
-        <h3 align="center">Sign Up</h3>
-        <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Enter first name">
-        </div>
-        <br />
-        <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Enter last name">
-        </div>
-        <br />
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" id="username" placeholder="Enter username">
-        </div>
-        <br />
-        <div class="form-group">
-            <label for="password1">Password</label>
-            <legend style="font-size:13px">Please enter a password that satisfies these requirements: <br>
-                <ul>
-                    <li>Password length is at least 8</li>
-                    <li>At least one lowercase letter</li>
-                    <li>At least one uppercase letter</li>
-                    <li>At least one number</li>
-                </ul>
-            </legend>
-            <input type="password" class="form-control" name="password1" id="password1" placeholder="Enter password">
-        </div>
-        <br />
-        <div class="form-group">
-            <label for="password2">Re-enter Password</label>
-            <input type="password" class="form-control" name="password2" id="password2" placeholder="Confirm password">
-        </div>
-        <br />
-        <button type="submit" class="btn btn-primary">Sign Up!</button>
-    </form>
+    <div class="login-container">
+        <form action="" method="post">
+            <br>
+            <h3 align="center">Sign Up</h3>
+            <div class="form-group">
+                <div class="login-label-div"><label for="firstName">First Name</label></div>
+                <input type="text" class="form-control login-input" name="firstName" id="firstName" placeholder="Enter first name">
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="login-label-div"><label for="lastName">Last Name</label></div>
+                <input type="text" class="form-control login-input" name="lastName" id="lastName" placeholder="Enter last name">
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="login-label-div"><label for="username">Username</label></div>
+                <input type="text" class="form-control login-input" name="username" id="username" placeholder="Enter username">
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="login-label-div"><label for="password1">Password</label></div>
+                <legend style="font-size:13px">Please enter a password that satisfies these requirements: <br>
+                    <ul>
+                        <li>Password length is at least 8</li>
+                        <li>At least one lowercase letter</li>
+                        <li>At least one uppercase letter</li>
+                        <li>At least one number</li>
+                    </ul>
+                </legend>
+                <input type="password" class="form-control login-input" name="password1" id="password1" placeholder="Enter password">
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="login-label-div"><label for="password2">Re-enter Password</label></div>
+                <input type="password" class="form-control login-input" name="password2" id="password2" placeholder="Confirm password">
+            </div>
+            <br />
+            <div style="display: flex;"><button type="submit" class="btn btn-primary login-btn">Sign Up!</button></div>
+
+        </form>
+    </div>
 {% endblock %}
