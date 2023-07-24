@@ -161,6 +161,9 @@ def profile():
     db = DB()
 
     is_search = False
+    is_genre = False
+    is_actor = False
+    actor_search = False
 
     if request.method == "POST":
         follow = request.form.get("Follow")
@@ -169,6 +172,16 @@ def profile():
         first = request.form.get("first")
         last = request.form.get("last")
 
+        addGenre = request.form.get("addGenre")
+        removeGenre = request.form.get("removeGenre")
+
+        addActor = request.form.get("addActor")
+        removeActor = request.form.get("removeActor")
+
+        actor = request.form.get("aName")
+
+        print(request.form)
+
         if first is not None:
             firstName = first
             is_search = True
@@ -176,6 +189,11 @@ def profile():
         if last is not None:
             lastName = last
             is_search = True
+
+        if actor is not None:
+            print("actor!")
+            aName = actor
+            actor_search = True
 
         if follow is not None:
 
@@ -202,6 +220,77 @@ def profile():
             """
             db.execute(unfollow_query).fetchall()
             db.commit()
+
+        if addGenre is not None:
+            select_query = f"""
+            SELECT * FROM FavGenre WHERE userID = '{current_user.id}' AND genreID = '{addGenre}'
+            """
+            val = db.execute(select_query).fetchall()
+
+            if len(val) == 0:
+                print("add genre")
+                is_genre = True
+                add_genre_query = f"""
+                INSERT INTO FavGenre (userID, genreID)
+                VALUES ('{current_user.id}', '{addGenre}');
+                """
+                db.execute(add_genre_query).fetchall()
+                db.commit()
+
+        if removeGenre is not None:
+            print("remove genre")
+            is_genre = True
+            remove_genre_query = f"""
+            DELETE FROM FavGenre
+            WHERE userID = '{current_user.id}'
+                AND genreID = '{removeGenre}';
+            """
+            db.execute(remove_genre_query).fetchall()
+            db.commit()
+
+        if addActor is not None:
+            select_query = f"""
+            SELECT * FROM FavActor WHERE userID = '{current_user.id}' AND actorID = '{addActor}'
+            """
+            val = db.execute(select_query).fetchall()
+
+            if len(val) == 0:
+                is_actor = True
+                add_actor_query = f"""
+                INSERT INTO FavActor (userID, actorID)
+                VALUES ('{current_user.id}', '{addActor}');
+                """
+                db.execute(add_actor_query).fetchall()
+                db.commit()
+
+        if removeActor is not None:
+            print("removing actor")
+            is_actor = True
+            remove_actor_query = f"""
+            DELETE FROM FavActor
+            WHERE userID = '{current_user.id}'
+                AND actorID = '{removeActor}';
+            """
+            db.execute(remove_actor_query).fetchall()
+            db.commit()
+
+    fav_actors_query = f"""
+    SELECT F.actorID, A.actorName
+    FROM FavActor F
+    JOIN Actor A ON F.actorID == A.actorID
+    WHERE F.userID = '{current_user.id}'
+    """
+    fav_actors = db.execute(fav_actors_query).fetchall()
+
+    genres_query = f"""
+    SELECT genreID, genreName, (SELECT COUNT(*) 
+        FROM FavGenre F 
+        WHERE G.genreID = F.genreID AND F.userID = '{current_user.id}'
+    )
+    AS fav
+    FROM Genre G
+    """
+    genres = db.execute(genres_query).fetchall()
 
     following_query = f"""
     SELECT userID2 AS username, firstName, lastName, profilePicLink
@@ -241,7 +330,8 @@ def profile():
         WHERE username = follower_of_follower
         GROUP BY follower_of_follower
         ORDER BY level)
-    WHERE level > 0;
+    WHERE level > 0
+    LIMIT 48;
     """
     suggested = db.execute(suggested_query).fetchall()
 
@@ -257,6 +347,7 @@ def profile():
         ) AS isFollowing
         FROM User 
         WHERE firstName LIKE '%{firstName}%' AND lastName LIKE '%{lastName}%' AND username != '{current_user.id}'
+        LIMIT 48;
         """
         search_results = db.execute(search_query).fetchall()
     else:
@@ -264,9 +355,39 @@ def profile():
         lastName = ""
         search_results = None
 
+    if actor_search:
+        actor_query = f"""
+        SELECT actorID, actorName
+        FROM Actor
+        WHERE actorName LIKE '%{aName}%' AND actorID NOT IN (SELECT actorID FROM FavActor WHERE userID = '{current_user.id}')
+        LIMIT 48;
+        """
+        actors = db.execute(actor_query).fetchall()
+    else:
+        aName = ""
+        actors = None
+
     db.close()
 
-    return render_template('profile.html', user=current_user, user_info=user_info, following=following, followers=followers, suggested=suggested, is_search=is_search, search_results=search_results, firstName=firstName, lastName=lastName)
+    return render_template(
+        'profile.html', 
+        user=current_user, 
+        user_info=user_info, 
+        fav_actors=fav_actors, 
+        genres=genres, 
+        following=following, 
+        followers=followers, 
+        suggested=suggested, 
+        is_search=is_search, 
+        is_genre=is_genre,
+        is_actor=is_actor,
+        actor_search=actor_search,
+        search_results=search_results, 
+        firstName=firstName, 
+        lastName=lastName,
+        aName=aName,
+        actors=actors
+    )
 
 
 @views.route('/recommend', methods=["GET", "POST"])
