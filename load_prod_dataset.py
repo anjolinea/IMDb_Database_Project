@@ -6,8 +6,8 @@ sys.path.append( '../production_dataset' )
 from production_dataset.use_prod_dataset_util import load_csv_to_sql
 from production_dataset.prod_dataset_consts import *
 
-def load_prod_dataset(connection):
-    with open('schema.sql') as f:
+def load_prod_dataset(connection, schema='schema.sql'):
+    with open(schema) as f:
         connection.executescript(f.read())
 
     csv_files = [MOVIE_FILENAME, GENRE_FILENAME, MOVIEGENRE_FILENAME, ACTOR_FILENAME, STARRED_FILENAME, ROLE_FILENAME,

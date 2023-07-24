@@ -17,38 +17,31 @@ CREATE TABLE Movie (
     runtime INT NOT NULL,
     yearReleased INT NOT NULL,
     posterImgLink VARCHAR(150)
-);
+) WITHOUT ROWID; -- clustered index on movieID
 
-CREATE INDEX MovieTitleIndex ON Movie(movieTitle);
+CREATE INDEX MovieTitleIndex ON Movie(movieID, movieTitle); -- when you only need the title
 
 CREATE TABLE Genre (
     genreID VARCHAR(3) NOT NULL PRIMARY KEY,
     genreName VARCHAR(50) NOT NULL
-);
-
-CREATE INDEX GenreNameIndex ON Genre(genreName);
+) WITHOUT ROWID; -- clustered index on genreID
 
 CREATE TABLE MovieGenre (
     movieID VARCHAR(15) NOT NULL REFERENCES Movie(movieID),
     genreID VARCHAR(3) NOT NULL REFERENCES Genre(genreID),
-    PRIMARY KEY(movieID, genreID)
-);
+    PRIMARY KEY(genreID, movieID)
+) WITHOUT ROWID; -- clustered index on genreID, movieID
 
 CREATE TABLE Actor (
     actorID VARCHAR(15) NOT NULL PRIMARY KEY,
     actorName VARCHAR(60) NOT NULL
-);
-
-CREATE INDEX ActorNameIndex ON Actor(actorName);
+) WITHOUT ROWID; -- clustered index on actorID
 
 CREATE TABLE Starred (
     movieID VARCHAR(15) NOT NULL REFERENCES Movie(movieID),
     actorID VARCHAR(15) NOT NULL REFERENCES Actor(actorID),
-    PRIMARY KEY(movieID, actorID)
-);
-
--- usually searching on actors' movies, not movies' actors
-CREATE INDEX StarredIndex ON Starred(actorID, movieID);
+    PRIMARY KEY(actorID, movieID) 
+) WITHOUT ROWID; -- clustered index on actorID, movieID
 
 CREATE TABLE ActorRole (
     movieID VARCHAR(15) NOT NULL,
@@ -65,7 +58,10 @@ CREATE TABLE User (
     lastName VARCHAR(40) NOT NULL,
     userPassword VARCHAR(200) NOT NULL,
     profilePicLink VARCHAR(150) NOT NULL
-);
+) WITHOUT ROWID; -- clustered index on username
+
+CREATE INDEX UserFirstNameIndex ON User(firstName, username); -- for search on firstname
+CREATE INDEX UserLastNameIndex ON User(lastName, username); -- for search on lastname
 
 CREATE TABLE Follows (
     userID1 VARCHAR(40) NOT NULL REFERENCES User(username),
@@ -77,13 +73,13 @@ CREATE TABLE FavActor (
     userID VARCHAR(40) NOT NULL REFERENCES User(username),
     actorID VARCHAR(15) NOT NULL REFERENCES Actor(actorID),
     PRIMARY KEY(userID, actorID)
-);
+) WITHOUT ROWID;
 
 CREATE TABLE FavGenre (
     userID VARCHAR(40) NOT NULL REFERENCES User(username),
     genreID VARCHAR(3) NOT NULL REFERENCES Genre(genreID),
     PRIMARY KEY(userID, genreID)
-);
+) WITHOUT ROWID;
 
 CREATE TABLE Watched (
     userID VARCHAR(40) NOT NULL REFERENCES User(username),
@@ -91,7 +87,4 @@ CREATE TABLE Watched (
     lastWatched DATE,
     likes BIT,
     PRIMARY KEY(userID, movieID)
-);
-
---CREATE INDEX WatcheduserIDIndex ON Watched(userID);
---CREATE INDEX WatchedLastWatchedIndex ON Watched(lastWatched);
+) WITHOUT ROWID;
