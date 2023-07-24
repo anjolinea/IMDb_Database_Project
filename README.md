@@ -87,6 +87,11 @@ After clicking on one of the username buttons the following loads
 10. Once you are all done you can logout. 
 ![Logout UI](readme_pictures/milestone2_logout.png)
 
+11. FANCY FEATURE: Unit testing. Run the following to execute unit tests
+```
+python -m unittest discover -s tests -p "test_*.py" -v 
+```
+
 If you want to login with a user who has movies watched, liked, and is following other users, use the following credentials:
 - username: ellenbelbeck
 - password: abcABC1234
