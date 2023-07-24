@@ -1,5 +1,6 @@
 import pandas as pd
 import time
+from prod_dataset_consts import *
 
 def load_csv_to_sql(connection, csv_filename, insert_string):
 
@@ -42,3 +43,9 @@ def run_command_from_file(connection, input_filename, output_filename=None, prin
         output_filename = df.to_csv(output_filename, index=False)
 
     return end
+
+def shuffle():
+    for filename in ["production_dataset/" + filename for filename in ALL_FILENAMES]:
+        df = pd.read_csv(filename)
+        df = df.sample(frac = 1)
+        df.to_csv(filename, index=False)
