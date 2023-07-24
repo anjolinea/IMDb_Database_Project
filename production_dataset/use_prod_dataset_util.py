@@ -1,5 +1,12 @@
 import pandas as pd
 import time
+
+import sys
+import os
+sys.path.append( '.' )
+sys.path.append( '../production_dataset' )
+sys.path.append( './production_dataset' )
+
 from prod_dataset_consts import *
 
 def load_csv_to_sql(connection, csv_filename, insert_string):
