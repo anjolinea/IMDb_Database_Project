@@ -16,15 +16,43 @@ def split_moviechunks(movies, n, row_limit):
 @login_required
 def home():
     db = DB()
-
-    query = """
-    SELECT * FROM Movie ORDER BY movieRating DESC
+    top2022_query = f"""
+    SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+    FROM Movie
+    WHERE Movie.yearReleased = 2022
+    ORDER BY Movie.movieRating DESC
+    LIMIT 10;
     """
-    movies = db.execute(query).fetchall()
-    moviechunks = split_moviechunks(movies, N, ROW_LIMIT)
+    top2022_movies = db.execute(top2022_query).fetchall()
+
+    topliked_query = f"""
+    SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+    FROM Movie
+    WHERE movieID IN 
+        (SELECT movieID
+        FROM Watched
+        GROUP BY movieID
+        ORDER BY SUM(likes) DESC
+        LIMIT 10);
+    """
+    topliked_movies = db.execute(topliked_query).fetchall()
+
+    trending_query = f"""
+    SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+    FROM Movie
+    WHERE movieID IN 
+        (SELECT movieID
+        FROM Watched
+        WHERE strftime('%Y', lastWatched) = '2022'
+        GROUP BY movieID
+        ORDER BY SUM(likes) DESC
+        LIMIT 10);
+    """
+    trending_movies = db.execute(trending_query).fetchall()
 
     db.close()
-    return render_template('home.html', moviechunks=moviechunks, user=current_user)
+    return render_template('home.html', top2022_movies=top2022_movies, topliked_movies=topliked_movies, 
+                           trending_movies=trending_movies, user=current_user)
 
 
 @views.route('/search', methods=["GET", "POST"])
