@@ -27,12 +27,13 @@ def test_SQL_query():
 
 N = 10
 
-latency = sum([test_SQL_query() for i in range(N)]) / N
-print('{:.6f}s on average for the query'.format(latency))
+# latency = sum([test_SQL_query() for i in range(N)]) / N
+# print('{:.6f}s on average for the query'.format(latency))
 # ------------------
 
 query = """
+SELECT * FROM USER LIMIT 10;
 """
 
 ## a CHECK constraint violation should happen!
-#run_command_from_string(connection, query, True)
+run_command_from_string(connection, query, True)

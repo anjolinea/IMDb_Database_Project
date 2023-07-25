@@ -123,6 +123,12 @@ body {
     border-radius:0px;
 }
 
+.card-img-top{
+    width:50%;
+    height: auto;
+    border-radius:0px;
+}
+
 .card-img-big{
     width: 100%;
     height: 88%;
