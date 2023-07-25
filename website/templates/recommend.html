@@ -4,6 +4,26 @@
 
 {% block body %}
 <br>
+<h3>New Movies to Watch</h3>
+<div class="horizontal-card-group">
+    {% if again_movies|length > 0 %}
+    {% for movie in random_movies %}
+        <div class="card horizontal-card text-bg-light mb-3" data-toggle="tooltip" title="{{ movie['movieTitle'] }}">
+            <div class="card-body flex-column">
+                <h5 class="card-title text-truncate">{{ movie['movieTitle'] }}</h5>
+                <p class="card-text">{{ movie['movieRating'] }}</p>
+                <img class="card-img-small embed-responsive-item" src={{ movie['posterImgLink'] }}>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">{{ movie['yearReleased'] }} | {{ movie['runtime'] }} minutes</small>
+            </div>
+        </div>
+    {% endfor %}
+    {% else %}
+    <div class="nothing-card"> There's nothing here... </div>
+    {% endif %}
+</div>
+<br>
 <h3>Watch It Again</h3>
 <div class="horizontal-card-group">
     {% if again_movies|length > 0 %}
@@ -26,8 +46,8 @@
 <br>
 <h3>Based on Your Liked Movies</h3>
 <div class="horizontal-card-group">
-    {% if rec_unwatched_faves|length > 0 %}
-    {% for movie in rec_unwatched_faves %}
+    {% if rec_prev_liked|length > 0 %}
+    {% for movie in rec_prev_liked %}
         <div class="card horizontal-card text-bg-light mb-3" data-toggle="tooltip" title="{{ movie['movieTitle'] }}">
             <div class="card-body flex-column">
                 <h5 class="card-title text-truncate">{{ movie['movieTitle'] }}</h5>
