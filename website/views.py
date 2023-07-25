@@ -216,6 +216,19 @@ def profile():
 def recommend():
     db = DB()
     print(current_user.id)
+    random_movies_query = f"""
+    SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+    FROM Movie
+    WHERE Movie.movieID NOT IN (
+        SELECT Watched.movieID
+        FROM Watched
+        WHERE Watched.userID = '{current_user.id}'
+    )
+    ORDER BY RANDOM()
+    LIMIT 10;
+    """
+    random_movies = db.execute(random_movies_query).fetchall()
+
     rewatch_query = f"""
     SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
     FROM Movie
@@ -227,10 +240,8 @@ def recommend():
     LIMIT 5
     """
     again_movies = db.execute(rewatch_query).fetchall()
-    for item in again_movies:
-        print(item)
 
-    unwatch_query = f"""
+    rec_prev_liked_query = f"""
     SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
     FROM Movie
     JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
@@ -264,7 +275,7 @@ def recommend():
     ORDER BY Movie.movieID DESC
     LIMIT 5;
     """
-    rec_unwatched_faves = db.execute(unwatch_query).fetchall()
+    rec_prev_liked = db.execute(rec_prev_liked_query).fetchall()
 
     follow_liked_query = f"""
     SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
@@ -361,12 +372,12 @@ def recommend():
         rec_two = db.execute(query_rec_two).fetchall()
         second_user = db.execute(user_info_query).fetchone()
         db.close()
-        return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves,
+        return render_template('recommend.html', again_movies=again_movies, rec_prev_liked=rec_prev_liked,
                                follow_liked=follow_liked, rec_from_faves=rec_from_faves, following=following,
-                               rec_two=rec_two,
+                               rec_two=rec_two, random_movies = random_movies,
                                second_user=second_user, user=current_user, firstClicked=True)
     else:
         db.close()
-        return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves,
-                               follow_liked=follow_liked, rec_from_faves=rec_from_faves, following=following,
-                               user=current_user, firstClicked=False)
+        return render_template('recommend.html', again_movies=again_movies, rec_prev_liked=rec_prev_liked,
+                               follow_liked=follow_liked, rec_from_faves=rec_from_faves, random_movies=random_movies,
+                               following=following, user=current_user, firstClicked=False)
