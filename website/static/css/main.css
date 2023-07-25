@@ -92,6 +92,15 @@ body {
     padding: 10px 10px 0px 10px;
 }
 
+.card-subtitle {
+    display: flex;
+}
+
+.borderless-button {
+    border: none;
+    background-color: transparent;
+}
+
 .card-text{
     padding: 0px 10px;
     margin-bottom: 3px;

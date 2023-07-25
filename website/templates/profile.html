@@ -192,14 +192,17 @@ body {font-family: Arial;}
   <button class="tablinks" onclick="openTab(event, 'Following')" id="defaultOpen">Following</button>
   <button class="tablinks" onclick="openTab(event, 'Followers')">Followers</button>
   <button class="tablinks" onclick="openTab(event, 'Suggested')">Suggested Users</button>
-  <button class="tablinks" onclick="openTab(event, 'Explore')" id="discoverTab">Discover Users</button>
-  <button class="tablinks" onclick="openTab(event, 'Genres')" id="genreTab">Favourite Genres</button>
-  <button class="tablinks" onclick="openTab(event, 'Actors')" id="actorTab">Favourite Actors</button>
+  <button class="tablinks" onclick="openTab(event, 'Explore')" id="discoverTab">Search Users</button>
+  <button class="tablinks" onclick="openTab(event, 'Genres')" id="genreTab">Genres</button>
+  <button class="tablinks" onclick="openTab(event, 'Actors')" id="actorTab">Actors</button>
 </div>
 
 <div id="Following" class="tabcontent">
   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
   <h3></h3><h3>Who You Follow:</h3>
+  {% if following|length == 0 %}
+    <div><h5> There's nothing here... </h5></div>
+  {% endif %}
   {% for user in following %}
         <div class="card horizontal-card text-bg-light mb-3">
           <div class="card-body flex-column">
@@ -226,6 +229,9 @@ body {font-family: Arial;}
 <div id="Followers" class="tabcontent">
   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
   <h3></h3><h3>Who Follows You:</h3>
+  {% if followers|length == 0 %}
+    <div><h5> There's nothing here... </h5></div>
+  {% endif %}
   {% for user in followers %}
         <div class="card horizontal-card text-bg-light mb-3">
           <div class="card-body flex-column">
@@ -255,7 +261,10 @@ body {font-family: Arial;}
 
 <div id="Suggested" class="tabcontent">
     <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
-    <h3></h3><h3>Who Your Followers Follow:</h3>
+    <h3></h3><h3>Who Users You Follow are Following:</h3>
+    {% if suggested|length == 0 %}
+      <div><h5> There's nothing here... </h5></div>
+    {% endif %}
     {% for user in suggested %}
         {% if user['level'] != 0 %}
         <div class="card horizontal-card text-bg-light mb-3">
@@ -317,6 +326,8 @@ body {font-family: Arial;}
                   {% else %}
                       <button class="btn btn-primary" type="submit" name="Follow" value="{{ user['username'] }}">Follow</button>
                   {% endif %}
+                  <input hidden="true" type="text" class="form-control" name="first" id="first" placeholder="First name" value="{{firstName}}">
+                  <input hidden="true" type="text" class="form-control" name="last" id="last" placeholder="Last name" value="{{lastName}}">
               </form>
               </div>
           </div>
@@ -352,9 +363,13 @@ body {font-family: Arial;}
   <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
   <h3></h3><h3>Favourite Actors:</h3>
   <div class="actor-container">
+    {% if fav_actors|length == 0 %}
+      <div><h5> There's nothing here... </h5></div>
+    {% endif %}
     {% for actor in fav_actors %}
     <form id="{{ actor['actorID'] }}" action="" method="post">
       <input hidden="true" type="submit" name="removeActor" value="{{ actor['actorID'] }}">
+      <input hidden="true" type="text" class="form-control" name="aName" value="{{aName}}">
       <h5 class="actor-label">
         <span onclick="removeActor(this.parentElement)" class="topright">&times</span>
         {{ actor['actorName'] }}
@@ -378,6 +393,7 @@ body {font-family: Arial;}
     {% for actor in actors %}
     <form id="{{ actor['actorID'] }}" action="" method="post">
       <input hidden="true" type="submit" name="addActor" value="{{ actor['actorID'] }}">
+      <input hidden="true" type="text" class="form-control" name="aName" value="{{aName}}">
       <h5 class="actor-label">
         <span onclick="removeActor(this.parentElement)" class="topright2">&plus;</span>
         {{ actor['actorName'] }}

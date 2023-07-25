@@ -44,7 +44,42 @@
             <div class="card mb-3 big-card" data-toggle="tooltip" title="{{ movie['movieTitle'] }}">
                 <div class="card-body flex-column">
                     <h5 class="card-title text-truncate">{{ movie['movieTitle'] }}</h5>
-                    <p class="card-text">{{ movie['movieRating'] }}</p>
+                    <div class="card-subtitle">
+                        <p class="card-text">{{ movie['movieRating'] }}</p>
+                        <button class="borderless-button" onclick="submitUpdate(this)">
+                            <form action="" method="post">
+                                <input hidden="true" type="text" name="watched" value="{{ movie['movieID'] }}">
+                                <input hidden="true" type="text" name="title" value="{{ title }}">
+                                <input hidden="true" type="text" name="actor" value="{{ actor }}">
+                                <input hidden="true" type="text" name="genre" value="{{ genre }}">
+                                <input hidden="true" type="text" name="sort_by" value="{{ sort_by }}">
+                            </form>
+                            {% if movie['watch'] == 1 %}
+                            <i class="fa fa-eye" style="color: #6eb7eb"></i>
+                            {% else %}
+                            <i id="{{ movie['movieID'] }}-watched" class="fa fa-eye"></i>
+                            {% endif %}
+                        </button>
+                        <button class="borderless-button" onclick="submitUpdate(this)">
+                            <form action="" method="post">
+                                <input hidden="true" type="text" name="movId" value="{{ movie['movieID'] }}">
+                                {% if movie['likes'] != 1 %}
+                                <input hidden="true" type="text" name="fav" value="1">
+                                {% else %}
+                                <input hidden="true" type="text" name="fav" value="0">
+                                {% endif %}
+                                <input hidden="true" type="text" name="title" value="{{ title }}">
+                                <input hidden="true" type="text" name="actor" value="{{ actor }}">
+                                <input hidden="true" type="text" name="genre" value="{{ genre }}">
+                                <input hidden="true" type="text" name="sort_by" value="{{ sort_by }}">
+                            </form>
+                            {% if movie['likes'] == 1 %}
+                            <i class="fa fa-heart" style="color: #6eb7eb"></i>
+                            {% else %}
+                            <i class="fa fa-heart"></i>
+                            {% endif %}
+                        </button>
+                    </div>
                     <img class="card-img-big embed-responsive-item" src={{ movie['posterImgLink'] }}>
                 </div>
                 <div class="card-footer">
@@ -55,4 +90,11 @@
     </div>
     <br>
     {% endfor %}
+
+    <script>
+        function submitUpdate(parent) {
+            parent.children[0].submit()
+        }
+    </script>
+
 {% endblock %}
