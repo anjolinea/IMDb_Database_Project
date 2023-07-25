@@ -3,6 +3,14 @@
     height: 500px
 }
 
+.fa-selected{
+    color: #e2b6cf;
+}
+
+.fa-unselected:hover{
+    color: #cce8cc;
+}
+
 body {
     background-color: #f6efee;
 }

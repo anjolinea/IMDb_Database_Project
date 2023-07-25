@@ -5,9 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prod_database.db" beforeDir="false" afterPath="$PROJECT_DIR$/prod_database.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/website/static/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/templates/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/update.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

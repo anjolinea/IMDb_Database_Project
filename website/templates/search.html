@@ -55,9 +55,9 @@
                                 <input hidden="true" type="text" name="sort_by" value="{{ sort_by }}">
                             </form>
                             {% if movie['watch'] == 1 %}
-                            <i class="fa fa-eye" style="color: #6eb7eb"></i>
+                            <i class="fa fa-eye fa-selected"></i>
                             {% else %}
-                            <i id="{{ movie['movieID'] }}-watched" class="fa fa-eye"></i>
+                            <i id="{{ movie['movieID'] }}-watched" class="fa fa-eye fa-unselected"></i>
                             {% endif %}
                         </button>
                         <button class="borderless-button" onclick="submitUpdate(this)">
@@ -74,9 +74,9 @@
                                 <input hidden="true" type="text" name="sort_by" value="{{ sort_by }}">
                             </form>
                             {% if movie['likes'] == 1 %}
-                            <i class="fa fa-heart" style="color: #6eb7eb"></i>
+                            <i class="fa fa-heart fa-selected"></i>
                             {% else %}
-                            <i class="fa fa-heart"></i>
+                            <i class="fa fa-heart fa-unselected"></i>
                             {% endif %}
                         </button>
                     </div>
