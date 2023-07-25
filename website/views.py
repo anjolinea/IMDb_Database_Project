@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 from . import DB
 from flask_login import login_required, current_user
 from rapidfuzz import process
+from datetime import datetime
 views = Blueprint('views', __name__)
 
 N = 4
@@ -59,6 +60,58 @@ def home():
 @login_required
 def search():
     db = DB()
+
+    if request.method == "POST":
+        formatted_date = datetime.now().date().strftime('%Y-%m-%d')
+        likes = 0
+        movID = None
+        fav = request.form.get("fav")
+        updateDate = False
+
+        if fav is not None:
+            movID = request.form.get("movId")
+            likes = fav
+        print("FAV", fav)
+        print("movID:", movID)
+        
+        addWatched = request.form.get("watched")
+        print("watched", addWatched)
+        if addWatched is not None:
+            movID = addWatched
+            updateDate = True
+
+        print("ID:", movID)
+
+        if movID is not None:
+            print("ADDING INPUT")
+            select_query = f"""
+            SELECT * FROM Watched WHERE userID = '{current_user.id}' AND movieID = '{movID}'
+            """
+            val = db.execute(select_query).fetchall()
+
+            if len(val) == 0:
+                print("Inserting into watched")
+                watched_query = f"""
+                INSERT INTO Watched (userID, movieID, lastWatched, likes)
+                VALUES ('{current_user.id}', '{movID}', '{formatted_date}', '{likes}');
+                """
+            elif updateDate:
+                print("Updating watched with date")
+                watched_query = f"""
+                UPDATE Watched
+                SET lastWatched = {formatted_date}
+                WHERE userID = '{current_user.id}' AND movieID = '{movID}';
+                """
+            else:
+                print("Updating watched with likes")
+                watched_query = f"""
+                UPDATE Watched
+                SET likes = {likes}
+                WHERE userID = '{current_user.id}' AND movieID = '{movID}';
+                """
+            db.execute(watched_query).fetchall()
+            db.commit()
+
     query_genres = """
         SELECT Genre.genreName FROM Genre
         """
@@ -91,12 +144,14 @@ def search():
         minimum_rating = 5  # hardcoded
 
         query = f"""
-        SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+        SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink, Movie.movieID,
+        Watched.likes, (SELECT COUNT(*) FROM Watched WHERE Movie.movieID = Watched.movieID AND Watched.userID = '{current_user.id}') AS watch
         FROM Movie
         JOIN Starred ON Movie.movieID = Starred.movieID
         JOIN Actor ON Starred.actorID = Actor.actorID
         JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
         JOIN Genre ON MovieGenre.genreID = Genre.genreID
+        LEFT JOIN Watched ON Movie.movieID = Watched.movieID AND Watched.userID = '{current_user.id}'
         WHERE Actor.actorName LIKE '%{actor_name}%'
                 AND Movie.movieTitle LIKE '%{title}%'
                 AND Movie.movieRating >= {minimum_rating}
@@ -104,7 +159,7 @@ def search():
 
         searched_query = db.execute(query).fetchall()
         query_results = [title[0] for title in searched_query]
-        # print(query_results)
+
         fuzzed_titles = []
         fuzzed_names = []
         if len(query_results) == 0:
@@ -122,12 +177,14 @@ def search():
             print(fuzzed_titles)
             print(fuzzed_names)
             query = f"""
-            SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+            SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink, Movie.movieID,
+            Watched.likes, (SELECT COUNT(*) FROM Watched WHERE Movie.movieID = Watched.movieID AND Watched.userID = '{current_user.id}') AS watch
             FROM Movie
             JOIN Starred ON Movie.movieID = Starred.movieID
             JOIN Actor ON Starred.actorID = Actor.actorID
             JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
             JOIN Genre ON MovieGenre.genreID = Genre.genreID
+            LEFT JOIN Watched ON Movie.movieID = Watched.movieID AND Watched.userID = '{current_user.id}';
             """
             other_titles = ""
             other_names = ""
@@ -175,13 +232,16 @@ def search():
     else:
         genre_name = request.form.get("genre")
         query = f"""
-        SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
-        FROM Movie;
+        SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink, Movie.movieID,
+        Watched.likes, (SELECT COUNT(*) FROM Watched WHERE Movie.movieID = Watched.movieID AND Watched.userID = '{current_user.id}') AS watch
+        FROM Movie
+        LEFT JOIN Watched ON Movie.movieID = Watched.movieID AND Watched.userID = '{current_user.id}';
         """
         movies = db.execute(query).fetchall()
         moviechunks = split_moviechunks(movies, N, ROW_LIMIT)
         moreLeft = N * ROW_LIMIT < len(movies)
 
+        db.close()
         return render_template('search.html', moviechunks=moviechunks, moreLeft=moreLeft, genre_names=genre_names,
                                sort_by_fields=sort_by_fields, user=current_user)
 
@@ -194,7 +254,8 @@ def profile():
     is_search = False
     is_genre = False
     is_actor = False
-    actor_search = False
+
+    aName = ""
 
     if request.method == "POST":
         follow = request.form.get("Follow")
@@ -222,9 +283,8 @@ def profile():
             is_search = True
 
         if actor is not None:
-            print("actor!")
             aName = actor
-            actor_search = True
+            is_actor = True
 
         if follow is not None:
 
@@ -259,7 +319,6 @@ def profile():
             val = db.execute(select_query).fetchall()
 
             if len(val) == 0:
-                print("add genre")
                 is_genre = True
                 add_genre_query = f"""
                 INSERT INTO FavGenre (userID, genreID)
@@ -269,7 +328,6 @@ def profile():
                 db.commit()
 
         if removeGenre is not None:
-            print("remove genre")
             is_genre = True
             remove_genre_query = f"""
             DELETE FROM FavGenre
@@ -280,13 +338,13 @@ def profile():
             db.commit()
 
         if addActor is not None:
+            is_actor = True
             select_query = f"""
             SELECT * FROM FavActor WHERE userID = '{current_user.id}' AND actorID = '{addActor}'
             """
             val = db.execute(select_query).fetchall()
 
             if len(val) == 0:
-                is_actor = True
                 add_actor_query = f"""
                 INSERT INTO FavActor (userID, actorID)
                 VALUES ('{current_user.id}', '{addActor}');
@@ -295,7 +353,6 @@ def profile():
                 db.commit()
 
         if removeActor is not None:
-            print("removing actor")
             is_actor = True
             remove_actor_query = f"""
             DELETE FROM FavActor
@@ -310,6 +367,7 @@ def profile():
     FROM FavActor F
     JOIN Actor A ON F.actorID == A.actorID
     WHERE F.userID = '{current_user.id}'
+    ORDER BY A.actorName
     """
     fav_actors = db.execute(fav_actors_query).fetchall()
 
@@ -386,17 +444,14 @@ def profile():
         lastName = ""
         search_results = None
 
-    if actor_search:
-        actor_query = f"""
-        SELECT actorID, actorName
-        FROM Actor
-        WHERE actorName LIKE '%{aName}%' AND actorID NOT IN (SELECT actorID FROM FavActor WHERE userID = '{current_user.id}')
-        LIMIT 48;
-        """
-        actors = db.execute(actor_query).fetchall()
-    else:
-        aName = ""
-        actors = None
+    actor_query = f"""
+    SELECT actorID, actorName
+    FROM Actor
+    WHERE actorName LIKE '%{aName}%' AND actorID NOT IN (SELECT actorID FROM FavActor WHERE userID = '{current_user.id}')
+    ORDER BY actorName
+    LIMIT 48;
+    """
+    actors = db.execute(actor_query).fetchall()
 
     db.close()
 
@@ -412,7 +467,6 @@ def profile():
         is_search=is_search, 
         is_genre=is_genre,
         is_actor=is_actor,
-        actor_search=actor_search,
         search_results=search_results, 
         firstName=firstName, 
         lastName=lastName,
@@ -426,6 +480,19 @@ def profile():
 def recommend():
     db = DB()
     print(current_user.id)
+    random_movies_query = f"""
+    SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
+    FROM Movie
+    WHERE Movie.movieID NOT IN (
+        SELECT Watched.movieID
+        FROM Watched
+        WHERE Watched.userID = '{current_user.id}'
+    )
+    ORDER BY RANDOM()
+    LIMIT 10;
+    """
+    random_movies = db.execute(random_movies_query).fetchall()
+
     rewatch_query = f"""
     SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
     FROM Movie
@@ -437,10 +504,8 @@ def recommend():
     LIMIT 5
     """
     again_movies = db.execute(rewatch_query).fetchall()
-    for item in again_movies:
-        print(item)
 
-    unwatch_query = f"""
+    rec_prev_liked_query = f"""
     SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
     FROM Movie
     JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
@@ -474,7 +539,7 @@ def recommend():
     ORDER BY Movie.movieID DESC
     LIMIT 5;
     """
-    rec_unwatched_faves = db.execute(unwatch_query).fetchall()
+    rec_prev_liked = db.execute(rec_prev_liked_query).fetchall()
 
     follow_liked_query = f"""
     SELECT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink
@@ -571,12 +636,12 @@ def recommend():
         rec_two = db.execute(query_rec_two).fetchall()
         second_user = db.execute(user_info_query).fetchone()
         db.close()
-        return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves,
+        return render_template('recommend.html', again_movies=again_movies, rec_prev_liked=rec_prev_liked,
                                follow_liked=follow_liked, rec_from_faves=rec_from_faves, following=following,
-                               rec_two=rec_two,
+                               rec_two=rec_two, random_movies = random_movies,
                                second_user=second_user, user=current_user, firstClicked=True)
     else:
         db.close()
-        return render_template('recommend.html', again_movies=again_movies, rec_unwatched_faves=rec_unwatched_faves,
-                               follow_liked=follow_liked, rec_from_faves=rec_from_faves, following=following,
-                               user=current_user, firstClicked=False)
+        return render_template('recommend.html', again_movies=again_movies, rec_prev_liked=rec_prev_liked,
+                               follow_liked=follow_liked, rec_from_faves=rec_from_faves, random_movies=random_movies,
+                               following=following, user=current_user, firstClicked=False)

@@ -16,7 +16,7 @@
     </div>
     <div class="form-group">
         <label for="genre">Genre</label>
-        <select class="form-control" name="genre" id="genre">
+        <select class="form-control select-box" name="genre" id="genre">
             <option value="all" {% if request.form.genre == 'all' %}selected{% endif %}>All</option>
             {% for genre in genre_names %}
                 <option value="{{ genre }}" {% if request.form.genre == genre %}selected{% endif %}>{{ genre }}</option>
@@ -26,7 +26,7 @@
 
     <div class="form-group">
         <label for="sort_by">Sort By</label>
-        <select class="form-control" name="sort_by" id="sort_by">
+        <select class="form-control select-box" name="sort_by" id="sort_by">
             <option value="none" {% if request.form.sort_by == 'none' %}selected{% endif %}>None</option>
             {% for sort_by in sort_by_fields %}
                 <option value="{{ sort_by }}" {% if request.form.sort_by == sort_by %}selected{% endif %}>{{ sort_by }}</option>
@@ -41,10 +41,45 @@
 {% for moviechunk in moviechunks %}
     <div class="card-group">
         {% for movie in moviechunk %}
-            <div class="card big-card text-bg-light mb-3">
+            <div class="card mb-3 big-card" data-toggle="tooltip" title="{{ movie['movieTitle'] }}">
                 <div class="card-body flex-column">
                     <h5 class="card-title text-truncate">{{ movie['movieTitle'] }}</h5>
-                    <p class="card-text">{{ movie['movieRating'] }}</p>
+                    <div class="card-subtitle">
+                        <p class="card-text">{{ movie['movieRating'] }}</p>
+                        <button class="borderless-button" onclick="submitUpdate(this)">
+                            <form action="" method="post">
+                                <input hidden="true" type="text" name="watched" value="{{ movie['movieID'] }}">
+                                <input hidden="true" type="text" name="title" value="{{ title }}">
+                                <input hidden="true" type="text" name="actor" value="{{ actor }}">
+                                <input hidden="true" type="text" name="genre" value="{{ genre }}">
+                                <input hidden="true" type="text" name="sort_by" value="{{ sort_by }}">
+                            </form>
+                            {% if movie['watch'] == 1 %}
+                            <i class="fa fa-eye fa-selected"></i>
+                            {% else %}
+                            <i id="{{ movie['movieID'] }}-watched" class="fa fa-eye fa-unselected"></i>
+                            {% endif %}
+                        </button>
+                        <button class="borderless-button" onclick="submitUpdate(this)">
+                            <form action="" method="post">
+                                <input hidden="true" type="text" name="movId" value="{{ movie['movieID'] }}">
+                                {% if movie['likes'] != 1 %}
+                                <input hidden="true" type="text" name="fav" value="1">
+                                {% else %}
+                                <input hidden="true" type="text" name="fav" value="0">
+                                {% endif %}
+                                <input hidden="true" type="text" name="title" value="{{ title }}">
+                                <input hidden="true" type="text" name="actor" value="{{ actor }}">
+                                <input hidden="true" type="text" name="genre" value="{{ genre }}">
+                                <input hidden="true" type="text" name="sort_by" value="{{ sort_by }}">
+                            </form>
+                            {% if movie['likes'] == 1 %}
+                            <i class="fa fa-heart fa-selected"></i>
+                            {% else %}
+                            <i class="fa fa-heart fa-unselected"></i>
+                            {% endif %}
+                        </button>
+                    </div>
                     <img class="card-img-big embed-responsive-item" src={{ movie['posterImgLink'] }}>
                 </div>
                 <div class="card-footer">
@@ -55,4 +90,11 @@
     </div>
     <br>
     {% endfor %}
+
+    <script>
+        function submitUpdate(parent) {
+            parent.children[0].submit()
+        }
+    </script>
+
 {% endblock %}
