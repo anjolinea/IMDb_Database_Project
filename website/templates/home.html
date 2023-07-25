@@ -3,24 +3,67 @@
 {% block title %}Cinemate | Home{% endblock %}
 
 {% block body %}
-    <br>
-    <h1>Top-Rated Movies</h1>
-    <br>
-    {% for moviechunk in moviechunks %}
-    <div class="card-group">
-        {% for movie in moviechunk %}
-            <div class="card mb-3" data-toggle="tooltip" title="{{ movie['movieTitle'] }}">
-                <div class="card-body flex-column">
-                    <h5 class="card-title text-truncate">{{ movie['movieTitle'] }}</h5>
-                    <p class="card-text">{{ movie['movieRating'] }}</p>
-                    <img class="card-img-big embed-responsive-item" src={{ movie['posterImgLink'] }}>
-                </div>
-                <div class="card-footer">
-                    <small class="text-body-secondary">{{ movie['yearReleased'] }} | {{ movie['runtime'] }} minutes</small>
-                </div>
+<br>
+<h3>Top Movies of 2022 Based on IMDb Rating</h3>
+<br>
+<div class="horizontal-card-group">
+    {% if top2022_movies|length > 0 %}
+    {% for movie in top2022_movies %}
+        <div class="card horizontal-card text-bg-light mb-3" data-toggle="tooltip" title="{{ movie['movieTitle'] }}">
+            <div class="card-body flex-column">
+                <h5 class="card-title text-truncate">{{ movie['movieTitle'] }}</h5>
+                <p class="card-text">{{ movie['movieRating'] }}</p>
+                <img class="card-img-small embed-responsive-item" src={{ movie['posterImgLink'] }}>
             </div>
-        {% endfor %}
-    </div>
-    <br>
+            <div class="card-footer">
+                <small class="text-body-secondary">{{ movie['yearReleased'] }} | {{ movie['runtime'] }}  minutes</small>
+            </div>
+        </div>
     {% endfor %}
+    {% else %}
+    <div class="nothing-card"> There's nothing here... </div>
+    {% endif %}
+</div>
+<br>
+<h3>Top Liked Movies of Cinemate Users</h3>
+<br>
+<div class="horizontal-card-group">
+    {% if topliked_movies|length > 0 %}
+    {% for movie in topliked_movies %}
+        <div class="card horizontal-card text-bg-light mb-3" data-toggle="tooltip" title="{{ movie['movieTitle'] }}">
+            <div class="card-body flex-column">
+                <h5 class="card-title text-truncate">{{ movie['movieTitle'] }}</h5>
+                <p class="card-text">{{ movie['movieRating'] }}</p>
+                <img class="card-img-small embed-responsive-item" src={{ movie['posterImgLink'] }}>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">{{ movie['yearReleased'] }} | {{ movie['runtime'] }}  minutes</small>
+            </div>
+        </div>
+    {% endfor %}
+    {% else %}
+    <div class="nothing-card"> There's nothing here... </div>
+    {% endif %}
+</div>
+<br>
+<h3>Top Trending Movies of 2022 by Cinemate Users</h3>
+<br>
+<div class="horizontal-card-group">
+    {% if trending_movies|length > 0 %}
+    {% for movie in trending_movies %}
+        <div class="card horizontal-card text-bg-light mb-3" data-toggle="tooltip" title="{{ movie['movieTitle'] }}">
+            <div class="card-body flex-column">
+                <h5 class="card-title text-truncate">{{ movie['movieTitle'] }}</h5>
+                <p class="card-text">{{ movie['movieRating'] }}</p>
+                <img class="card-img-small embed-responsive-item" src={{ movie['posterImgLink'] }}>
+            </div>
+            <div class="card-footer">
+                <small class="text-body-secondary">{{ movie['yearReleased'] }} | {{ movie['runtime'] }}  minutes</small>
+            </div>
+        </div>
+    {% endfor %}
+    {% else %}
+    <div class="nothing-card"> There's nothing here... </div>
+    {% endif %}
+</div>
 {% endblock %}

@@ -1,6 +1,14 @@
 import pandas as pd
 import time
 
+import sys
+import os
+sys.path.append( '.' )
+sys.path.append( '../production_dataset' )
+sys.path.append( './production_dataset' )
+
+from prod_dataset_consts import *
+
 def load_csv_to_sql(connection, csv_filename, insert_string):
 
     df = pd.read_csv(csv_filename)
@@ -25,8 +33,8 @@ def run_command_from_string(connection, command, printOutput=False):
 def run_command_from_file(connection, input_filename, output_filename=None, printOutput=True):
     cursor = connection.cursor()
 
-    start = time.perf_counter()
     with open(input_filename) as f:
+        start = time.perf_counter()
         cursor.execute(f.read())
     end = time.perf_counter() - start
 
@@ -42,3 +50,9 @@ def run_command_from_file(connection, input_filename, output_filename=None, prin
         output_filename = df.to_csv(output_filename, index=False)
 
     return end
+
+def shuffle():
+    for filename in ["production_dataset/" + filename for filename in ALL_FILENAMES]:
+        df = pd.read_csv(filename)
+        df = df.sample(frac = 1)
+        df.to_csv(filename, index=False)
