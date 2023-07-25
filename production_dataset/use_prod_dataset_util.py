@@ -33,8 +33,8 @@ def run_command_from_string(connection, command, printOutput=False):
 def run_command_from_file(connection, input_filename, output_filename=None, printOutput=True):
     cursor = connection.cursor()
 
-    start = time.perf_counter()
     with open(input_filename) as f:
+        start = time.perf_counter()
         cursor.execute(f.read())
     end = time.perf_counter() - start
 

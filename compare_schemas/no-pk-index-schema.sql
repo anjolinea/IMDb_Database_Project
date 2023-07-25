@@ -10,6 +10,8 @@ DROP TABLE IF EXISTS FavActor;
 DROP TABLE IF EXISTS FavGenre;
 DROP TABLE IF EXISTS Watched;
 
+-- no primary keys
+
 CREATE TABLE Movie (
     movieID VARCHAR(15) NOT NULL,
     movieTitle TEXT NOT NULL,
@@ -76,6 +78,3 @@ CREATE TABLE Watched (
     lastWatched DATE,
     likes BIT
 );
-
---CREATE INDEX WatcheduserIDIndex ON Watched(userID);
---CREATE INDEX WatchedLastWatchedIndex ON Watched(lastWatched);
