@@ -2,23 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c7ef606c-6f6c-4254-8444-1591cb1258e2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/production_dataset/add_custom_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prod_database.db" beforeDir="false" afterPath="$PROJECT_DIR$/prod_database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production_dataset/data/favactor.csv" beforeDir="false" afterPath="$PROJECT_DIR$/production_dataset/data/favactor.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production_dataset/data/favgenre.csv" beforeDir="false" afterPath="$PROJECT_DIR$/production_dataset/data/favgenre.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production_dataset/data/follows.csv" beforeDir="false" afterPath="$PROJECT_DIR$/production_dataset/data/follows.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production_dataset/data/user.csv" beforeDir="false" afterPath="$PROJECT_DIR$/production_dataset/data/user.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production_dataset/data/watched.csv" beforeDir="false" afterPath="$PROJECT_DIR$/production_dataset/data/watched.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/use_prod_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/use_prod_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/website/static/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/search.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/templates/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/templates/update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

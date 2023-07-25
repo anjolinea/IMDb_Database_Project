@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: #FAFDFF;
+    background-color: #f6efee;
 }
 
 /* width */
@@ -75,7 +75,7 @@ body {
     width: 250px;
     border: none;
     margin: 5px;
-    box-shadow: -2px -3px 4px #e8e8e8;
+    box-shadow: -3px -3px 4px #e3dddc;
     transition: 0.2s;
 }
 
@@ -85,7 +85,7 @@ body {
 }
 
 .horizontal-card:hover{
-    box-shadow: -4px -4px 2px #cad2de;
+    box-shadow: -4px -4px 2px #cce8cc;
 }
 
 .card-title{
@@ -136,7 +136,7 @@ body {
 }
 
 .card-footer{
-    background: #c7e7ed;
+    background: #e2b6cf;
     border-top: none;
     padding-top: 5px;
     border-top: none;
@@ -150,7 +150,30 @@ body {
 }
 
 .navbar-brand{
-    color: #6eb7eb;
+    color: #e2b6cf;
+}
+
+.navbar-brand:hover{
+    color: #cce8cc;
+}
+
+.nav-link:hover{
+    color: #cce8cc;
+}
+
+.btn-primary{
+    background-color: #e2b6cf;
+    border-color: #e2b6cf;
+}
+
+.btn-primary:hover{
+    background-color: #d192b6;
+    border-color: #d192b6;
+}
+
+.btn-primary:active {
+    background-color: #d192b6 !important;
+    border-color: #d192b6 !important;
 }
 
 .nothing-card{
@@ -161,4 +184,9 @@ body {
     vertical-align: middle;
     font-size: 30px;
     font-weight:700;
+}
+
+.select-box{
+    appearance: menulist;
+    padding-left: 8px;
 }
