@@ -52,7 +52,7 @@ def home():
     trending_movies = db.execute(trending_query).fetchall()
 
     db.close()
-    return render_template('home.html', top2022_movies=top2022_movies, topliked_movies=topliked_movies, 
+    return render_template('home.html', top2022_movies=top2022_movies, topliked_movies=topliked_movies,
                            trending_movies=trending_movies, user=current_user)
 
 
@@ -73,7 +73,7 @@ def search():
             likes = fav
         print("FAV", fav)
         print("movID:", movID)
-        
+
         addWatched = request.form.get("watched")
         print("watched", addWatched)
         if addWatched is not None:
@@ -184,7 +184,7 @@ def search():
             JOIN Actor ON Starred.actorID = Actor.actorID
             JOIN MovieGenre ON Movie.movieID = MovieGenre.movieID
             JOIN Genre ON MovieGenre.genreID = Genre.genreID
-            LEFT JOIN Watched ON Movie.movieID = Watched.movieID AND Watched.userID = '{current_user.id}';
+            LEFT JOIN Watched ON Movie.movieID = Watched.movieID AND Watched.userID = '{current_user.id}'
             """
             other_titles = ""
             other_names = ""
@@ -235,7 +235,7 @@ def search():
         SELECT DISTINCT Movie.movieTitle, Movie.movieRating, Movie.yearReleased, Movie.runtime, Movie.posterImgLink, Movie.movieID,
         Watched.likes, (SELECT COUNT(*) FROM Watched WHERE Movie.movieID = Watched.movieID AND Watched.userID = '{current_user.id}') AS watch
         FROM Movie
-        LEFT JOIN Watched ON Movie.movieID = Watched.movieID AND Watched.userID = '{current_user.id}';
+        LEFT JOIN Watched ON Movie.movieID = Watched.movieID AND Watched.userID = '{current_user.id}'
         """
         movies = db.execute(query).fetchall()
         moviechunks = split_moviechunks(movies, N, ROW_LIMIT)
@@ -456,19 +456,19 @@ def profile():
     db.close()
 
     return render_template(
-        'profile.html', 
-        user=current_user, 
-        user_info=user_info, 
-        fav_actors=fav_actors, 
-        genres=genres, 
-        following=following, 
-        followers=followers, 
-        suggested=suggested, 
-        is_search=is_search, 
+        'profile.html',
+        user=current_user,
+        user_info=user_info,
+        fav_actors=fav_actors,
+        genres=genres,
+        following=following,
+        followers=followers,
+        suggested=suggested,
+        is_search=is_search,
         is_genre=is_genre,
         is_actor=is_actor,
-        search_results=search_results, 
-        firstName=firstName, 
+        search_results=search_results,
+        firstName=firstName,
         lastName=lastName,
         aName=aName,
         actors=actors
@@ -638,7 +638,7 @@ def recommend():
         db.close()
         return render_template('recommend.html', again_movies=again_movies, rec_prev_liked=rec_prev_liked,
                                follow_liked=follow_liked, rec_from_faves=rec_from_faves, following=following,
-                               rec_two=rec_two, random_movies = random_movies,
+                               rec_two=rec_two, random_movies=random_movies,
                                second_user=second_user, user=current_user, firstClicked=True)
     else:
         db.close()
