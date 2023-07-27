@@ -2,8 +2,11 @@
 
 ### Overview
 Our app is called Cinemate: a mix between Netflix and Spotify! We wanted to add a social aspect to tracking movies we've watched. Currently, the app supports the following features: 
+- login/signup/update uder information
 - a case sensitive search by movie title, genre, and actor. 
+- recommendations of new movies to watch
 - recommendations of movies to rewatch
+- recommendations of movies based on movies you've liked
 - recommendations of movies based on your genre/actor likes
 - recommendations of movies based on you and one of your friends' combined tastes
 - see your connections based on people you follow, like LinkedIn's connections
@@ -22,7 +25,7 @@ To change either the Actor, ActorRole, Genre, MovieGenre, Starred, or Movie tabl
 If you run the file, make sure that the current path is in the toy_dataset directory. 
 
 #### Other
-To change filenames used, go to [toy_dataset_consts.py](toy_dataset/toy_dataset_consts.py). To examine or create handy functions with SQL that will be reused, go to [use_toy_dataset_util.py](toy_dataset/use_toy_dataset_util.py). We also have a file [add_custom_data.py](toy_dataset/add_custom_data.py), which we use to add non-randomly created data to the databases.
+To change filenames used, go to [toy_dataset_consts.py](toy_dataset/toy_dataset_consts.py). To examine or create handy functions with SQL that will be reused, go to [use_toy_dataset_util.py](toy_dataset/use_toy_dataset_util.py). In particular, there is a shuffle function in this file where we can shuffle the CSV data, so it is more randomized when entered into the database. We also have a file [add_custom_data.py](toy_dataset/add_custom_data.py), which we use to add non-randomly created data to the databases. 
 
 ### Production Database
 The information for the production database follows the information of the sample database. Simply replace any instance of "toy" with "prod", except the folder name (which we replace "toy" with "production"). There are a couple differences in how the data is generated: We read from a firstname file and lastname file from the raw data folder to generate about 7000 users. Other than that, there are no differences, other than how many rows are generated for each table (ex. 20 movies for sample -> 10000 movies for production)
@@ -60,10 +63,15 @@ For Windows
 set FLASK_ENV=development
 flask --app app.py --debug run
 ```
+
+If you want to login with a user who has movies watched, liked, and is following other users, use the following credentials:
+- username: ellenbelbeck
+- password: abcABC1234
+
 4. You should see the local website on http://127.0.0.1:5000/. 
 ![Login UI](readme_pictures/milestone2_login.png)
 
-5. If you are a new user you can sign up. FANCY FEATURE: The sign up and storage of password is secure as the passwords are hashed.
+5. If you are a new user you can sign up. FANCY FEATURE: The sign up and storage of password is secure as the passwords are hashed and there are strong password restrictions. You only have 5 sign-in attempts before the website prevents you from signing in for ten minutes.
 ![Signup UI](readme_pictures/milestone2_signup.png)
 
 6. After login/sign-up you should see the home page for movie recommendations.
@@ -105,6 +113,7 @@ You can also click the Update Information button to update your display name and
 python -m unittest discover -s tests -p "test_*.py" -v 
 ```
 
-If you want to login with a user who has movies watched, liked, and is following other users, use the following credentials:
-- username: ellenbelbeck
-- password: abcABC1234
+13. FANCY FEATURE: Indexes
+We have added indexes in [schema.sql](schema.sql) that has been proven to speed up our complex queries. To test our schema against other schemas, go to the [compare_schemas](compare_schemas) folder. There, you can run [compare_schemas.py](compare_schemas/compare_schemas.py), which compares the average runtime for our queries for 100 queries against all schemas in the folder. Below is an example of a run.
+
+![Compare Indexes](readme_pictures/final_compare_indexes.png)
