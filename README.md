@@ -113,7 +113,8 @@ You can also click the Update Information button to update your display name and
 python -m unittest discover -s tests -p "test_*.py" -v 
 ```
 
-13. FANCY FEATURE: Indexes
+13. FANCY FEATURE: Indexes.
+
 We have added indexes in [schema.sql](schema.sql) that has been proven to speed up our complex queries. To test our schema against other schemas, go to the [compare_schemas](compare_schemas) folder. There, you can run [compare_schemas.py](compare_schemas/compare_schemas.py), which compares the average runtime for our queries for 100 queries against all schemas in the folder. Below is an example of a run.
 
 ![Compare Indexes](readme_pictures/final_compare_indexes.png)
