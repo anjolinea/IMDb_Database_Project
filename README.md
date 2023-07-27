@@ -118,3 +118,13 @@ python -m unittest discover -s tests -p "test_*.py" -v
 We have added indexes in [schema.sql](schema.sql) that has been proven to speed up our complex queries. To test our schema against other schemas, go to the [compare_schemas](compare_schemas) folder. There, you can run [compare_schemas.py](compare_schemas/compare_schemas.py), which compares the average runtime for our queries for 100 queries against all schemas in the folder. Below is an example of a run.
 
 ![Compare Indexes](readme_pictures/final_compare_indexes.png)
+
+13. FANCY FEATURE: Fuzzy Searching.
+The new updates to this feature involve fuzzy searching. Rapid Fizz is a python library that performs string matching using Levenshtein distances (based on FuzzyWuzzy). We compare this edit distance to generate a similarity score to all entries in the database for movies and actors. Below is an example of a search.
+
+
+![Fuzzy Searching](readme_pictures/fuzzy_searching.png)
+
+15. FANCY FEATURE: SQL Injection Protection
+SQL injection is “ a common attack vector that uses malicious SQL code for backend database manipulation to access information that was not intended to be displayed” (Imperva). This can be used to login and get sensitive information from users. In order to ensure that we were protected against it, we used placeholders and parameterized statements. Moreover, we tested the code by running a sqlmap scan on all pages. None had any injectable parameters.
+![SQL Injection Protection](readme_pictures/sqlmap.png)
