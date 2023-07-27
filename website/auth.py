@@ -14,7 +14,7 @@ def is_url_image(image_url):
       return True
    return False
 
-WAIT_TIME_SECONDS = 30 # make it longer irl
+WAIT_TIME_SECONDS = 60 * 10
 MAX_LOGIN_ATTEMPTS = 5
 DEFAULT_PROFILE_PIC_LINK = "https://powerusers.microsoft.com/t5/image/serverpage/image-id/98171iCC9A58CAF1C9B5B9/image-size/large/is-moderation-mode/true?v=v2&px=999"
 
