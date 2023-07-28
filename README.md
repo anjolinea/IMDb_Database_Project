@@ -69,44 +69,68 @@ If you want to login with a user who has movies watched, liked, and is following
 - password: abcABC1234
 
 4. You should see the local website on http://127.0.0.1:5000/. 
-![Login UI](readme_pictures/milestone2_login.png)
+![Login UI](readme_pictures/login.png)
 
-5. If you are a new user you can sign up. FANCY FEATURE: The sign up and storage of password is secure as the passwords are hashed and there are strong password restrictions. You only have 5 sign-in attempts before the website prevents you from signing in for ten minutes.
-![Signup UI](readme_pictures/milestone2_signup.png)
+5. If you are a new user you can sign up. 
+
+
+FANCY FEATURE: The sign up and storage of password is secure as the passwords are hashed and there are strong password restrictions. You only have 5 sign-in attempts before the website prevents you from signing in for ten minutes.
+
+![Signup UI](readme_pictures/signup.png)
 
 6. After login/sign-up you should see the home page for movie recommendations.
+   
+
    FANCY FEATURE: Logged in user will be "remembered". This means unless the user logs out or the flask server is shutdown, user will remain signed in.
+   
+   
    UI FEATURE: Tooltips available upon hovering the movie card
-![Home UI](readme_pictures/milestone2_loggedin.png)
+![Home UI](readme_pictures/home.png)
 
 7. FEATURE: You can navigate to the search page and search by title, genre, or actor and sort by rating, year released and runtime in ascending and descending order.
 Your search does not need to be exact.
-![Search UI](readme_pictures/milestone2_search.png)
+![Search UI](readme_pictures/search.png)
 
 8. Clicking the "Recommend" button in the navigation will take you to the recommend page.
-   FEATURE: The Recommend page will automatically load movie cards of movies you have previously watched (having watched them over 30 days ago) and liked, and will recommend them to you to rewatch
-   FEATURE: The recommend page will automatically load movie cards of movies you might like based on your Genre and Actor likes. These movies are ones you, the user, has not watched yet
-![Recommend Features](readme_pictures/milestone2_recommend.png)
 
-9. FEATURE: As part of the Recommend page, you can click on the username within the user card in order to get recommendations of movies to watch with this other user. This other user is one who you follow and also follows you
-![Recommend For Friend 1](readme_pictures/milestone2_recfriend1.png)
+   FEATURE: The Recommend page will automatically load movies you haven't watched
+
+
+   FEATURE: The Recommend page will automatically load movie cards of movies you have previously watched (having watched them over 30 days ago) and liked, and will recommend them to you to rewatch
+
+![Recommend Features](readme_pictures/recommend1.png)
+
+9. 
+FEATURE: The recommend page will automatically load movie cards of movies you might like based on your your liked movies. 
+
+FEATURE: The recommend page will automatically load movie cards of movies you might like based on the movies people you've followed have liked.
+
+![Recommend Features](readme_pictures/recommend2.png)
+
+10. FEATURE: The recommend page will automatically load movie cards of movies you might like based on your Genre and Actor likes. These movies are ones you, the user, has not watched yet.
+
+![Recommend Features](readme_pictures/recommend3.png)
+
+
+11. FEATURE: As part of the Recommend page, you can click on the username within the user card in order to get recommendations of movies to watch with this other user. This other user is one who you follow and also follows you
+![Recommend For Friend 1](readme_pictures/recommend4.png)
 After clicking on one of the username buttons the following loads
-![Recommend For Friend 2](readme_pictures/milestone2_recfriend2.png)
+![Recommend For Friend 2](readme_pictures/recommend5.png)
 
 10. FEATURE: On the Profile page, you can follow and unfollow users. 
 You can view your followers:
-![View Followers](readme_pictures/m2_Followers.png)
+![View Followers](readme_pictures/Followers.png)
 See who you are following:
-![View Following](readme_pictures/m2_Following.png)
+![View Following](readme_pictures/Following.png)
 See followers of users you follow:
-![View Suggested](readme_pictures/m2_Suggested.png)
+![View Suggested](readme_pictures/Suggested.png)
 Search for other users:
-![Search Users](readme_pictures/m2_Discover.png)
+![Search Users](readme_pictures/Discover.png)
 You can also click the Update Information button to update your display name and/or password:
-![Update Info](readme_pictures/m2_Update_Information.png)
+![Update Info](readme_pictures/Update_Information.png)
 
 11. Once you are all done you can logout. 
-![Logout UI](readme_pictures/milestone2_logout.png)
+![Logout UI](readme_pictures/login.png)
 
 12. FANCY FEATURE: Unit testing. Run the following to execute unit tests
 ```
