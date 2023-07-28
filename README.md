@@ -126,6 +126,10 @@ See followers of users you follow:
 ![View Suggested](readme_pictures/Suggested.png)
 Search for other users:
 ![Search Users](readme_pictures/Discover.png)
+See and update favourite genres:
+![Search Users](readme_pictures/FavGenres.png)
+See and update favourite actors:
+![Search Users](readme_pictures/FavActors.png)
 You can also click the Update Information button to update your display name and/or password:
 ![Update Info](readme_pictures/Update_Information.png)
 
