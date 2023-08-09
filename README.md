@@ -2,7 +2,7 @@
 
 ### Overview
 Our app is called Cinemate: a mix between Netflix and Spotify! We wanted to add a social aspect to tracking movies we've watched. Currently, the app supports the following features: 
-- login/signup/update uder information
+- login/signup/update user information
 - a case sensitive search by movie title, genre, and actor. 
 - recommendations of new movies to watch
 - recommendations of movies to rewatch
